@@ -10,8 +10,8 @@ const config = {
   parent: "jue",
   pixelArt: true,
   scale: {
-    mode: Phaser.Scale.EXACT_FIT
-    // autoCenter: Phaser.Scale.NONE,
+    mode: Phaser.Scale.EXACT_FIT,
+    autoCenter: Phaser.Scale.NONE,
   },
   scene: [Prin, Conf]
 };
