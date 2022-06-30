@@ -9,6 +9,9 @@ const config = {
   backgroundColor: "#71a08b",
   parent: "jue",
   pixelArt: true,
+  physics: {
+    default: "arcade"
+  },
   scale: {
     mode: Phaser.Scale.EXACT_FIT,
     autoCenter: Phaser.Scale.NONE,

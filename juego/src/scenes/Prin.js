@@ -1,5 +1,9 @@
 import Phaser from "phaser";
 
+let debug;
+let distanceText;
+const target = new Phaser.Math.Vector2();
+let spriteOvni;
 export class Prin extends Phaser.Scene {
   constructor() {
     super({ key: "Prin", active: true });
@@ -9,6 +13,8 @@ export class Prin extends Phaser.Scene {
     this.load.image("bg", "assets/sprites/principal.png");
     this.load.image("tlt", "assets/sprites/titulo.png");
     this.load.image("iz", "assets/sprites/iz.png");
+    this.load.image("na", "assets/sprites/na.png");
+
     this.load.spritesheet("au", "assets/sprites/agu.png", { frameWidth: 200, frameHeight: 200 });
     this.load.spritesheet("sol", "assets/sprites/sol.png", { frameWidth: 200, frameHeight: 200 });
     this.load.spritesheet("gal", "assets/sprites/gal.png", { frameWidth: 100, frameHeight: 100 });
@@ -16,6 +22,10 @@ export class Prin extends Phaser.Scene {
     this.load.spritesheet("tie", "assets/sprites/tie.png", { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet("ovni", "assets/sprites/ovni.png", { frameWidth: 84.28, frameHeight: 59 });
     this.load.spritesheet("can", "assets/sprites/can.png", { frameWidth: 200.5, frameHeight: 190 });
+    this.load.spritesheet("ins", "assets/sprites/ins.png", { frameWidth: 204.5, frameHeight: 205 });
+    this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
+    this.load.spritesheet("puntajes", "assets/sprites/puntajes.png", { frameWidth: 197.5, frameHeight: 192 });
+    this.load.spritesheet("jugar", "assets/sprites/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
   }
 
   create() {
@@ -51,29 +61,41 @@ export class Prin extends Phaser.Scene {
     });
 
     this.add.image(0, 0, "bg").setDisplayOrigin(0, 0);
-    this.add.image(200, 0, "tlt").setDisplayOrigin(0, 0).setScale(0.5);
-    this.add.image(10, 10, "iz").setDisplayOrigin(0, 0).setScale(0.2);
-    //  this.add.image(700, 400, "can").setDisplayOrigin(0, 0).setScale(0.5);
-
-    const spriteAu = this.add.sprite(100, 100, "au").setScale(0.5);
+    this.titulo = this.add.image(200, 0, "tlt").setDisplayOrigin(0, 0).setScale(0.5);
+    // Animaciones de cuerpos celestes
+    const spriteAu = this.add.sprite(700, 150, "au").setScale(0.5);
     spriteAu.play({ key: "gir", repeat: -1 });
 
-    const spriteSol = this.add.sprite(100, 300, "sol").setScale(0.5);
+    const spriteSol = this.add.sprite(400, 150, "sol").setScale(0.5);
     spriteSol.play({ key: "sol", repeat: -1 });
 
-    const spriteGal = this.add.sprite(100, 500, "gal").setScale(0.8);
+    const spriteGal = this.add.sprite(612, 500, "gal").setScale(0.8);
     spriteGal.play({ key: "gal", repeat: -1 });
 
-    const spriteSat = this.add.sprite(300, 100, "sat").setScale(0.5);
+    const spriteSat = this.add.sprite(200, 500, "sat").setScale(0.5);
     spriteSat.play({ key: "sat", repeat: -1 });
 
-    const spriteTie = this.add.sprite(300, 300, "tie").setScale(0.5);
+    const spriteTie = this.add.sprite(100, 250, "tie").setScale(0.5);
     spriteTie.play({ key: "tie", repeat: -1 });
 
-    const spriteOvni = this.add.sprite(500, 300, "ovni").setScale(0.5);
+    // Textos
+    this.add.text(385, 185, "Sol").setColor("#ffff00");
+    this.add.text(640, 200, "Agujero Negro").setColor("#ffff00");
+    this.add.text(170, 430, "Saturno").setColor("#ffff00");
+    this.add.text(580, 440, "Galaxia").setColor("#ffff00");
+    this.add.text(65, 200, "Júpiter").setColor("#ffff00");
+    this.add.text(35, 500, "Puntajes").setColor("#ffff00");
+
+    spriteOvni = this.physics.add.sprite(400, 350, "ovni").setScale(0.6);
     spriteOvni.play({ key: "ovni", repeat: -1 });
 
-    this.bot = this.add.sprite(600, 500, "can").setInteractive().setScale(0.2);
+    this.input.on("pointerdown", function(pointer) {
+      target.x = pointer.x;
+      target.y = pointer.y;
+      this.physics.moveToObject(spriteOvni, target, 200);
+    }, this);
+    // Botones
+    this.bot = this.add.sprite(750, 500, "can").setInteractive().setScale(0.2);
     this.bot.on("pointerover", () => {
       this.bot.setFrame(1);
     });
@@ -81,7 +103,63 @@ export class Prin extends Phaser.Scene {
       this.bot.setFrame(0);
     });
     this.bot.on("pointerdown", () => {
-      alert("hola");
+      alert("Cancion");
     });
+
+    this.ins = this.add.sprite(750, 550, "ins").setInteractive().setScale(0.2);
+    this.ins.on("pointerover", () => {
+      this.ins.setFrame(1);
+    });
+    this.ins.on("pointerout", () => {
+      this.ins.setFrame(0);
+    });
+    this.ins.on("pointerdown", () => {
+      alert("Instrucciones");
+    });
+
+    this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
+    this.atras.on("pointerover", () => {
+      this.atras.setFrame(1);
+    });
+    this.atras.on("pointerout", () => {
+      this.atras.setFrame(0);
+    });
+    this.atras.on("pointerdown", () => {
+      const url = "../index.html";
+      window.location.href = url;
+    });
+
+    this.puntajes = this.add.sprite(70, 550, "puntajes").setInteractive().setScale(0.2);
+    this.puntajes.on("pointerover", () => {
+      this.puntajes.setFrame(1);
+    });
+    this.puntajes.on("pointerout", () => {
+      this.puntajes.setFrame(0);
+    });
+    this.puntajes.on("pointerdown", () => {
+      alert("Puntajes");
+    });
+
+    this.juegoUr = this.add.sprite(55, 250, "jugar").setInteractive().setScale(0.15);
+    this.juegoUr.on("pointerover", () => {
+      this.juegoUr.setFrame(1);
+    });
+    this.juegoUr.on("pointerout", () => {
+      this.juegoUr.setFrame(0);
+    });
+    this.juegoUr.on("pointerdown", () => {
+      alert("Juego 1");
+    });
+  }
+
+  update() {
+    const distance = Phaser.Math.Distance.Between(spriteOvni.x, spriteOvni.y, target.x, target.y);
+    if (spriteOvni.body.speed > 0) {
+    //  distanceText.setText("Distancia: " + distance);
+      if (distance < 4) {
+        spriteOvni.body.reset(target.x, target.y);
+      }
+    }
+    this.titulo.setAlpha(1);
   }
 }
