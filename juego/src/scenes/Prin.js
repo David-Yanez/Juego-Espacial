@@ -1,7 +1,5 @@
 import Phaser from "phaser";
 
-let debug;
-let distanceText;
 const target = new Phaser.Math.Vector2();
 let spriteOvni;
 export class Prin extends Phaser.Scene {
@@ -223,6 +221,34 @@ export class Prin extends Phaser.Scene {
         spriteOvni.body.reset(target.x, target.y);
       }
     }
-   // this.titulo.setAlpha(1);
+    // console.log(spriteOvni.y);
+    // this.titulo.setAlpha(1);
+    if ((spriteOvni.x > 78 && spriteOvni.x < 125) && (spriteOvni.y > 221 && spriteOvni.y < 278)) {
+      this.juegoUr.setAlpha(1);
+    } else {
+      this.juegoUr.setAlpha(0);
+    }
+    if ((spriteOvni.x > 155 && spriteOvni.x < 245) && (spriteOvni.y > 453 && spriteOvni.y < 533)) {
+      this.juegoSa.setAlpha(1);
+    } else {
+      this.juegoSa.setAlpha(0);
+    }
+    if ((spriteOvni.x > 370 && spriteOvni.x < 428) && (spriteOvni.y > 122 && spriteOvni.y < 183)) {
+      this.juegoSo.setAlpha(1);
+    } else {
+      this.juegoSo.setAlpha(0);
+    }
+    if ((spriteOvni.x > 585 && spriteOvni.x < 640) && (spriteOvni.y > 474 && spriteOvni.y < 521)) {
+      this.juegoGa.setAlpha(1);
+    } else {
+      this.juegoGa.setAlpha(0);
+    }
+    if ((spriteOvni.x > 668 && spriteOvni.x < 725) && (spriteOvni.y > 110 && spriteOvni.y < 178)) {
+      this.juegoAg.setAlpha(1);
+    } else {
+      this.juegoAg.setAlpha(0);
+    }
+
+    
   }
 }
