@@ -10,7 +10,6 @@ export class Prin extends Phaser.Scene {
   preload() {
     this.load.image("bg", "assets/sprites/principal.png");
     this.load.image("tlt", "assets/sprites/titulo.png");
-    this.load.image("iz", "assets/sprites/iz.png");
     this.load.image("na", "assets/sprites/na.png");
     // Titulo
     this.load.image("es", "assets/sprites/titulo/es.png");
@@ -25,15 +24,15 @@ export class Prin extends Phaser.Scene {
     this.load.spritesheet("sat", "assets/sprites/sat.png", { frameWidth: 300, frameHeight: 300 });
     this.load.spritesheet("tie", "assets/sprites/tie.png", { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet("ovni", "assets/sprites/ovni.png", { frameWidth: 84.28, frameHeight: 59 });
-    this.load.spritesheet("can", "assets/sprites/can.png", { frameWidth: 200.5, frameHeight: 190 });
-    this.load.spritesheet("ins", "assets/sprites/ins.png", { frameWidth: 204.5, frameHeight: 205 });
-    this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
-    this.load.spritesheet("puntajes", "assets/sprites/puntajes.png", { frameWidth: 197.5, frameHeight: 192 });
-    this.load.spritesheet("jugarJu", "assets/sprites/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
-    this.load.spritesheet("jugarSa", "assets/sprites/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
-    this.load.spritesheet("jugarSo", "assets/sprites/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
-    this.load.spritesheet("jugarGa", "assets/sprites/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
-    this.load.spritesheet("jugarAg", "assets/sprites/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
+    this.load.spritesheet("can", "assets/sprites/UI/musica.png", { frameWidth: 200.5, frameHeight: 190 });
+    this.load.spritesheet("ins", "assets/sprites/UI/instrucciones.png", { frameWidth: 204.5, frameHeight: 205 });
+    this.load.spritesheet("atras", "assets/sprites/UI/atras.png", { frameWidth: 201, frameHeight: 196 });
+    this.load.spritesheet("puntajes", "assets/sprites/UI/puntajes.png", { frameWidth: 197.5, frameHeight: 192 });
+    this.load.spritesheet("jugarJu", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
+    this.load.spritesheet("jugarSa", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
+    this.load.spritesheet("jugarSo", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
+    this.load.spritesheet("jugarGa", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
+    this.load.spritesheet("jugarAg", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
   }
 
   create() {
@@ -165,7 +164,7 @@ export class Prin extends Phaser.Scene {
       this.juegoUr.setFrame(0);
     });
     this.juegoUr.on("pointerdown", () => {
-      alert("Juego 1");
+      this.scene.start("Conf");
     });
 
     this.juegoSa = this.add.sprite(150, 500, "jugarSa").setInteractive().setScale(0.15);
@@ -248,7 +247,5 @@ export class Prin extends Phaser.Scene {
     } else {
       this.juegoAg.setAlpha(0);
     }
-
-    
   }
 }

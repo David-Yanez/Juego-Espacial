@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { Prin } from "./Prin";
 import { Conf } from "./Conf";
+import { Puntajes } from "./Puntajes";
 
 const config = {
   type: Phaser.AUTO,
@@ -16,7 +17,7 @@ const config = {
     mode: Phaser.Scale.EXACT_FIT,
     autoCenter: Phaser.Scale.NONE,
   },
-  scene: [Prin, Conf]
+  scene: [Prin, Conf, Puntajes]
 };
 // eslint-disable-next-line
 const game = new Phaser.Game(config);
