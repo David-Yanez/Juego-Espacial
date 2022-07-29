@@ -164,7 +164,7 @@ export class Prin extends Phaser.Scene {
       this.juegoUr.setFrame(0);
     });
     this.juegoUr.on("pointerdown", () => {
-      this.scene.start("Conf");
+      this.scene.start("Cuadrados");
     });
 
     this.juegoSa = this.add.sprite(150, 500, "jugarSa").setInteractive().setScale(0.15);
@@ -175,7 +175,7 @@ export class Prin extends Phaser.Scene {
       this.juegoSa.setFrame(0);
     });
     this.juegoSa.on("pointerdown", () => {
-      alert("Juego 2");
+      this.scene.start("Union");
     });
 
     this.juegoSo = this.add.sprite(355, 150, "jugarSo").setInteractive().setScale(0.15);
@@ -186,7 +186,7 @@ export class Prin extends Phaser.Scene {
       this.juegoSo.setFrame(0);
     });
     this.juegoSo.on("pointerdown", () => {
-      alert("Juego 3");
+      this.scene.start("Ordenar");
     });
 
     this.juegoGa = this.add.sprite(570, 500, "jugarGa").setInteractive().setScale(0.15);
@@ -197,7 +197,7 @@ export class Prin extends Phaser.Scene {
       this.juegoGa.setFrame(0);
     });
     this.juegoGa.on("pointerdown", () => {
-      alert("Juego 4");
+      this.scene.start("Colocar");
     });
 
     this.juegoAg = this.add.sprite(660, 150, "jugarAg").setInteractive().setScale(0.15);
@@ -208,7 +208,7 @@ export class Prin extends Phaser.Scene {
       this.juegoAg.setFrame(0);
     });
     this.juegoAg.on("pointerdown", () => {
-      alert("Juego 5");
+      this.scene.start("Flechas");
     });
   }
 

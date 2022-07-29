@@ -1,8 +1,8 @@
 import Phaser from "phaser";
 
-export class Conf extends Phaser.Scene {
+export class Cuadrados extends Phaser.Scene {
   constructor() {
-    super({ key: "Conf" });
+    super({ key: "Cuadrados" });
   }
 
   preload() {
