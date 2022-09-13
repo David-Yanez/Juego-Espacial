@@ -7,6 +7,7 @@ export class Puntajes extends Phaser.Scene {
 
   preload() {
     this.load.image("marco", "assets/sprites/UI/marco.png");
+    this.load.image("fondo", "assets/sprites/UI/fondo.png");
     this.load.image("estrellas", "assets/sprites/UI/estrellas.png");
     this.load.spritesheet("listo", "assets/sprites/UI/listo.png", { frameWidth: 197.5, frameHeight: 188 });
     this.load.spritesheet("repetir", "assets/sprites/UI/repetir.png", { frameWidth: 198, frameHeight: 195 });
@@ -23,6 +24,7 @@ export class Puntajes extends Phaser.Scene {
   }
 
   create() {
+    this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     this.add.image(240, 130, "marco").setDisplayOrigin(0, 0).setScale(0.5);
     this.add.image(270, 150, "estrellas").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(210, 70, "tit").setDisplayOrigin(0, 0).setScale(0.5);

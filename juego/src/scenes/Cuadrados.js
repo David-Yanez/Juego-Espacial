@@ -7,28 +7,29 @@ export class Cuadrados extends Phaser.Scene {
 
   preload() {
     // Fondo
-    this.load.image("bg1", "assets/sprites/juego 1/bg.png");
+    this.load.image("fondo", "assets/sprites/UI/fondo.png");
     // Titulo
     this.load.image("tlt1", "assets/sprites/juego 1/tlt.png");
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
+    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 200, frameHeight: 201 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
   }
 
   create() {
     // Fondo
-    this.add.image(0, 0, "bg1").setDisplayOrigin(0, 0);
+    this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     // Titulo
     this.add.image(130, 10, "tlt1").setDisplayOrigin(0, 0).setScale(0.4);
     // Tiempo
-    this.inicio = 3;
-    this.texto = this.add.text(300, 100, "Tiempo " + formato(this.inicio));
-    const timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
+    this.inicio = 100;
+    this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
+    this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 
     // Instrucciones
-    this.instrucciones = this.add.text(100, 170, "Centro, Izquierda, Abajo");
+    this.instrucciones = this.add.text(100, 170, "Centro, Izquierda, Abajo", { fontFamily: "Times New Roman", fontSize: 25, color: "#ffff00" });
 
     // Botones
 
@@ -41,6 +42,17 @@ export class Cuadrados extends Phaser.Scene {
     });
     this.atras.on("pointerdown", () => {
       this.scene.start("Prin");
+    });
+
+    this.ok = this.add.sprite(550, 400, "ok").setInteractive().setScale(0.2);
+    this.ok.on("pointerover", () => {
+      this.ok.setFrame(1);
+    });
+    this.ok.on("pointerout", () => {
+      this.ok.setFrame(0);
+    });
+    this.ok.on("pointerdown", () => {
+      //   this.scene.start("Prin");
     });
 
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
@@ -112,13 +124,15 @@ export class Cuadrados extends Phaser.Scene {
 
     this.input.on("pointerdown", function(pointer) {
       if (cuadrados[0][2].contains(pointer.x, pointer.y)) {
+        redraw();
         grafico.fillStyle(0x00AA00);
         grafico.fillRectShape(cuadrados[0][2]);
       } else {
         for (let x = 0; x < 3; x++) {
           for (let y = 0; y < 3; y++) {
             if (cuadrados[x][y].contains(pointer.x, pointer.y)) {
-              grafico.fillStyle(0xaa0000);
+              redraw();
+              grafico.fillStyle(0x00AA00);
               grafico.fillRectShape(cuadrados[x][y]);
             }
           }
@@ -144,9 +158,9 @@ export class Cuadrados extends Phaser.Scene {
 }
 function onEvent() {
   this.inicio -= 1;
-  this.texto.setText("Tiempo: " + formato(this.inicio));
+  this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
-    this.texto.setText("Tiempo: " + "0:00");
+    this.contador.setText("Tiempo: " + "0:00");
     this.scene.start("Punt");
   }
 }

@@ -9,6 +9,7 @@ export class Prin extends Phaser.Scene {
 
   preload() {
     this.load.image("bg", "assets/sprites/principal.png");
+    this.load.image("fondo", "assets/sprites/UI/fondo.png");
     this.load.image("tlt", "assets/sprites/titulo.png");
     this.load.image("na", "assets/sprites/na.png");
     // Titulo
@@ -26,7 +27,9 @@ export class Prin extends Phaser.Scene {
     this.load.spritesheet("ovni", "assets/sprites/ovni.png", { frameWidth: 84.28, frameHeight: 59 });
     this.load.spritesheet("can", "assets/sprites/UI/musica.png", { frameWidth: 200.5, frameHeight: 190 });
     this.load.spritesheet("ins", "assets/sprites/UI/instrucciones.png", { frameWidth: 204.5, frameHeight: 205 });
+    this.load.spritesheet("pregunta", "assets/sprites/UI/pregunta.png", { frameWidth: 206, frameHeight: 185 });
     this.load.spritesheet("atras", "assets/sprites/UI/atras.png", { frameWidth: 201, frameHeight: 196 });
+    this.load.spritesheet("salir", "assets/sprites/UI/salir.png", { frameWidth: 40, frameHeight: 40 });
     this.load.spritesheet("puntajes", "assets/sprites/UI/puntajes.png", { frameWidth: 197.5, frameHeight: 192 });
     this.load.spritesheet("jugarJu", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
     this.load.spritesheet("jugarSa", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
@@ -68,29 +71,29 @@ export class Prin extends Phaser.Scene {
       frameRate: 8
     });
 
-    this.add.image(0, 0, "bg").setDisplayOrigin(0, 0);
+    this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     // this.titulo = this.add.image(200, 0, "tlt").setDisplayOrigin(0, 0).setScale(0.5);
     // creación titulo
     this.add.image(200, 10, "es").setDisplayOrigin(0, 0).setScale(0.5);
     this.add.image(300, 10, "pa").setDisplayOrigin(0, 0).setScale(0.5);
-    this.add.image(410, 10, "ci").setDisplayOrigin(0, 0).setScale(0.5);
-    this.add.image(490, 10, "a").setDisplayOrigin(0, 0).setScale(0.5);
-    this.add.image(550, 10, "l").setDisplayOrigin(0, 0).setScale(0.5);
+    this.add.image(410, 10, "ci").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(0.2);
+    this.add.image(490, 10, "a").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(0.2);
+    this.add.image(550, 10, "l").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(0.2);
 
     // Animaciones de cuerpos celestes
-    const spriteAu = this.add.sprite(700, 150, "au").setScale(0.5);
+    const spriteAu = this.add.sprite(700, 150, "au").setScale(0.6);
     spriteAu.play({ key: "gir", repeat: -1 });
 
-    const spriteSol = this.add.sprite(400, 150, "sol").setScale(0.5);
+    const spriteSol = this.add.sprite(400, 150, "sol").setScale(0.6);
     spriteSol.play({ key: "sol", repeat: -1 });
 
-    const spriteGal = this.add.sprite(612, 500, "gal").setScale(0.8);
+    const spriteGal = this.add.sprite(612, 500, "gal").setScale(1.1);
     spriteGal.play({ key: "gal", repeat: -1 });
 
-    const spriteSat = this.add.sprite(200, 500, "sat").setScale(0.5);
+    const spriteSat = this.add.sprite(200, 500, "sat").setScale(0.6);
     spriteSat.play({ key: "sat", repeat: -1 });
 
-    const spriteTie = this.add.sprite(100, 250, "tie").setScale(0.5);
+    const spriteTie = this.add.sprite(100, 250, "tie").setScale(0.6);
     spriteTie.play({ key: "tie", repeat: -1 });
 
     // Textos
@@ -133,6 +136,18 @@ export class Prin extends Phaser.Scene {
       alert("Instrucciones");
     });
 
+    this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
+    this.pregunta.on("pointerover", () => {
+      this.pregunta.setFrame(1);
+    });
+    this.pregunta.on("pointerout", () => {
+      this.pregunta.setFrame(0);
+    });
+    this.pregunta.on("pointerdown", () => {
+      alert("pregunta");
+    });
+
+
     this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
     this.atras.on("pointerover", () => {
       this.atras.setFrame(1);
@@ -144,6 +159,20 @@ export class Prin extends Phaser.Scene {
       const url = "../index.html";
       window.location.href = url;
     });
+
+
+    this.salir = this.add.sprite(740, 40, "salir").setInteractive();
+    this.salir.on("pointerover", () => {
+      this.salir.setFrame(1);
+    });
+    this.salir.on("pointerout", () => {
+      this.salir.setFrame(0);
+    });
+    this.salir.on("pointerdown", () => {
+      const url = "../index.html";
+      window.location.href = url;
+    });
+
 
     this.puntajes = this.add.sprite(70, 550, "puntajes").setInteractive().setScale(0.2);
     this.puntajes.on("pointerover", () => {
@@ -186,7 +215,8 @@ export class Prin extends Phaser.Scene {
       this.juegoSo.setFrame(0);
     });
     this.juegoSo.on("pointerdown", () => {
-      this.scene.start("Ordenar");
+     // this.scene.start("Ordenar");
+      this.scene.start("Configuracion");
     });
 
     this.juegoGa = this.add.sprite(570, 500, "jugarGa").setInteractive().setScale(0.15);

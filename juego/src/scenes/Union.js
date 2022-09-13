@@ -6,8 +6,9 @@ export class Union extends Phaser.Scene {
 
   preload() {
     this.load.image("bgJupi", "assets/sprites/UI/bgJupi.png");
+    this.load.image("fondo", "assets/sprites/UI/fondo.png");
     this.load.image("fle", "assets/sprites/UI/a.png");
-    //Titulo
+    // Titulo
     this.load.image("tltUnion", "assets/sprites/UI/tltUnion.png");
 
     // Animales
@@ -18,6 +19,7 @@ export class Union extends Phaser.Scene {
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
+    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 200, frameHeight: 201 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
     this.load.spritesheet("abc", "assets/sprites/UI/abc.png", { frameWidth: 202, frameHeight: 202 });
@@ -25,14 +27,20 @@ export class Union extends Phaser.Scene {
 
   create() {
     // Fondo
-    this.add.image(0, 0, "bgJupi").setDisplayOrigin(0, 0);
-     // Titulo
-     this.add.image(150, 10, "tltUnion").setDisplayOrigin(0, 0).setScale(0.45);
-    // this.add.image(130, 300, "fle").setDisplayOrigin(0, 0).setScale(0.3);
-    this.add.image(150, 300, "caballo 0").setScale(0.4);
-    this.add.image(250, 300, "caballo 1").setScale(0.4);
-    this.add.image(350, 300, "caballo 2").setScale(0.4);
-    this.add.image(450, 300, "caballo 3").setScale(0.4);
+    // this.add.image(0, 0, "bgJupi").setDisplayOrigin(0, 0);
+    this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
+    // Titulo
+    this.add.image(150, 10, "tltUnion").setDisplayOrigin(0, 0).setScale(0.45);
+
+    // Contador
+    this.inicio = 150;
+    this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
+    this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
+
+    this.add.image(150, 250, "caballo 0").setScale(0.4);
+    this.add.image(250, 250, "caballo 1").setScale(0.4);
+    this.add.image(350, 250, "caballo 2").setScale(0.4);
+    this.add.image(450, 250, "caballo 3").setScale(0.4);
 
     this.add.sprite(150, 500, "abc").setInteractive().setScale(0.3).setFrame(0);
     this.add.sprite(250, 500, "abc").setInteractive().setScale(0.3).setFrame(1);
@@ -52,6 +60,17 @@ export class Union extends Phaser.Scene {
     });
     this.atras.on("pointerdown", () => {
       this.scene.start("Prin");
+    });
+
+    this.ok = this.add.sprite(550, 400, "ok").setInteractive().setScale(0.2);
+    this.ok.on("pointerover", () => {
+      this.ok.setFrame(1);
+    });
+    this.ok.on("pointerout", () => {
+      this.ok.setFrame(0);
+    });
+    this.ok.on("pointerdown", () => {
+      //   this.scene.start("Prin");
     });
 
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
@@ -104,17 +123,114 @@ export class Union extends Phaser.Scene {
       }
     });
 
-    // const posicion = new Phaser.Math.Vector2();
+    const graphi = this.add.graphics({ fillStyle: { color: 0xff0000 } });
+    const graphics000 = this.add.graphics();
+    const graphics001 = this.add.graphics();
+    const graphics003 = this.add.graphics();
+    const line000 = new Phaser.Geom.Line();
+    const line001 = new Phaser.Geom.Line();
+    const line003 = new Phaser.Geom.Line();
 
-    /* this.input.on("pointerdown", function(pointer) {
-      posicion.x = pointer.x;
-      posicion.y = pointer.y;
-      console.log("x " + posicion.x);
-      console.log("y " + posicion.y);
-      return posicion;
+    const circle1 = new Phaser.Geom.Circle(100, 300, 5);
+    const circle2 = new Phaser.Geom.Circle(200, 300, 5);
+    const circle3 = new Phaser.Geom.Circle(100, 500, 5);
+    const circle4 = new Phaser.Geom.Circle(200, 500, 5);
+    const circle5 = new Phaser.Geom.Circle(300, 300, 5);
+    const circle6 = new Phaser.Geom.Circle(300, 500, 5);
+
+    graphi.fillCircleShape(circle1);
+    graphi.fillCircleShape(circle2);
+    graphi.fillCircleShape(circle3);
+    graphi.fillCircleShape(circle4);
+    graphi.fillCircleShape(circle5);
+    graphi.fillCircleShape(circle6);
+
+
+    graphi.fillStyle(0xff0000);
+    let x1;
+    let x2;
+    let y1;
+    let y2;
+
+    let l1=false;
+    let l2= false;
+
+    this.input.on("pointerdown", function(pointer) {
+      if (circle1.contains(pointer.x, pointer.y)) {
+     //   graphics000.clear();
+        x1 = pointer.x;
+        y1 = pointer.y;
+      }
+      if (circle2.contains(pointer.x, pointer.y)) {
+      //  graphics000.clear();
+        x1 = pointer.x;
+        y1 = pointer.y;
+      }
+      if (circle5.contains(pointer.x, pointer.y)) {
+        //  graphics000.clear();
+          x1 = pointer.x;
+          y1 = pointer.y;
+        }
+      if (circle3.contains(pointer.x, pointer.y)) {
+    //    graphics000.clear();
+    //   graphics001.clear();
+        x2 = pointer.x;
+        y2 = pointer.y;
+        dibu(x1, y1, x2, y2);
+      }
+      if (circle4.contains(pointer.x, pointer.y)) {
+     //   graphics000.clear();
+     //   graphics001.clear();
+        x2 = pointer.x;
+        y2 = pointer.y;
+        dibu2(x1, y1, x2, y2);
+      }
+      if (circle6.contains(pointer.x, pointer.y)) {
+     //   graphics000.clear();
+      //  graphics001.clear();
+        x2 = pointer.x;
+        y2 = pointer.y;
+        dibu3(x1, y1, x2, y2);
+      }
+    });
+    function dibu(x1, y1, x2, y2) {
+      graphics000.clear();
+      line000.setTo(x1, y1, x2, y2);
+      graphics000.lineStyle(4, 0xaa00aa);
+      graphics000.strokeLineShape(line000);
+    }
+    function dibu2(x1, y1, x2, y2) {
+      graphics001.clear();
+      line001.setTo(x1, y1, x2, y2);
+      graphics001.lineStyle(4, 0xff0000);
+      graphics001.strokeLineShape(line001);
+    }
+    function dibu3(x1, y1, x2, y2) {
+      graphics003.clear();
+      line003.setTo(x1, y1, x2, y2);
+      graphics003.lineStyle(4, 0x00ff00);
+      graphics003.strokeLineShape(line003);
+    }
+
+    /* this.input.on("pointermove", function(pointer) {
+      graphi.clear();
+
+      if (circle1.contains(pointer.x, pointer.y)) {
+        graphi.fillStyle(0x00ff00);
+      } else {
+        graphi.fillStyle(0xff0000);
+      }
+      if (circle2.contains(pointer.x, pointer.y)) {
+        graphi.fillStyle(0x00ff00);
+      } else {
+        graphi.fillStyle(0xff0000);
+      }
+
+      graphi.fillCircleShape(circle1);
+      graphi.fillCircleShape(circle2);
     }); */
 
-    const graphics0 = this.add.graphics();
+   /* const graphics0 = this.add.graphics();
     const line0 = new Phaser.Geom.Line();
     const graphics1 = this.add.graphics();
     const line1 = new Phaser.Geom.Line();
@@ -129,10 +245,10 @@ export class Union extends Phaser.Scene {
     let l3;
 
     this.input.on("pointerdown", function(pointer) {
-     
-
       if ((pointer.x > 107 && pointer.x < 200) && (pointer.y > 255 && pointer.y < 345)) {
-        line0.setTo(pointer.x, pointer.y, pointer.x, pointer.y);
+      //  line0.setTo(pointer.x, pointer.y, pointer.x, pointer.y);
+        line0.setTo(70, 300, pointer.x, pointer.y);
+
         graphics0.clear();
         graphics0.lineStyle(4, 0xaa00aa);
         graphics0.strokeLineShape(line0);
@@ -185,8 +301,6 @@ export class Union extends Phaser.Scene {
           graphics0.clear();
           graphics0.lineStyle(4, 0xaa00aa);
           graphics0.strokeLineShape(line0);
-          console.log("x " + line0.x2);
-          console.log("y " + line0.y2);
         }
       }
       if ((pointer.x > 106 && pointer.x < 495) && (pointer.y > 450 && pointer.y < 535) && (l1 === true)) {
@@ -216,19 +330,41 @@ export class Union extends Phaser.Scene {
 
           graphics3.clear();
           graphics3.lineStyle(4, 0xd60030);
-          graphics3.strokeLineShape(line3);
+          //   graphics3.strokeLineShape(line3);
         }
       }
-
-      
     });
 
     this.input.on("pointerup", function(pointer) {
+      if ((pointer.x > 106 && pointer.x < 495) && (pointer.y > 450 && pointer.y < 535) && (l3 === true)) {
+        if (pointer.isDown) {
+          line3.x2 = 110;
+          line3.y2 = 460;
 
+          graphics3.clear();
+          graphics3.lineStyle(4, 0xd60030);
+          graphics3.strokeLineShape(line3);
+        }
+      }
       // Phaser.Geom.Line.RotateAroundPoint(line, line.getPointA(), Math.PI);
       // graphics.clear();
       // graphics.lineStyle(4, 0x00ff00);
       //  graphics.strokeLineShape(line);
-    });
+    });*/
   }
+}
+
+function onEvent() {
+  this.inicio -= 1;
+  this.contador.setText("Tiempo: " + formato(this.inicio));
+  if (this.inicio <= 0) {
+    this.contador.setText("Tiempo: " + "0:00");
+    this.scene.start("Punt");
+  }
+}
+function formato(segundos) {
+  const minutos = Math.floor(segundos / 60);
+  let sec = segundos % 60;
+  sec = sec.toString().padStart(2, "0");
+  return `${minutos}:${sec}`;
 }

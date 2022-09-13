@@ -1,4 +1,7 @@
 // Animales
+let tres1 = false;
+let tres2 = false;
+let tres3 = false;
 function iniciar() {
   const inis = document.getElementById("conejo");
   inis.addEventListener("click", estilo);
@@ -20,6 +23,8 @@ function iniciar4() {
 }
 
 function estilo() {
+  tres1 = true;
+  cambiar2();
   const agregar = document.getElementById("conejo");
   const aa = document.getElementById("elefante");
   const bb = document.getElementById("mono");
@@ -37,6 +42,8 @@ function estilo() {
 }
 
 function estilo2() {
+  tres1 = true;
+  cambiar2();
   const agregar = document.getElementById("elefante");
   const aa = document.getElementById("conejo");
   const bb = document.getElementById("mono");
@@ -54,6 +61,8 @@ function estilo2() {
 }
 
 function estilo3() {
+  tres1 = true;
+  cambiar2();
   const agregar = document.getElementById("mono");
   const aa = document.getElementById("conejo");
   const bb = document.getElementById("elefante");
@@ -71,6 +80,8 @@ function estilo3() {
 }
 
 function estilo4() {
+  tres1 = true;
+  cambiar2();
   const agregar = document.getElementById("leon");
   const aa = document.getElementById("conejo");
   const bb = document.getElementById("elefante");
@@ -110,6 +121,8 @@ function iniciar8() {
 }
 
 function estilo5() {
+  tres2 = true;
+  cambiar2();
   const agregar = document.getElementById("verde");
   const aa = document.getElementById("rojo");
   const bb = document.getElementById("azul");
@@ -127,6 +140,8 @@ function estilo5() {
 }
 
 function estilo6() {
+  tres2 = true;
+  cambiar2();
   const agregar = document.getElementById("rojo");
   const aa = document.getElementById("verde");
   const bb = document.getElementById("azul");
@@ -144,6 +159,8 @@ function estilo6() {
 }
 
 function estilo7() {
+  tres2 = true;
+  cambiar2();
   const agregar = document.getElementById("azul");
   const aa = document.getElementById("rojo");
   const bb = document.getElementById("verde");
@@ -161,6 +178,8 @@ function estilo7() {
 }
 
 function estilo8() {
+  tres2 = true;
+  cambiar2();
   const agregar = document.getElementById("amarillo");
   const aa = document.getElementById("rojo");
   const bb = document.getElementById("azul");
@@ -200,6 +219,8 @@ function iniciar12() {
 }
 
 function estilo9() {
+  tres3 = true;
+  cambiar2();
   const agregar = document.getElementById("vol");
   const aa = document.getElementById("dor");
   const bb = document.getElementById("lav");
@@ -217,6 +238,8 @@ function estilo9() {
 }
 
 function estilo10() {
+  tres3 = true;
+  cambiar2();
   const agregar = document.getElementById("dor");
   const aa = document.getElementById("vol");
   const bb = document.getElementById("lav");
@@ -234,6 +257,8 @@ function estilo10() {
 }
 
 function estilo11() {
+  tres3 = true;
+  cambiar2();
   const agregar = document.getElementById("lav");
   const aa = document.getElementById("vol");
   const bb = document.getElementById("dor");
@@ -251,6 +276,8 @@ function estilo11() {
 }
 
 function estilo12() {
+  tres3 = true;
+  cambiar2();
   const agregar = document.getElementById("nad");
   const aa = document.getElementById("vol");
   const bb = document.getElementById("lav");
@@ -281,5 +308,46 @@ function lanzador() {
   iniciar11();
   iniciar12();
 }
+// document.getElementById("inicio").classList.add("bg-white");
+function cambiar(tx, id) {
+  // alert("hola");
+  if (document.getElementById(tx).value === "" || document.getElementById(tx).value === null) {
+    document.getElementById(id).classList.remove("bg-danger");
+    document.getElementById(id).classList.add("bg-white");
+  } else {
+    document.getElementById(id).classList.remove("bg-white");
+    document.getElementById(id).classList.add("bg-danger");
+  }
+}
+
+// document.getElementById("boton").onclick = function() {
+document.getElementById("nomm").onchange = function() {
+  cambiar("nomm", "paso1");
+};
+
+document.getElementById("cor").onchange = function() {
+  cambiar("cor", "paso2");
+};
+
+function cambiar2() {
+  if (tres1 === true & tres2 === true & tres3 === true) {
+    document.getElementById("paso3").classList.remove("bg-white");
+    document.getElementById("paso3").classList.add("bg-danger");
+  }
+}
+
+// document.getElementById("cone").onclick
+document.getElementsByName("casa").onclick = function() {
+  // alert("hola");
+  // document.getElementsByName("animal").onblur
+  // console.log(document.getElementsByName("animal").value);
+  const radios = document.getElementsByName("animal");
+  for (const radio of radios) {
+    if (radio.checked) {
+      console.log(radio.value);
+    }
+  }
+};
+
 
 window.onload = lanzador;
