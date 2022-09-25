@@ -33,7 +33,7 @@ export class Union extends Phaser.Scene {
     this.add.image(150, 10, "tltUnion").setDisplayOrigin(0, 0).setScale(0.45);
 
     // Contador
-    this.inicio = 150;
+    this.inicio = 1050;
     this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 
@@ -124,27 +124,41 @@ export class Union extends Phaser.Scene {
     });
 
     const graphi = this.add.graphics({ fillStyle: { color: 0xff0000 } });
-    const graphics000 = this.add.graphics();
-    const graphics001 = this.add.graphics();
-    const graphics003 = this.add.graphics();
-    const line000 = new Phaser.Geom.Line();
-    const line001 = new Phaser.Geom.Line();
-    const line003 = new Phaser.Geom.Line();
+    const graphic1 = this.add.graphics();
+    const graphic2 = this.add.graphics();
+    const graphic3 = this.add.graphics();
+    const graphic4 = this.add.graphics();
+    const graphic5 = this.add.graphics();
+
+    const line1 = new Phaser.Geom.Line();
+    const line2 = new Phaser.Geom.Line();
+    const line3 = new Phaser.Geom.Line();
+    const line4 = new Phaser.Geom.Line();
+    const line5 = new Phaser.Geom.Line();
 
     const circle1 = new Phaser.Geom.Circle(100, 300, 5);
     const circle2 = new Phaser.Geom.Circle(200, 300, 5);
-    const circle3 = new Phaser.Geom.Circle(100, 500, 5);
-    const circle4 = new Phaser.Geom.Circle(200, 500, 5);
-    const circle5 = new Phaser.Geom.Circle(300, 300, 5);
-    const circle6 = new Phaser.Geom.Circle(300, 500, 5);
+    const circle3 = new Phaser.Geom.Circle(300, 300, 5);
+    const circle4 = new Phaser.Geom.Circle(400, 300, 5);
+    const circle5 = new Phaser.Geom.Circle(500, 300, 5);
+
+    const circle6 = new Phaser.Geom.Circle(100, 500, 5);
+    const circle7 = new Phaser.Geom.Circle(200, 500, 5);
+    const circle8 = new Phaser.Geom.Circle(300, 500, 5);
+    const circle9 = new Phaser.Geom.Circle(400, 500, 5);
+    const circle10 = new Phaser.Geom.Circle(500, 500, 5);
 
     graphi.fillCircleShape(circle1);
     graphi.fillCircleShape(circle2);
     graphi.fillCircleShape(circle3);
     graphi.fillCircleShape(circle4);
     graphi.fillCircleShape(circle5);
-    graphi.fillCircleShape(circle6);
 
+    graphi.fillCircleShape(circle6);
+    graphi.fillCircleShape(circle7);
+    graphi.fillCircleShape(circle8);
+    graphi.fillCircleShape(circle9);
+    graphi.fillCircleShape(circle10);
 
     graphi.fillStyle(0xff0000);
     let x1;
@@ -152,64 +166,162 @@ export class Union extends Phaser.Scene {
     let y1;
     let y2;
 
-    let l1=false;
-    let l2= false;
+    let l1;
+    let l2;
+    let l3;
+    let l4;
+    let l5;
+    generar();
+
+    function generar() {
+      l1 = Phaser.Math.Between(1, 4);
+      l2 = Phaser.Math.Between(1, 4);
+      l3 = Phaser.Math.Between(1, 4);
+      l4 = Phaser.Math.Between(1, 4);
+      l5 = Phaser.Math.Between(1, 4);
+    }
+
+    console.log(l1);
+    console.log(l2);
+    console.log(l3);
+    console.log(l4);
+    console.log(l5);
 
     this.input.on("pointerdown", function(pointer) {
       if (circle1.contains(pointer.x, pointer.y)) {
-     //   graphics000.clear();
         x1 = pointer.x;
         y1 = pointer.y;
+        l1 = 1;
+
+      /*  if (l1 === true) {
+          graphic1.clear();
+          l1 = false;
+        }
+        if (l2 === true) {
+          graphic2.clear();
+          l2 = false;
+        }
+        if (l3 === true) {
+          graphic3.clear();
+          l3 = false;
+        }
+        if (l4 === true) {
+          graphic4.clear();
+          l4 = false;
+        }
+        if (l5 === true) {
+          graphic5.clear();
+          l5 = false;
+        } */
       }
       if (circle2.contains(pointer.x, pointer.y)) {
-      //  graphics000.clear();
         x1 = pointer.x;
         y1 = pointer.y;
-      }
-      if (circle5.contains(pointer.x, pointer.y)) {
-        //  graphics000.clear();
-          x1 = pointer.x;
-          y1 = pointer.y;
+        l1 = 2;
+      /*  if (l1 === true) {
+          graphic1.clear();
+          l1 = false;
         }
+        if (l2 === true) {
+          graphic2.clear();
+          l2 = false;
+        }
+        if (l3 === true) {
+          graphic3.clear();
+          l3 = false;
+        }
+        if (l4 === true) {
+          graphic4.clear();
+          l4 = false;
+        }
+        if (l5 === true) {
+          graphic5.clear();
+          l5 = false;
+        } */
+      }
       if (circle3.contains(pointer.x, pointer.y)) {
-    //    graphics000.clear();
-    //   graphics001.clear();
-        x2 = pointer.x;
-        y2 = pointer.y;
-        dibu(x1, y1, x2, y2);
+        x1 = pointer.x;
+        y1 = pointer.y;
+        l1 = 3;
       }
       if (circle4.contains(pointer.x, pointer.y)) {
-     //   graphics000.clear();
-     //   graphics001.clear();
+        x1 = pointer.x;
+        y1 = pointer.y;
+        l1 = 4;
+      }
+      if (circle5.contains(pointer.x, pointer.y)) {
+        x1 = pointer.x;
+        y1 = pointer.y;
+        l1 = 5;
+      }
+
+      if (circle6.contains(pointer.x, pointer.y)) {
         x2 = pointer.x;
         y2 = pointer.y;
+        l2 = 1;
+        dibu1(x1, y1, x2, y2);
+      }
+      if (circle7.contains(pointer.x, pointer.y)) {
+        x2 = pointer.x;
+        y2 = pointer.y;
+        l2 = 2;
         dibu2(x1, y1, x2, y2);
       }
-      if (circle6.contains(pointer.x, pointer.y)) {
-     //   graphics000.clear();
-      //  graphics001.clear();
+      if (circle8.contains(pointer.x, pointer.y)) {
         x2 = pointer.x;
         y2 = pointer.y;
+        l2 = 3;
         dibu3(x1, y1, x2, y2);
       }
+      if (circle9.contains(pointer.x, pointer.y)) {
+        x2 = pointer.x;
+        y2 = pointer.y;
+        l2 = 4;
+        dibu4(x1, y1, x2, y2);
+      }
+      if (circle10.contains(pointer.x, pointer.y)) {
+        x2 = pointer.x;
+        y2 = pointer.y;
+        l2 = 5;
+        dibu5(x1, y1, x2, y2);
+      }
     });
-    function dibu(x1, y1, x2, y2) {
-      graphics000.clear();
-      line000.setTo(x1, y1, x2, y2);
-      graphics000.lineStyle(4, 0xaa00aa);
-      graphics000.strokeLineShape(line000);
+    function validar(l1, l2, l3) {
+      if (l1 === l2) { l3 = true; } else {
+        l3 = false;
+      }
+    }
+
+    function dibu1(x1, y1, x2, y2) {
+      graphic1.clear();
+      line1.setTo(x1, y1, x2, y2);
+      graphic1.lineStyle(4, 0xaa00aa);
+      graphic1.strokeLineShape(line1);
+      console.log(graphic1);
     }
     function dibu2(x1, y1, x2, y2) {
-      graphics001.clear();
-      line001.setTo(x1, y1, x2, y2);
-      graphics001.lineStyle(4, 0xff0000);
-      graphics001.strokeLineShape(line001);
+      graphic2.clear();
+      line2.setTo(x1, y1, x2, y2);
+      graphic2.lineStyle(4, 0xff0000);
+      graphic2.strokeLineShape(line2);
     }
     function dibu3(x1, y1, x2, y2) {
-      graphics003.clear();
-      line003.setTo(x1, y1, x2, y2);
-      graphics003.lineStyle(4, 0x00ff00);
-      graphics003.strokeLineShape(line003);
+      graphic3.clear();
+      line3.setTo(x1, y1, x2, y2);
+      graphic3.lineStyle(4, 0x00ff00);
+      graphic3.strokeLineShape(line3);
+    }
+    function dibu4(x1, y1, x2, y2) {
+      graphic4.clear();
+      line4.setTo(x1, y1, x2, y2);
+      graphic4.lineStyle(4, 0x0006f7);
+      graphic4.strokeLineShape(line4);
+    }
+    function dibu5(x1, y1, x2, y2) {
+      graphic5.clear();
+      line5.setTo(x1, y1, x2, y2);
+      graphic5.lineStyle(4, 0xFFFF00);
+      graphic5.strokeLineShape(line5);
     }
 
     /* this.input.on("pointermove", function(pointer) {
@@ -230,7 +342,7 @@ export class Union extends Phaser.Scene {
       graphi.fillCircleShape(circle2);
     }); */
 
-   /* const graphics0 = this.add.graphics();
+    /* const graphics0 = this.add.graphics();
     const line0 = new Phaser.Geom.Line();
     const graphics1 = this.add.graphics();
     const line1 = new Phaser.Geom.Line();
@@ -350,7 +462,7 @@ export class Union extends Phaser.Scene {
       // graphics.clear();
       // graphics.lineStyle(4, 0x00ff00);
       //  graphics.strokeLineShape(line);
-    });*/
+    }); */
   }
 }
 
