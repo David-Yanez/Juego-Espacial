@@ -325,12 +325,8 @@ document.getElementById("nomm").onchange = function() {
   cambiar("nomm", "paso1");
 };
 
-document.getElementById("cor").onchange = function() {
-  cambiar("cor", "paso2");
-};
-
 function cambiar2() {
-  if (tres1 === true & tres2 === true & tres3 === true) {
+  if (tres1 === true & tres3 === true) {
     document.getElementById("paso3").classList.remove("bg-white");
     document.getElementById("paso3").classList.add("bg-danger");
   }
@@ -348,6 +344,5 @@ document.getElementsByName("casa").onclick = function() {
     }
   }
 };
-
 
 window.onload = lanzasaltar;
