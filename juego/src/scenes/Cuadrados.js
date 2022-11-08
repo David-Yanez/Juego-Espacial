@@ -9,7 +9,7 @@ export class Cuadrados extends Phaser.Scene {
     // Fondo
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
     // Titulo
-    this.load.image("tlt1", "assets/sprites/juego 1/tlt.png");
+    this.load.image("tlt1", "assets/sprites/juego 1/tlt2.png");
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
@@ -18,13 +18,13 @@ export class Cuadrados extends Phaser.Scene {
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
   }
 
-  create() {
+  create(data) {
     // Fondo
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     // Titulo
     this.add.image(130, 10, "tlt1").setDisplayOrigin(0, 0).setScale(0.4);
     // Tiempo
-    this.inicio = 100;
+    this.inicio = data.time;
     this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 

@@ -14,6 +14,7 @@ export class Puntajes extends Phaser.Scene {
     this.load.image("estrella1", "assets/sprites/UI/estrella1.png");
     this.load.image("estrella2", "assets/sprites/UI/estrella2.png");
     this.load.image("tit", "assets/sprites/UI/tit.png");
+    
 
     // Letras
     this.load.image("es", "assets/sprites/titulo/es.png");
@@ -23,7 +24,12 @@ export class Puntajes extends Phaser.Scene {
     this.load.image("l", "assets/sprites/titulo/l.png");
   }
 
-  create() {
+  create(data) {
+    this.puntaje = 10 * data.punt;
+    this.letras = data.letra;
+    let valorLetra;
+
+
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     this.add.image(240, 130, "marco").setDisplayOrigin(0, 0).setScale(0.5);
     this.add.image(270, 150, "estrellas").setDisplayOrigin(0, 0).setScale(0.3);
@@ -48,16 +54,45 @@ export class Puntajes extends Phaser.Scene {
       this.listo.setFrame(0);
     });
     this.listo.on("pointerdown", () => {
-      this.scene.start("Prin");
+      this.scene.start("Prin", { valLetra: valorLetra, letr: data.letra });
+      console.log(valorLetra + " " + data.letra);
     });
-
+  
     // this.add.text(260, 350, "Letras \nObtenidas: ", { fontFamily: "Times New Roman", fontSize: 12, color: "#1337ad" });
-
-    this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+    if (this.puntaje <= 90) {
+      this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      valorLetra = 0.2;
+    } if (this.puntaje > 90 && this.puntaje <= 120) {
+      this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      this.add.image(317, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      valorLetra = 0.2;
+    } if (this.puntaje > 120 && this.puntaje <= 150) {
+      this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      this.add.image(317, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      this.add.image(359, 159, "estrella1").setDisplayOrigin(0, 0).setScale(0.4);
+      valorLetra = 0.2;
+    } if (this.puntaje > 150 && this.puntaje <= 210) {
+      this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      this.add.image(317, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      this.add.image(359, 159, "estrella1").setDisplayOrigin(0, 0).setScale(0.4);
+      this.add.image(414, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      this.add.image(355, 380, this.letras).setDisplayOrigin(0, 0).setScale(0.4);
+      valorLetra = 1;
+    } if (this.puntaje > 210) {
+      this.add.image(355, 380, this.letras).setDisplayOrigin(0, 0).setScale(0.4);
+      this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      this.add.image(317, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      this.add.image(359, 159, "estrella1").setDisplayOrigin(0, 0).setScale(0.4);
+      this.add.image(414, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      this.add.image(457, 196, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+      valorLetra = 1;
+    }
+   
+    /* this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(317, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(359, 159, "estrella1").setDisplayOrigin(0, 0).setScale(0.4);
     this.add.image(414, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
-    this.add.image(457, 196, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
+    this.add.image(457, 196, "estrella1").setDisplayOrigin(0, 0).setScale(0.3); */
 
     this.punt = this.add.text(260, 300, "Puntaje: ", { font: "15px Arial Black", fill: "#fff" });
     this.punt.setStroke("#4f9ae0", 5);
@@ -65,14 +100,14 @@ export class Puntajes extends Phaser.Scene {
     this.letras = this.add.text(260, 390, "Letras: ", { font: "15px Arial Black", fill: "#fff" });
     this.letras.setStroke("#4f9ae0", 5);
 
-    this.letras = this.add.text(360, 300, "150", { font: "15px Arial Black", fill: "#e8dfe1" });
+    this.letras = this.add.text(360, 300, this.puntaje, { font: "15px Arial Black", fill: "#e8dfe1" });
     this.letras.setStroke("#e01650", 5);
 
     //  this.add.image(355, 380, "es").setDisplayOrigin(0, 0).setScale(0.4);
     //  this.add.image(355, 380, "pa").setDisplayOrigin(0, 0).setScale(0.4);
     //  this.add.image(355, 380, "ci").setDisplayOrigin(0, 0).setScale(0.4);
     //  this.add.image(365, 380, "a").setDisplayOrigin(0, 0).setScale(0.4);
-    this.add.image(370, 380, "l").setDisplayOrigin(0, 0).setScale(0.4);
+    // this.add.image(370, 380, "l").setDisplayOrigin(0, 0).setScale(0.4);
 
     const text = this.add.text(285, 79, "Puntajes", { fontFamily: "Arial Black", fontSize: 43 });
     text.setStroke("#000000", 4);

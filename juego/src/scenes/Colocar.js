@@ -24,14 +24,14 @@ export class Colocar extends Phaser.Scene {
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 }); */
   }
 
-  create() {
+  create(data) {
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
 
     // Titulo
-    this.add.image(90, 10, "tltColocar").setDisplayOrigin(0, 0).setScale(0.5);
+    this.add.image(90, 10, "tltColocar").setDisplayOrigin(0, 0).setScale(0.4);
     this.add.image(30, 200, "matri").setDisplayOrigin(0, 0).setScale(0.4);
     // Contador
-    this.inicio = 50;
+    this.inicio = data.time;
     this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 

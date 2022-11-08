@@ -345,4 +345,74 @@ document.getElementsByName("casa").onclick = function() {
   }
 };
 
+document.getElementById("btnLogin").onclick = function() {
+  const nombre = document.getElementById("nomm").value;
+
+  const radio1 = document.getElementsByName("animal");
+  const radio2 = document.getElementsByName("color");
+  const radio3 = document.getElementsByName("accion");
+
+  const contra1 = Array.from(radio1).find(radio => radio.checked);
+  const contra2 = Array.from(radio2).find(radio => radio.checked);
+  const contra3 = Array.from(radio3).find(radio => radio.checked);
+
+  //console.log(nombre);
+
+  const pass = contra1.value + contra2.value + contra3.value;
+  // console.log(contra1 + contra2 + contra3);
+
+  const usuario = {
+    username: nombre,
+    password: pass
+  };
+
+  login(usuario);
+};
+
+async function login(user) {
+  const res = await fetch("http://localhost:9000/login/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+  });
+  // const data = await res.json();
+
+  //const val = !500 === 200;
+  //console.log(val);
+  if (res.status !== 200) {
+    // spanError.innerHTML = "Hubo un error:" + res.status + data.message;
+    alert("Contraseña incorrecta");
+    console.log(res.status);
+    console.log("error");
+  } else {
+    const data = await res.json();
+    localStorage.setItem("token", data.token);
+    irJuego();
+    console.log(data);
+  }
+}
+
+async function irJuego() {
+  const auth = localStorage.getItem("token");
+  console.log(auth);
+  const res = await fetch("http://localhost:9000/juego", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + auth
+    },
+    body: JSON.stringify()
+  });
+
+  if (res.status !== 200) {
+    // spanError.innerHTML = "Hubo un error:" + res.status + data.message;
+    alert("error");
+    location.href = "./entrada.html";
+  } else {
+    location.href = "./Juego.html";
+  }
+}
+
 window.onload = lanzasaltar;

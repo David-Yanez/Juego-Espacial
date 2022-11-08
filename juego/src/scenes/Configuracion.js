@@ -9,49 +9,62 @@ export class Configuracion extends Phaser.Scene {
   preload() {
     // Fondo
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
-    this.load.image("bg1", "assets/sprites/juego 1/bg.png");
 
     // Titulo
-    this.load.image("tlt1", "assets/sprites/juego 1/tlt.png");
+    this.load.image("tlt1", "assets/sprites/juego 1/tlt1.png");
     this.load.image("tltSecuencia", "assets/sprites/UI/tltSecuencia.png");
+    this.load.image("tltUnion", "assets/sprites/UI/tltUnion1.png");
+    this.load.image("tltFlechas", "assets/sprites/UI/tltFlechas.png");
+    this.load.image("tltColocar", "assets/sprites/UI/tltColocar.png");
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
-    this.load.spritesheet("jugar", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
+    this.load.spritesheet("jugar", "assets/sprites/UI/btnJugar.png", { frameWidth: 454, frameHeight: 192 });
 
     // Configs
-    this.load.image("difi", "assets/sprites/UI/dificultad.png");
+    /*  this.load.image("difi", "assets/sprites/UI/dificultad.png");
     this.load.image("facil", "assets/sprites/UI/facil.png");
-    this.load.image("dificil", "assets/sprites/UI/dificil.png");
+    this.load.image("dificil", "assets/sprites/UI/dificil.png"); */
     this.load.image("tiempo", "assets/sprites/UI/tiempo.png");
+    this.load.image("1m", "assets/sprites/UI/1m.png");
     this.load.image("3m", "assets/sprites/UI/3m.png");
     this.load.image("5m", "assets/sprites/UI/5m.png");
-    this.load.image("7m", "assets/sprites/UI/7m.png");
     this.load.image("10m", "assets/sprites/UI/10m.png");
     this.load.image("pizarra", "assets/sprites/UI/pizarra.png");
     this.load.html("Formula", "assets/sprites/UI/Configuracioon.html");
     // this.load.html("Formula", "assets/sprites/UI/loginform.html");
+    // Sonidos
+    this.load.audio("entrar", "assets/sounds/click.mp3");
   }
 
-  create() {
-    // Fondo
+  create(data) {
+    this.ins = data.instru;
+    this.es = data.scene;
+    this.tlt = data.titulo;
+    this.x = data.x;
+
+    // sonido
+    const clickSonido = this.sound.add("entrar");
+    // Fondod
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     //  this.add.image(0, 0, "bgSol").setDisplayOrigin(0, 0);
 
     // Titulo
-    this.add.image(130, 10, "tlt1").setDisplayOrigin(0, 0).setScale(0.4);
+    this.add.image(this.x, 10, this.tlt).setDisplayOrigin(0, 0).setScale(0.4);
 
-    this.add.image(40, 150, "difi").setDisplayOrigin(0, 0).setScale(0.3);
+    /* this.add.image(40, 150, "difi").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(20, 230, "facil").setDisplayOrigin(0, 0).setScale(0.4);
-    this.add.image(200, 230, "dificil").setDisplayOrigin(0, 0).setScale(0.4);
-    this.add.image(40, 360, "tiempo").setDisplayOrigin(0, 0).setScale(0.3);
-    this.add.image(20, 450, "3m").setDisplayOrigin(0, 0).setScale(0.2);
-    this.add.image(90, 450, "5m").setDisplayOrigin(0, 0).setScale(0.2);
-    this.add.image(160, 450, "7m").setDisplayOrigin(0, 0).setScale(0.2);
-    this.add.image(230, 450, "10m").setDisplayOrigin(0, 0).setScale(0.2);
+    this.add.image(200, 230, "dificil").setDisplayOrigin(0, 0).setScale(0.4); */
+    this.add.image(60, 220, "tiempo").setDisplayOrigin(0, 0).setScale(0.3);
+    this.add.image(20, 310, "1m").setDisplayOrigin(0, 0).setScale(0.2);
+    this.add.image(90, 310, "3m").setDisplayOrigin(0, 0).setScale(0.2);
+    this.add.image(160, 310, "5m").setDisplayOrigin(0, 0).setScale(0.2);
+    this.add.image(230, 310, "10m").setDisplayOrigin(0, 0).setScale(0.2);
     this.add.image(350, 150, "pizarra").setDisplayOrigin(0, 0).setScale(0.45);
+
+    this.add.text(390, 250, this.ins, { fontFamily: "Arial", fontSize: 20, color: "#000000", align: "left" });
 
     this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
     this.atras.on("pointerover", () => {
@@ -114,7 +127,7 @@ export class Configuracion extends Phaser.Scene {
       }
     });
 
-    this.juegoSa = this.add.sprite(400, 550, "jugar").setInteractive().setScale(0.15);
+    this.juegoSa = this.add.sprite(400, 550, "jugar").setInteractive().setScale(0.25);
     this.juegoSa.on("pointerover", () => {
       this.juegoSa.setFrame(1);
     });
@@ -122,11 +135,32 @@ export class Configuracion extends Phaser.Scene {
       this.juegoSa.setFrame(0);
     });
     this.juegoSa.on("pointerdown", () => {
-      this.scene.start("Ordenar");
+      clickSonido.play();
+      minutos();
+      this.scene.start(this.es, { time: min });
     });
 
-    form = this.add.dom(150, 300).createFromCache("Formula");
-    console.log(form);
-  // form.setPerspective(800);
+    form = this.add.dom(150, 160).createFromCache("Formula");
+    // console.log(form);
+    // form.setPerspective(800);
   }
+}
+let min = 0;
+function minutos() {
+  const res = document.getElementById("ti").value;
+
+  if (res === "0") {
+    min = 60;
+  }
+  if (res === "1") {
+    min = 180;
+  }
+  if (res === "2") {
+    min = 300;
+  }
+  if (res === "3") {
+    min = 600;
+  }
+  console.log(res);
+  console.log(min);
 }

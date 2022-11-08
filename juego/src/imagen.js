@@ -349,5 +349,49 @@ document.getElementsByName("casa").onclick = function() {
   }
 };
 
+document.getElementById("btnRegistrar").onclick = function() {
+  const nombre = document.getElementById("nomm").value;
+  const corre = document.getElementById("cor").value;
+
+  const radio1 = document.getElementsByName("animal");
+  const radio2 = document.getElementsByName("color");
+  const radio3 = document.getElementsByName("accion");
+
+  alert(nombre + corre);
+
+  const contra1 = Array.from(radio1).find(radio => radio.checked);
+  const contra2 = Array.from(radio2).find(radio => radio.checked);
+  const contra3 = Array.from(radio3).find(radio => radio.checked);
+
+  console.log(nombre);
+  console.log(corre);
+  const pass = contra1.value + contra2.value + contra3.value;
+  // console.log(contra1 + contra2 + contra3);
+  alert(pass);
+
+  const usuario = {
+    usuario: nombre,
+    correo: corre,
+    password: pass
+  };
+
+  registrar(usuario);
+};
+
+async function registrar(user) {
+  const res = await fetch("http://localhost:9000/usuario", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+
+  });
+  console.log(res);
+  /* const data = await res.json();
+  if (res.status !== 200){
+    spanError.innerHTML = "Hubo un error:"+ res.status + data.message;
+  } */
+}
 
 window.onload = lanzasaltar;

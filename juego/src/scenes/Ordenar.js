@@ -27,7 +27,7 @@ export class Ordenar extends Phaser.Scene {
     this.load.image("caballo 0", "assets/sprites/animales/caballo 0.png");
   }
 
-  create() {
+  create(data) {
     // Fondo
     // this.add.image(0, 0, "bgSol").setDisplayOrigin(0, 0);
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
@@ -35,7 +35,7 @@ export class Ordenar extends Phaser.Scene {
     this.add.image(160, 10, "tltSecuencia").setDisplayOrigin(0, 0).setScale(0.5);
 
     // Contador
-    this.inicio = 50;
+    this.inicio = data.time;
     this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
     // this.add.image(70, 380, "unoo").setDisplayOrigin(0, 0).setScale(0.3);

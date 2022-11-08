@@ -8,7 +8,6 @@ export class Prin extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("bg", "assets/sprites/principal.png");
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
     this.load.image("tlt", "assets/sprites/titulo.png");
     this.load.image("na", "assets/sprites/na.png");
@@ -36,9 +35,20 @@ export class Prin extends Phaser.Scene {
     this.load.spritesheet("jugarSo", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
     this.load.spritesheet("jugarGa", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
     this.load.spritesheet("jugarAg", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
+   // Sonidos
+   this.load.audio("principal", "assets/sounds/principal.mp3");
+
   }
 
-  create() {
+  create(data) {
+    this.letra = data.letr;
+    this.valor = data.valLetra;
+
+        // sonido
+        const principal = this.sound.add("principal");
+      //  principal.play();
+
+    console.log("el valor " + this.valor + " letra " + this.letra);
     // Crear animaciones
     const aguAnim = this.anims.create({
       key: "gir",
@@ -74,11 +84,32 @@ export class Prin extends Phaser.Scene {
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     // this.titulo = this.add.image(200, 0, "tlt").setDisplayOrigin(0, 0).setScale(0.5);
     // creación titulo
-    this.add.image(200, 10, "es").setDisplayOrigin(0, 0).setScale(0.5);
-    this.add.image(300, 10, "pa").setDisplayOrigin(0, 0).setScale(0.5);
-    this.add.image(410, 10, "ci").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(0.2);
-    this.add.image(490, 10, "a").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(0.2);
-    this.add.image(550, 10, "l").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(0.2);
+
+    let es1 = 0.2;
+    let pa1 = 0.2;
+    let ci1 = 0.2;
+    let a1 = 0.2;
+    let l1 = 0.2;
+
+    if (this.letra === "es") {
+      es1 = this.valor;
+    } if (this.letra === "pa") {
+      pa1 = this.valor;
+    }
+    if (this.letra === "ci") {
+      ci1 = this.valor;
+    } if (this.letra === "a") {
+      a1 = this.valor;
+    } if (this.letra === "l") {
+      l1 = this.valor;
+    }
+console.log(pa1);
+  
+    this.add.image(200, 10, "es").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(es1);
+    this.add.image(300, 10, "pa").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(pa1);
+    this.add.image(410, 10, "ci").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(ci1);
+    this.add.image(490, 10, "a").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(a1);
+    this.add.image(550, 10, "l").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(l1);
 
     // Animaciones de cuerpos celestes
     const spriteAu = this.add.sprite(700, 150, "au").setScale(0.6);
@@ -147,7 +178,6 @@ export class Prin extends Phaser.Scene {
       alert("pregunta");
     });
 
-
     this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
     this.atras.on("pointerover", () => {
       this.atras.setFrame(1);
@@ -160,7 +190,6 @@ export class Prin extends Phaser.Scene {
       window.location.href = url;
     });
 
-
     this.salir = this.add.sprite(740, 40, "salir").setInteractive();
     this.salir.on("pointerover", () => {
       this.salir.setFrame(1);
@@ -172,7 +201,6 @@ export class Prin extends Phaser.Scene {
       const url = "../index.html";
       window.location.href = url;
     });
-
 
     this.puntajes = this.add.sprite(70, 550, "puntajes").setInteractive().setScale(0.2);
     this.puntajes.on("pointerover", () => {
@@ -193,7 +221,9 @@ export class Prin extends Phaser.Scene {
       this.juegoUr.setFrame(0);
     });
     this.juegoUr.on("pointerdown", () => {
-      this.scene.start("Cuadrados");
+      const cont = ["Selecciona los cuadrados ",
+        "siguiendo las instrucciones escritas "];
+      this.scene.start("Configuracion", { instru: cont, scene: "Cuadrados", titulo: "tlt1", x: 130 });
     });
 
     this.juegoSa = this.add.sprite(150, 500, "jugarSa").setInteractive().setScale(0.15);
@@ -204,7 +234,11 @@ export class Prin extends Phaser.Scene {
       this.juegoSa.setFrame(0);
     });
     this.juegoSa.on("pointerdown", () => {
-      this.scene.start("Union");
+      //  this.scene.start("Union");
+      const cont = ["Une los puntos para emparejar ",
+        "las imagenes superiores con las ",
+        "flechas segun la dirección que miran."];
+      this.scene.start("Configuracion", { instru: cont, scene: "Union", titulo: "tltUnion", x: 170 });
     });
 
     this.juegoSo = this.add.sprite(355, 150, "jugarSo").setInteractive().setScale(0.15);
@@ -215,8 +249,9 @@ export class Prin extends Phaser.Scene {
       this.juegoSo.setFrame(0);
     });
     this.juegoSo.on("pointerdown", () => {
-     // this.scene.start("Ordenar");
-      this.scene.start("Configuracion");
+      const cont = ["Selecciona las imagenes ",
+        "y arrastra para seguir la secuencia logica"];
+      this.scene.start("Configuracion", { instru: cont, scene: "Ordenar", titulo: "tltSecuencia", x: 160 });
     });
 
     this.juegoGa = this.add.sprite(570, 500, "jugarGa").setInteractive().setScale(0.15);
@@ -227,7 +262,9 @@ export class Prin extends Phaser.Scene {
       this.juegoGa.setFrame(0);
     });
     this.juegoGa.on("pointerdown", () => {
-      this.scene.start("Colocar");
+      const cont = ["Selecciona las imagenes ",
+        "y arrastra para colocar en el recuadro que indique las instrucciónes"];
+      this.scene.start("Configuracion", { instru: cont, scene: "Colocar", titulo: "tltColocar", x: 90 });
     });
 
     this.juegoAg = this.add.sprite(660, 150, "jugarAg").setInteractive().setScale(0.15);
@@ -238,7 +275,9 @@ export class Prin extends Phaser.Scene {
       this.juegoAg.setFrame(0);
     });
     this.juegoAg.on("pointerdown", () => {
-      this.scene.start("Flechas");
+      const cont = ["Selecciona las imagenes ",
+        "y arrastra para colocar en el recuadro que indique las instrucciónes"];
+      this.scene.start("Configuracion", { instru: cont, scene: "Flechas", titulo: "tltFlechas", x: 180 });
     });
   }
 
