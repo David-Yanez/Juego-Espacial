@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar</title>
+    <link rel="stylesheet" href="./index.css">
+    <script  type="module" src="./iniciar.js"></script>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        .container{
+            background-image: url("assets/inicio/foo.png");
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<br>
+<body class="container">
+    <a  href="./index.html"> <input align="left" alt="regi" type="image"  height="60" onmouseout="this.src='assets/inicio/atras.png';" 
+        onmouseover="this.src='assets/inicio/atras2.png';" src="assets/inicio/atras.png"/></a>
+      
+    <center><img  src="assets/inicio/tltEntrar.png" width="600" height="160"></center>
+
+
+    <div class="row">
+
+        <div class="col-md-6" align="center">
+      <img class= "img-fluid"  id="pas1" src="assets/inicio/paso1.PNG" width="100" height="40" >
+      </div>
+      <div class="col-md-6" align="center">
+      <img class= "img-fluid"  id="pas3" src="assets/inicio/paso2.PNG" width="140" height="80" >
+      </div>
+     
+      </div>
+
+      <div class="progress">
+        <div id="paso1" class="progress-bar progress-bar-striped bg-white  progress-bar-animated" role="progressbar" aria-label="Animated striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="33" style="width: 100%; "></div>
+        <div id="paso3" class="progress-bar progress-bar-striped bg-white progress-bar-animated" role="progressbar" aria-label="Animated striped example" aria-valuenow="10" aria-valuemin="34" aria-valuemax="66" style="width: 100%"></div> 
+      </div>
+
+<br>
+<br>
+      <form>
+
+        <div class="row">
+      
+        <div class="col-md-4">
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="input-group has-validation">
+            <center><img class= "img-fluid"  id="nom" src="assets/contra/nom.PNG" width="300" height="60" ></center>
+           
+        </div>
+        <input id="nomm" class="form-control" type="text" placeholder="Nombre" aria-label="default input example" required>
+        <br>
+        <br>
+        <input class="form-check-input" type="checkbox" value="" id="recordar">
+  <label class="form-check-label" style="color: white; font-size: 18px;" for="recordar">
+    Recordar Contraseña 
+  </label>
+  <br>
+  <br>
+      <a href="./recuperar.html" style="color: white; font-size: 18px;"><p> ¿ Olvidaste tu Contraseña ?</p></a>
+      
+        
+         
+      </div>
+      
+        <br>
+        <br>
+      
+        <div class="col-md-8 border border-warning">
+        
+        <center><img class= "img-fluid"  id="tl" src="assets/contra/contra.png" width="320" height="80" ></center>
+      
+        <br>
+        <div class="row">
+        
+      <img class="col-md-3" name="animales" id="pez" src="assets/contra/pez.jpg" width="50" height="100" onclick= "document.getElementById('pe').checked = true">
+      <img class="col-md-3" name="animales" id="pajaro" src="assets/contra/pajaro.jpg" width="50" height="95" onclick="document.getElementById('paj').checked = true">
+      <img class="col-md-3" name="animales" id="conejo" src="assets/contra/conejo.jpg" width="50" height="100" onclick="document.getElementById('cone').checked = true">
+      <img class="col-md-3" name="animales" id="leon" src="assets/contra/leon.PNG" width="50" height="100" onclick="document.getElementById('leo').checked = true">
+      
+      
+        <img class="col-md-3" name="colores" id="verde" src="assets/contra/ve.PNG" width="30" height="100" onclick="document.getElementById('ve').checked = true">
+        <img class="col-md-3" name="colores" id="rojo" src="assets/contra/ro.PNG" width="30" height="100" onclick="document.getElementById('ro').checked = true">
+        <img class="col-md-3" name="colores" id="azul" src="assets/contra/az.PNG" width="30" height="100" onclick="document.getElementById('az').checked = true">
+        <img class="col-md-3" name="colores" id="amarillo" src="assets/contra/am.PNG" width="30" height="100" onclick="document.getElementById('am').checked = true">
+      
+      
+        <img class="col-md-3" name="acciones" id="volar" src="assets/contra/volar.jpg" width="5" height="150" onclick="document.getElementById('vol').checked = true">
+        <img class="col-md-3" name="acciones" id="saltar" src="assets/contra/saltar.jpg" width="10" height="150" onclick="document.getElementById('sal').checked = true">
+        <img class="col-md-3" name="acciones" id="comer" src="assets/contra/comer.jpg" width="10" height="150" onclick="document.getElementById('com').checked = true">
+        <img class="col-md-3" name="acciones" id="nadar" src="assets/contra/nadar.jpg" width="10" height="150" onclick="document.getElementById('nad').checked = true">
+      
+      </div>
+      <br>
+        </div>
+        <div hidden>
+        <div>
+        <input type="radio" name="animal" id="pe" value="Un pez"/>
+        <input type="radio" name="animal" id="paj" value="Un pajaro"/>
+        <input type="radio" name="animal" id="cone" value="Un conejo"/>
+        <input type="radio" name="animal" id="leo" value="Un leon"/>
+      </div>
+      <div>
+        <input type="radio" name="color" id="ve" value=" color verde"/>
+        <input type="radio" name="color" id="ro" value=" color rojo"/>
+        <input type="radio" name="color" id="az" value=" color azul"/>
+        <input type="radio" name="color" id="am" value=" color amarillo"/>
+      </div>
+      <div>
+        <input type="radio" name="accion" id="vol" value=" vuela"/>
+        <input type="radio" name="accion" id="sal" value=" salta"/>
+        <input type="radio" name="accion" id="com" value=" come"/>
+        <input type="radio" name="accion" id="nad" value=" nada"/>
+      </div>
+      </div>
+        </div>
+        <br>
+        <br>
+           </form>
+           <center><p><input alt="cambiar" id="btnLogin" type="image" height="100" onmouseout="this.src='assets/inicio/btnIn1.png';" 
+            onmouseover="this.src='assets/inicio/btnIn2.png';" src="assets/inicio/btnIn1.png"/></p></center>
+    
+
+</body>
+</html>

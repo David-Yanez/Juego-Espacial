@@ -1,6 +1,6 @@
 import Phaser from "phaser";
-let puntaje;
-puntaje = 0;
+import Swal from "sweetalert2";
+let puntaje = 0;
 export class Union extends Phaser.Scene {
   constructor() {
     super({ key: "Union" });
@@ -24,9 +24,27 @@ export class Union extends Phaser.Scene {
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
     this.load.spritesheet("flechas", "assets/sprites/juegos/flechas.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("pregunta", "assets/sprites/UI/pregunta.png", { frameWidth: 206, frameHeight: 185 });
+
+    // Sonidos
+    this.load.audio("principal", "assets/sounds/ambiente.mp3");
+    this.load.audio("vozUnion", "assets/sounds/voz/vozUnion.mp3");
   }
 
   create(data) {
+    this.ins = data.ins;
+    this.es = data.es;
+    this.tlt = data.tlt;
+    this.x = data.x;
+    this.insIcono = data.insIcono;
+    this.musicaIcono = data.musicaIcono;
+
+    // Sonidos
+    const voz = this.sound.add("vozUnion");
+    const principal = this.sound.add("principal");
+    principal.volume = 0.2;
+    principal.loop = true;
+    principal.play();
     // Fondo
     // this.add.image(0, 0, "bgJupi").setDisplayOrigin(0, 0);
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
@@ -34,6 +52,7 @@ export class Union extends Phaser.Scene {
     this.add.image(170, 10, "tltUnion").setDisplayOrigin(0, 0).setScale(0.45);
 
     // Contador
+    this.min = data.time / 60;
     this.inicio = data.time;
     this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
@@ -128,7 +147,9 @@ export class Union extends Phaser.Scene {
       this.atras.setFrame(0);
     });
     this.atras.on("pointerdown", () => {
-      this.scene.start("Prin");
+      principal.stop();
+      voz.stop();
+      this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozUnion" });
     });
 
     this.ok = this.add.sprite(600, 400, "ok").setInteractive().setScale(0.2);
@@ -141,7 +162,7 @@ export class Union extends Phaser.Scene {
     });
     this.ok.on("pointerdown", () => {
       //   this.scene.start("Prin");
-     // this.ok.setFrame(0);
+      // this.ok.setFrame(0);
       nivel();
       listo();
       calificar();
@@ -150,54 +171,70 @@ export class Union extends Phaser.Scene {
       console.log(puntaje);
     });
 
-    this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
-    let instru = true;
-    this.ins.on("pointerover", () => {
-      this.ins.setFrame(1);
+    this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
+    this.pregunta.on("pointerover", () => {
+      this.pregunta.setFrame(1);
     });
-    this.ins.on("pointerout", () => {
-      if (instru === true) {
-        this.ins.setFrame(0);
-      } else {
-        this.ins.setFrame(2);
-      }
+    this.pregunta.on("pointerout", () => {
+      this.pregunta.setFrame(0);
+      voz.play();
+      Swal.fire({
+        icon: "info",
+        text: "Une las Imágenes con líneas. Une los puntos de las imágenes de arriba hacia abajo para que coincidan con la dirección de las flechas. Una vez las imágenes estén unidas con las flechas, selecciona el botón 👍 para continuar."
+      });
     });
-    this.ins.on("pointerdown", () => {
-      if (instru === true) {
-        this.ins.setFrame(2);
-        alert("Cancion apagada");
-        instru = false;
-      } else {
-        this.ins.setFrame(0);
-        alert("Cancion tocando");
-        instru = true;
-      }
+    this.pregunta.on("pointerdown", () => {
+
     });
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
-    let mus = true;
+
+    this.musica.setFrame(this.musicaIcono);
+    if (this.musicaIcono === 2) {
+      principal.stop();
+    }
     this.musica.on("pointerover", () => {
       this.musica.setFrame(1);
     });
     this.musica.on("pointerout", () => {
-    //  this.musica.setFrame(0);
-      if (mus === true) {
-        this.musica.setFrame(0);
-      } else {
+      console.log(principal.mute);
+      //  this.musica.setFrame(0);
+      if (principal.mute === false && this.musicaIcono === 0) {
         this.musica.setFrame(2);
+        this.musicaIcono = 2;
+        //    principal.play();
+        principal.mute = true;
+      } else {
+        this.musica.setFrame(0);
+        this.musicaIcono = 0;
+        principal.play();
+        principal.mute = false;
+
+      // mus = true;
       }
     });
-
     this.musica.on("pointerdown", () => {
-      if (mus === true) {
-        this.musica.setFrame(2);
-        alert("Cancion apagada");
-        mus = false;
+    //  console.log(principal.mute);
+    });
+
+    this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
+    this.ins.setFrame(this.insIcono);
+    this.ins.on("pointerover", () => {
+      this.ins.setFrame(1);
+    });
+    this.ins.on("pointerout", () => {
+      if (voz.mute === false && this.insIcono === 0) {
+        this.ins.setFrame(2);
+        this.insIcono = 2;
+        voz.mute = true;
       } else {
-        this.musica.setFrame(0);
-        alert("Cancion tocando");
-        mus = true;
+        this.ins.setFrame(0);
+        this.insIcono = 0;
+        voz.mute = false;
       }
+    });
+    this.ins.on("pointerdown", () => {
+
     });
 
     const graphi = this.add.graphics({ fillStyle: { color: 0xff0000 } });
@@ -346,12 +383,6 @@ export class Union extends Phaser.Scene {
 
     function calificar() {
       puntos = pun1 + pun2 + pun3 + pun4 + pun5;
-      console.log(pun1);
-      console.log(pun2);
-      console.log(pun3);
-      console.log(pun4);
-      console.log(pun5);
-      console.log("calificacion " + puntos);
       graphic1.clear();
       graphic2.clear();
       graphic3.clear();
@@ -386,7 +417,6 @@ export class Union extends Phaser.Scene {
       line2.setTo(x1, y1, x2, y2);
       graphic2.lineStyle(4, 0xff0000);
       graphic2.strokeLineShape(line2);
-      console.log("Los puntos son " + p1 + " y " + p2);
       if (p1 === p2) {
         pun2 = 1;
       }
@@ -429,7 +459,7 @@ function onEvent() {
   this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
-    this.scene.start("Punt", { punt: puntaje, letra: "pa" });
+    this.scene.start("Punt", { punt: puntaje, letra: "pa", nomb: "Unión con líneas", time: this.min, sce: "Union" });
     puntaje = 0;
   }
 }

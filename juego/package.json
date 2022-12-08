@@ -28,6 +28,7 @@
   "keywords": [],
   "license": "ISC",
   "dependencies": {
-    "phaser": "^3.55.2"
+    "phaser": "^3.55.2",
+    "sweetalert2": "^11.6.7"
   }
 }

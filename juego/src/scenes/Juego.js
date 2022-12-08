@@ -27,5 +27,7 @@ const config = {
   },
   scene: [Prin, Configuracion, Cuadrados, Puntajes, Union, Ordenar, Colocar, Flechas]
 };
+
 // eslint-disable-next-line
 const game = new Phaser.Game(config);
+

@@ -40,9 +40,17 @@ async function getUserByname(nombre) {
 //  console.log(usuario);
   return user;
 }
+async function getUserBycorreo(correo) {
 
+  const user = await usuarioModel.findOne({
+    correo: correo
+});
+  //const us = await usuarioModel.usuario.find(user);
+//  console.log(usuario);
+  return user;
+}
 
-module.exports = {cearUsuario, getUsuarios, actualizarUsuario, getUserByname};
+module.exports = {cearUsuario, getUsuarios, actualizarUsuario, getUserByname, getUserBycorreo};
 
 /*const boom = require('@hapi/boom');
 

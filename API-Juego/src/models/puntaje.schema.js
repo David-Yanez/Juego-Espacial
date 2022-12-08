@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const puntajeSchema = new Schema({
-    jugador: String,
-    juego: String,
-    tiempo: Number,
-    puntaje: Number,
-    estrellas: Number,
+    jugador:  {type: String, required: true},
+    juego:  {type: String, required: true},
+    tiempo:  {type: Number, required: true},
+    puntaje: {type: Number, required: true},
+    estrellas: {type: Number, required: true},
     fecha: Date
 });
 

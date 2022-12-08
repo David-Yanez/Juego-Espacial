@@ -1,4 +1,5 @@
-import Phaser from "phaser";
+import Phaser, { GameObjects } from "phaser";
+import Swal from "sweetalert2";
 
 const target = new Phaser.Math.Vector2();
 let spriteOvni;
@@ -11,6 +12,8 @@ export class Prin extends Phaser.Scene {
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
     this.load.image("tlt", "assets/sprites/titulo.png");
     this.load.image("na", "assets/sprites/na.png");
+    this.load.bitmapFont("azoXML", "assets/sprites/UI/bitmap-fonts-debug.png", "assets/sprites/UI/azo-fire.xml");
+    this.load.image("user", "assets/sprites/UI/user.png");
     // Titulo
     this.load.image("es", "assets/sprites/titulo/es.png");
     this.load.image("pa", "assets/sprites/titulo/pa.png");
@@ -24,31 +27,53 @@ export class Prin extends Phaser.Scene {
     this.load.spritesheet("sat", "assets/sprites/sat.png", { frameWidth: 300, frameHeight: 300 });
     this.load.spritesheet("tie", "assets/sprites/tie.png", { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet("ovni", "assets/sprites/ovni.png", { frameWidth: 84.28, frameHeight: 59 });
-    this.load.spritesheet("can", "assets/sprites/UI/musica.png", { frameWidth: 200.5, frameHeight: 190 });
-    this.load.spritesheet("ins", "assets/sprites/UI/instrucciones.png", { frameWidth: 204.5, frameHeight: 205 });
-    this.load.spritesheet("pregunta", "assets/sprites/UI/pregunta.png", { frameWidth: 206, frameHeight: 185 });
-    this.load.spritesheet("atras", "assets/sprites/UI/atras.png", { frameWidth: 201, frameHeight: 196 });
-    this.load.spritesheet("salir", "assets/sprites/UI/salir.png", { frameWidth: 40, frameHeight: 40 });
     this.load.spritesheet("puntajes", "assets/sprites/UI/puntajes.png", { frameWidth: 197.5, frameHeight: 192 });
     this.load.spritesheet("jugarJu", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
     this.load.spritesheet("jugarSa", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
     this.load.spritesheet("jugarSo", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
     this.load.spritesheet("jugarGa", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
     this.load.spritesheet("jugarAg", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
-   // Sonidos
-   this.load.audio("principal", "assets/sounds/principal.mp3");
+    // musicatons
+    this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
+    this.load.spritesheet("pregunta", "assets/sprites/UI/pregunta.png", { frameWidth: 206, frameHeight: 185 });
+    this.load.spritesheet("atras", "assets/sprites/UI/atras.png", { frameWidth: 201, frameHeight: 196 });
+    this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
+    this.load.spritesheet("salir", "assets/sprites/UI/salir.png", { frameWidth: 40, frameHeight: 40 });
+    this.load.spritesheet("can", "assets/sprites/UI/musica.png", { frameWidth: 200.5, frameHeight: 190 });
 
+    // Sonidos
+    this.load.audio("principal", "assets/sounds/ambiente.mp3");
+    this.load.audio("vozPrin", "assets/sounds/voz/vozPrin.mp3");
+
+    irJuego();
   }
 
   create(data) {
     this.letra = data.letr;
     this.valor = data.valLetra;
+    this.insIcono = data.insIcono;
+    this.musicaIcono = data.musicaIcono;
+    // this.scene.disableWebAudio = true;
+    // sonido
+    //  principal = this.sound.add("principal");
+    if (this.musicaIcono !== 2) {
+      this.musicaIcono = 0;
+    }
+    //   principal.stop();
+    //   principal.play();
+    const voz = this.sound.add("vozPrin");
 
-        // sonido
-        const principal = this.sound.add("principal");
-      //  principal.play();
+    const principal = this.sound.add("principal");
+    principal.play();
+    if (this.musicaIcono === 2) {
+      principal.mute = true;
+    }
 
-    console.log("el valor " + this.valor + " letra " + this.letra);
+    principal.volume = 0.2;
+    principal.loop = true;
+    // console.log(WebAudioSound2.key);
+
+    // console.log("el valor " + this.valor + " letra " + this.letra);
     // Crear animaciones
     const aguAnim = this.anims.create({
       key: "gir",
@@ -103,8 +128,7 @@ export class Prin extends Phaser.Scene {
     } if (this.letra === "l") {
       l1 = this.valor;
     }
-console.log(pa1);
-  
+
     this.add.image(200, 10, "es").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(es1);
     this.add.image(300, 10, "pa").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(pa1);
     this.add.image(410, 10, "ci").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(ci1);
@@ -118,22 +142,29 @@ console.log(pa1);
     const spriteSol = this.add.sprite(400, 150, "sol").setScale(0.6);
     spriteSol.play({ key: "sol", repeat: -1 });
 
-    const spriteGal = this.add.sprite(612, 500, "gal").setScale(1.1);
+    const spriteGal = this.add.sprite(612, 450, "gal").setScale(1.1);
     spriteGal.play({ key: "gal", repeat: -1 });
 
-    const spriteSat = this.add.sprite(200, 500, "sat").setScale(0.6);
+    const spriteSat = this.add.sprite(200, 450, "sat").setScale(0.6);
     spriteSat.play({ key: "sat", repeat: -1 });
 
     const spriteTie = this.add.sprite(100, 250, "tie").setScale(0.6);
     spriteTie.play({ key: "tie", repeat: -1 });
 
     // Textos
-    this.add.text(385, 185, "Sol").setColor("#ffff00");
-    this.add.text(640, 200, "Agujero Negro").setColor("#ffff00");
-    this.add.text(170, 430, "Saturno").setColor("#ffff00");
-    this.add.text(580, 440, "Galaxia").setColor("#ffff00");
-    this.add.text(65, 200, "Júpiter").setColor("#ffff00");
-    this.add.text(35, 500, "Puntajes").setColor("#ffff00");
+    const player = localStorage.getItem("user");
+
+    //  this.add.bitmapText(45, 185, "azoXML", "Jupiter").setScale(0.25);
+    // this.add.bitmapText(380, 185, "azoXML", "Sol").setScale(0.25);
+    this.add.image(350, 550, "user").setScale(0.2);
+
+    this.add.text(385, 540, player, { font: "20px Arial Black", fill: "#e01650" }).setStroke("#e8dfe1", 6);
+    this.add.text(385, 185, "Sol", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
+    this.add.text(620, 200, "Agujero Negro", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
+    this.add.text(165, 380, "Saturno", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
+    this.add.text(585, 390, "Galaxia", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
+    this.add.text(65, 190, "Júpiter", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
+    this.add.text(30, 500, "Puntajes", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
 
     spriteOvni = this.physics.add.sprite(400, 350, "ovni").setScale(0.6);
     spriteOvni.play({ key: "ovni", repeat: -1 });
@@ -144,27 +175,54 @@ console.log(pa1);
       this.physics.moveToObject(spriteOvni, target, 200);
     }, this);
 
-    // Botones
-    this.bot = this.add.sprite(750, 500, "can").setInteractive().setScale(0.2);
-    this.bot.on("pointerover", () => {
-      this.bot.setFrame(1);
+    // musica
+    this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
+    // const mus = true;
+    this.musica.setFrame(this.musicaIcono);
+
+    this.musica.on("pointerover", () => {
+      this.musica.setFrame(1);
     });
-    this.bot.on("pointerout", () => {
-      this.bot.setFrame(0);
-    });
-    this.bot.on("pointerdown", () => {
-      alert("Cancion");
+    this.musica.on("pointerout", () => {
+      //   this.musica.setFrame(0);
+
+      if (principal.mute === false && this.musicaIcono === 0) {
+        this.musica.setFrame(2);
+        this.musicaIcono = 2;
+        principal.mute = true;
+      } else {
+        this.musica.setFrame(0);
+        this.musicaIcono = 0;
+        principal.play();
+        principal.mute = false;
+
+        // mus = true;
+      }
     });
 
-    this.ins = this.add.sprite(750, 550, "ins").setInteractive().setScale(0.2);
+    this.musica.on("pointerdown", () => {
+
+    });
+
+    this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
+
+    this.ins.setFrame(this.insIcono);
     this.ins.on("pointerover", () => {
       this.ins.setFrame(1);
     });
     this.ins.on("pointerout", () => {
-      this.ins.setFrame(0);
+      if (voz.mute === false) {
+        this.ins.setFrame(2);
+        this.insIcono = 2;
+        voz.mute = true;
+      } else {
+        this.ins.setFrame(0);
+        this.insIcono = 0;
+        voz.mute = false;
+      }
     });
     this.ins.on("pointerdown", () => {
-      alert("Instrucciones");
+
     });
 
     this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
@@ -173,9 +231,15 @@ console.log(pa1);
     });
     this.pregunta.on("pointerout", () => {
       this.pregunta.setFrame(0);
+      voz.play();
+      Swal.fire({
+        title: "Bienvenido al Juego espacial.",
+        icon: "info",
+        text: "Para mover la nave debes hacer clic en la pantalla, existen 5 actividades diferentes, las cuales se puede seleccionar cuando la nave se encuentre en cima de un cuerpo espacial en movimiento. Para completar el juego debes coleccionar las letras de la palabra ESPACIAL."
+      });
     });
     this.pregunta.on("pointerdown", () => {
-      alert("pregunta");
+
     });
 
     this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
@@ -198,8 +262,29 @@ console.log(pa1);
       this.salir.setFrame(0);
     });
     this.salir.on("pointerdown", () => {
-      const url = "../index.html";
-      window.location.href = url;
+      Swal.fire({
+        icon: "question",
+        title: "Quiere salir del Juego?",
+        // showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Salir",
+        cancelButtonText: "Cancelar"
+      //  denyButtonText: "Don't save",
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+
+          const url = "../index.html";
+          window.location.href = url;
+          // Swal.fire("Saved!", "", "success");
+        } /* else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        } */
+      });
+      /* const url = "../index.html";
+      window.location.href = url; */
     });
 
     this.puntajes = this.add.sprite(70, 550, "puntajes").setInteractive().setScale(0.2);
@@ -210,6 +295,7 @@ console.log(pa1);
       this.puntajes.setFrame(0);
     });
     this.puntajes.on("pointerdown", () => {
+      principal.stop();
       alert("Puntajes");
     });
 
@@ -219,26 +305,35 @@ console.log(pa1);
     });
     this.juegoUr.on("pointerout", () => {
       this.juegoUr.setFrame(0);
+      principal.stop();
     });
     this.juegoUr.on("pointerdown", () => {
-      const cont = ["Selecciona los cuadrados ",
-        "siguiendo las instrucciones escritas "];
-      this.scene.start("Configuracion", { instru: cont, scene: "Cuadrados", titulo: "tlt1", x: 130 });
+      principal.stop();
+      const cont = ["Ayuda a la nave a llegar al planeta tierra.",
+        "",
+        "Sigue las instrucciones que se muestra", "al lado derecho de los cuadrados,",
+        "para crear el camino que debe seguir", "la nave.", " ",
+        "Una vez él caminó este listo, selecciona", "el botón 👍 para continuar."];
+      this.scene.start("Configuracion", { instru: cont, scene: "Cuadrados", titulo: "tlt1", x: 130, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozCuadrados" });
     });
 
-    this.juegoSa = this.add.sprite(150, 500, "jugarSa").setInteractive().setScale(0.15);
+    this.juegoSa = this.add.sprite(150, 450, "jugarSa").setInteractive().setScale(0.15);
     this.juegoSa.on("pointerover", () => {
       this.juegoSa.setFrame(1);
     });
     this.juegoSa.on("pointerout", () => {
       this.juegoSa.setFrame(0);
+      principal.stop();
     });
     this.juegoSa.on("pointerdown", () => {
+      principal.stop();
       //  this.scene.start("Union");
-      const cont = ["Une los puntos para emparejar ",
-        "las imagenes superiores con las ",
-        "flechas segun la dirección que miran."];
-      this.scene.start("Configuracion", { instru: cont, scene: "Union", titulo: "tltUnion", x: 170 });
+      const cont = ["Une las Imágenes con líneas.", " ",
+        "Une los puntos de las imágenes de arriba",
+        "hacia abajo para que coincidan con la ",
+        "dirección de las flechas.", " ",
+        "Una vez las imágenes estén unidas", "con las flechas, selecciona el botón 👍", "para continuar."];
+      this.scene.start("Configuracion", { instru: cont, scene: "Union", titulo: "tltUnion", x: 170, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozUnion" });
     });
 
     this.juegoSo = this.add.sprite(355, 150, "jugarSo").setInteractive().setScale(0.15);
@@ -247,24 +342,32 @@ console.log(pa1);
     });
     this.juegoSo.on("pointerout", () => {
       this.juegoSo.setFrame(0);
+      principal.stop();
     });
     this.juegoSo.on("pointerdown", () => {
-      const cont = ["Selecciona las imagenes ",
-        "y arrastra para seguir la secuencia logica"];
-      this.scene.start("Configuracion", { instru: cont, scene: "Ordenar", titulo: "tltSecuencia", x: 160 });
+      principal.stop();
+      const cont = ["Arrastra las imágenes para ordenar.", " ",
+        "Ordena las imágenes según su secuencia",
+        "lógica, arrastrando al cuadrado que ", "está sobre el número que corresponda.", " ",
+        "Una vez las imágenes estén ordenadas,", "selecciona el botón 👍 para continuar."];
+      this.scene.start("Configuracion", { instru: cont, scene: "Ordenar", titulo: "tltSecuencia", x: 160, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozOrdenar" });
     });
 
-    this.juegoGa = this.add.sprite(570, 500, "jugarGa").setInteractive().setScale(0.15);
+    this.juegoGa = this.add.sprite(570, 450, "jugarGa").setInteractive().setScale(0.15);
     this.juegoGa.on("pointerover", () => {
       this.juegoGa.setFrame(1);
     });
     this.juegoGa.on("pointerout", () => {
       this.juegoGa.setFrame(0);
+      principal.stop();
     });
     this.juegoGa.on("pointerdown", () => {
-      const cont = ["Selecciona las imagenes ",
-        "y arrastra para colocar en el recuadro que indique las instrucciónes"];
-      this.scene.start("Configuracion", { instru: cont, scene: "Colocar", titulo: "tltColocar", x: 90 });
+      principal.stop();
+      const cont = ["Comprensión de instrucciones.", " ",
+        "Sigue las instrucciones que se muestra", "al lado derecho de los cuadrados,",
+        "arrastra las imágenes y coloca según", "las instrucciones.", " ",
+        "Una vez hayas colocado las imágenes,", "selecciona el botón 👍 para continuar."];
+      this.scene.start("Configuracion", { instru: cont, scene: "Colocar", titulo: "tltColocar", x: 90, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozColocar" });
     });
 
     this.juegoAg = this.add.sprite(660, 150, "jugarAg").setInteractive().setScale(0.15);
@@ -273,12 +376,23 @@ console.log(pa1);
     });
     this.juegoAg.on("pointerout", () => {
       this.juegoAg.setFrame(0);
+      principal.stop();
     });
     this.juegoAg.on("pointerdown", () => {
-      const cont = ["Selecciona las imagenes ",
-        "y arrastra para colocar en el recuadro que indique las instrucciónes"];
-      this.scene.start("Configuracion", { instru: cont, scene: "Flechas", titulo: "tltFlechas", x: 180 });
+      principal.stop();
+      const cont = ["Colorea las flechas.", " ",
+        "Selecciona una flecha de color, luego",
+        "selecciona las demás flechas en blanco", "que sean similares para pintarlas,",
+        "para cambiar de color puedes seleccionar", "otra flecha.", " ",
+        "Una vez todas las flechas sean pintadas,",
+        "selecciona el botón 👍 para continuar."];
+      this.scene.start("Configuracion", { instru: cont, scene: "Flechas", titulo: "tltFlechas", x: 180, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozFlechas" });
     });
+
+  /*  this.input.on("pointerdown", function(pointer) {
+      console.log(pointer.x);
+      console.log(pointer.y);
+    }); */
   }
 
   update() {
@@ -296,7 +410,7 @@ console.log(pa1);
     } else {
       this.juegoUr.setAlpha(0);
     }
-    if ((spriteOvni.x > 155 && spriteOvni.x < 245) && (spriteOvni.y > 453 && spriteOvni.y < 533)) {
+    if ((spriteOvni.x > 145 && spriteOvni.x < 273) && (spriteOvni.y > 403 && spriteOvni.y < 500)) {
       this.juegoSa.setAlpha(1);
     } else {
       this.juegoSa.setAlpha(0);
@@ -306,7 +420,7 @@ console.log(pa1);
     } else {
       this.juegoSo.setAlpha(0);
     }
-    if ((spriteOvni.x > 585 && spriteOvni.x < 640) && (spriteOvni.y > 474 && spriteOvni.y < 521)) {
+    if ((spriteOvni.x > 578 && spriteOvni.x < 662) && (spriteOvni.y > 417 && spriteOvni.y < 485)) {
       this.juegoGa.setAlpha(1);
     } else {
       this.juegoGa.setAlpha(0);
@@ -316,5 +430,29 @@ console.log(pa1);
     } else {
       this.juegoAg.setAlpha(0);
     }
+  }
+}
+
+async function irJuego() {
+  const auth = localStorage.getItem("token");
+
+  const res = await fetch(import.meta.env.VITE_API_URL + "/juego", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + auth
+    },
+    body: JSON.stringify()
+  });
+
+  if (res.status !== 200) {
+    // spanError.innerHTML = "Hubo un error:" + res.status + data.message;
+    // alert("error");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Error al Ingresar"
+    });
+    location.href = "./iniciar.html";
   }
 }

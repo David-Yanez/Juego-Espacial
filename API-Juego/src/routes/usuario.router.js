@@ -6,8 +6,8 @@ const passport = require('passport');
 const usuarioService = require('./../services/usuario.service');
 
 //console.log('haaaa');
-router.get('/', 
-passport.authenticate('jwt', {session: false}),
+router.get('/'/*, 
+passport.authenticate('jwt', {session: false})*/,
 (req, res )=>{
     const filterUsers = req.query.usuario || null;
     usuarioService.getUsuarios(filterUsers)
@@ -18,6 +18,22 @@ passport.authenticate('jwt', {session: false}),
         response.error(req, res, 'Unexpected Error', 500, e );
     })
     });
+
+    router.get('/Ucor'/*, 
+passport.authenticate('jwt', {session: false})*/,
+(req, res )=>{
+    const filterUsers = req.query.correo || null;
+    usuarioService.getUserBycorreo(filterUsers)
+    .then((usuariosList) =>{
+        response.success(req, res, usuariosList, 200);
+    })
+    .catch (e =>{
+        response.error(req, res, 'Unexpected Error', 500, e );
+    })
+    });
+
+
+
 
     router.post('/', (req, res )=>{
        usuarioService.cearUsuario(req.body);

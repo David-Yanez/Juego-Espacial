@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import {Puntajee} from "./RegisPuntos";
 
 export class Puntajes extends Phaser.Scene {
   constructor() {
@@ -27,7 +28,11 @@ export class Puntajes extends Phaser.Scene {
   create(data) {
     this.puntaje = 10 * data.punt;
     this.letras = data.letra;
+    this.nomJuego = data.nomb;
+    this.min = data.time;
+   // this.sce = data.sce;
     let valorLetra;
+    let estrellas;
 
 
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
@@ -43,7 +48,7 @@ export class Puntajes extends Phaser.Scene {
       this.repetir.setFrame(0);
     });
     this.repetir.on("pointerdown", () => {
-      this.scene.start("Cuadrados");
+      this.scene.start(data.sce);
     });
 
     this.listo = this.add.sprite(450, 510, "listo").setInteractive().setScale(0.3);
@@ -56,20 +61,24 @@ export class Puntajes extends Phaser.Scene {
     this.listo.on("pointerdown", () => {
       this.scene.start("Prin", { valLetra: valorLetra, letr: data.letra });
       console.log(valorLetra + " " + data.letra);
+      Puntajee(this.nomJuego, this.min, this.puntaje, estrellas);
     });
   
     // this.add.text(260, 350, "Letras \nObtenidas: ", { fontFamily: "Times New Roman", fontSize: 12, color: "#1337ad" });
     if (this.puntaje <= 90) {
       this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       valorLetra = 0.2;
+      estrellas = 1;
     } if (this.puntaje > 90 && this.puntaje <= 120) {
       this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       this.add.image(317, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       valorLetra = 0.2;
+      estrellas = 2;
     } if (this.puntaje > 120 && this.puntaje <= 150) {
       this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       this.add.image(317, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       this.add.image(359, 159, "estrella1").setDisplayOrigin(0, 0).setScale(0.4);
+      estrellas = 3;
       valorLetra = 0.2;
     } if (this.puntaje > 150 && this.puntaje <= 210) {
       this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
@@ -78,6 +87,7 @@ export class Puntajes extends Phaser.Scene {
       this.add.image(414, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       this.add.image(355, 380, this.letras).setDisplayOrigin(0, 0).setScale(0.4);
       valorLetra = 1;
+      estrellas = 4;
     } if (this.puntaje > 210) {
       this.add.image(355, 380, this.letras).setDisplayOrigin(0, 0).setScale(0.4);
       this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
@@ -86,6 +96,7 @@ export class Puntajes extends Phaser.Scene {
       this.add.image(414, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       this.add.image(457, 196, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       valorLetra = 1;
+      estrellas = 5;
     }
    
     /* this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);

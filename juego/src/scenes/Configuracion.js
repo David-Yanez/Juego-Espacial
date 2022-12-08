@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+
 let form;
 
 export class Configuracion extends Phaser.Scene {
@@ -27,6 +28,7 @@ export class Configuracion extends Phaser.Scene {
     /*  this.load.image("difi", "assets/sprites/UI/dificultad.png");
     this.load.image("facil", "assets/sprites/UI/facil.png");
     this.load.image("dificil", "assets/sprites/UI/dificil.png"); */
+    this.load.image("instruc", "assets/sprites/UI/instruc.png");
     this.load.image("tiempo", "assets/sprites/UI/tiempo.png");
     this.load.image("1m", "assets/sprites/UI/1m.png");
     this.load.image("3m", "assets/sprites/UI/3m.png");
@@ -34,9 +36,17 @@ export class Configuracion extends Phaser.Scene {
     this.load.image("10m", "assets/sprites/UI/10m.png");
     this.load.image("pizarra", "assets/sprites/UI/pizarra.png");
     this.load.html("Formula", "assets/sprites/UI/Configuracioon.html");
+
+    this.load.image("buoepn", "assets/sprites/UI/buoepn.png");
     // this.load.html("Formula", "assets/sprites/UI/loginform.html");
     // Sonidos
     this.load.audio("entrar", "assets/sounds/click.mp3");
+    this.load.audio("principal", "assets/sounds/ambiente.mp3");
+    this.load.audio("vozCuadrados", "assets/sounds/voz/vozCuadrados.mp3");
+    this.load.audio("vozOrdenar", "assets/sounds/voz/vozOrdenar.mp3");
+    this.load.audio("vozColocar", "assets/sounds/voz/vozColocar.mp3");
+    this.load.audio("vozFlechas", "assets/sounds/voz/vozFlechas.mp3");
+    this.load.audio("vozUnion", "assets/sounds/voz/vozUnion.mp3");
   }
 
   create(data) {
@@ -44,9 +54,19 @@ export class Configuracion extends Phaser.Scene {
     this.es = data.scene;
     this.tlt = data.titulo;
     this.x = data.x;
+    this.insIcono = data.insIcono;
+    this.musicaIcono = data.musicaIcono;
+    this.vozIns = data.voz;
 
     // sonido
     const clickSonido = this.sound.add("entrar");
+    const voz = this.sound.add(this.vozIns);
+    const principal = this.sound.add("principal");
+    principal.volume = 0.2;
+    principal.loop = true;
+    principal.play();
+    voz.play();
+
     // Fondod
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     //  this.add.image(0, 0, "bgSol").setDisplayOrigin(0, 0);
@@ -57,6 +77,7 @@ export class Configuracion extends Phaser.Scene {
     /* this.add.image(40, 150, "difi").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(20, 230, "facil").setDisplayOrigin(0, 0).setScale(0.4);
     this.add.image(200, 230, "dificil").setDisplayOrigin(0, 0).setScale(0.4); */
+    this.add.image(555, 135, "instruc").setScale(0.55);
     this.add.image(60, 220, "tiempo").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(20, 310, "1m").setDisplayOrigin(0, 0).setScale(0.2);
     this.add.image(90, 310, "3m").setDisplayOrigin(0, 0).setScale(0.2);
@@ -64,7 +85,9 @@ export class Configuracion extends Phaser.Scene {
     this.add.image(230, 310, "10m").setDisplayOrigin(0, 0).setScale(0.2);
     this.add.image(350, 150, "pizarra").setDisplayOrigin(0, 0).setScale(0.45);
 
-    this.add.text(390, 250, this.ins, { fontFamily: "Arial", fontSize: 20, color: "#000000", align: "left" });
+    this.add.image(180, 470, "buoepn").setScale(0.25);
+
+    this.add.text(370, 200, this.ins, { fontFamily: "Arial", fontSize: 20, color: "#000000", align: "left" });
 
     this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
     this.atras.on("pointerover", () => {
@@ -74,58 +97,65 @@ export class Configuracion extends Phaser.Scene {
       this.atras.setFrame(0);
     });
     this.atras.on("pointerdown", () => {
-      this.scene.start("Prin");
-    });
-
-    this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
-    let instru = true;
-    this.ins.on("pointerover", () => {
-      this.ins.setFrame(1);
-    });
-    this.ins.on("pointerout", () => {
-      if (instru === true) {
-        this.ins.setFrame(0);
-      } else {
-        this.ins.setFrame(2);
-      }
-    });
-    this.ins.on("pointerdown", () => {
-      if (instru === true) {
-        this.ins.setFrame(2);
-        alert("Cancion apagada");
-        instru = false;
-      } else {
-        this.ins.setFrame(0);
-        alert("Cancion tocando");
-        instru = true;
-      }
+      principal.stop();
+      voz.stop();
+      this.scene.start("Prin", { insIcono: this.insIcono, musicaIcono: this.musicaIcono });
     });
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
-    let mus = true;
+
+    this.musica.setFrame(this.musicaIcono);
+    if (this.musicaIcono === 2) {
+      principal.stop();
+    }
     this.musica.on("pointerover", () => {
       this.musica.setFrame(1);
     });
     this.musica.on("pointerout", () => {
     //  this.musica.setFrame(0);
-      if (mus === true) {
-        this.musica.setFrame(0);
-      } else {
+      if (principal.mute === false && this.musicaIcono === 0) {
         this.musica.setFrame(2);
+        this.musicaIcono = 2;
+        //    principal.play();
+        principal.mute = true;
+      } else {
+        this.musica.setFrame(0);
+        this.musicaIcono = 0;
+        principal.play();
+        principal.mute = false;
+
+      // mus = true;
       }
+    });
+    this.musica.on("pointerdown", () => {
+
     });
 
-    this.musica.on("pointerdown", () => {
-      if (mus === true) {
-        this.musica.setFrame(2);
-        alert("Cancion apagada");
-        mus = false;
+    this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
+    this.ins.setFrame(this.insIcono);
+    if (this.insIcono === 2) {
+      voz.stop();
+    }
+    this.ins.on("pointerover", () => {
+      this.ins.setFrame(1);
+    });
+    this.ins.on("pointerout", () => {
+      if (voz.mute === false && this.insIcono === 0) {
+        this.ins.setFrame(2);
+        this.insIcono = 2;
+        voz.mute = true;
       } else {
-        this.musica.setFrame(0);
-        alert("Cancion tocando");
-        mus = true;
+        this.ins.setFrame(0);
+        this.insIcono = 0;
+     //   principal.play();
+        voz.mute = false;
       }
     });
+    this.ins.on("pointerdown", () => {
+
+    });
+
+    
 
     this.juegoSa = this.add.sprite(400, 550, "jugar").setInteractive().setScale(0.25);
     this.juegoSa.on("pointerover", () => {
@@ -135,9 +165,11 @@ export class Configuracion extends Phaser.Scene {
       this.juegoSa.setFrame(0);
     });
     this.juegoSa.on("pointerdown", () => {
-      clickSonido.play();
+    //  clickSonido.play();
+    voz.stop();
+    principal.stop();
       minutos();
-      this.scene.start(this.es, { time: min });
+      this.scene.start(this.es, { time: min, insIcono: this.insIcono, musicaIcono: this.musicaIcono, ins: data.instru, es: this.es, tlt: this.tlt, x: this.x });
     });
 
     form = this.add.dom(150, 160).createFromCache("Formula");

@@ -1,5 +1,6 @@
 import Phaser from "phaser";
-
+import Swal from "sweetalert2";
+let puntaje = 0;
 export class Cuadrados extends Phaser.Scene {
   constructor() {
     super({ key: "Cuadrados" });
@@ -10,26 +11,47 @@ export class Cuadrados extends Phaser.Scene {
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
     // Titulo
     this.load.image("tlt1", "assets/sprites/juego 1/tlt2.png");
+    this.load.image("cuadrado", "assets/sprites/UI/cuadrado.png");
+    this.load.image("nave", "assets/sprites/colocar/nave.png");
+    this.load.image("tierra", "assets/sprites/colocar/tierra.png");
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
     this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 200, frameHeight: 201 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
+    this.load.spritesheet("pregunta", "assets/sprites/UI/pregunta.png", { frameWidth: 206, frameHeight: 185 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
+    // Sonidos
+    this.load.audio("principal", "assets/sounds/ambiente.mp3");
+    this.load.audio("vozCuadrados", "assets/sounds/voz/vozCuadrados.mp3");
   }
 
   create(data) {
+    this.ins = data.ins;
+    this.es = data.es;
+    this.tlt = data.tlt;
+    this.x = data.x;
+    this.insIcono = data.insIcono;
+    this.musicaIcono = data.musicaIcono;
+    // Sonido
+    const voz = this.sound.add("vozCuadrados");
+    const principal = this.sound.add("principal");
+    principal.volume = 0.2;
+    principal.loop = true;
+    principal.play();
+
     // Fondo
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     // Titulo
     this.add.image(130, 10, "tlt1").setDisplayOrigin(0, 0).setScale(0.4);
     // Tiempo
+    this.min = data.time / 60;
     this.inicio = data.time;
     this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 
     // Instrucciones
-    this.instrucciones = this.add.text(100, 170, "Centro, Izquierda, Abajo", { fontFamily: "Times New Roman", fontSize: 25, color: "#ffff00" });
+    // this.instrucciones = this.add.text(400, 170, "Centro, Izquierda, Abajo", { fontFamily: "Times New Roman", fontSize: 25, color: "#ffff00" });
 
     // Botones
 
@@ -41,10 +63,11 @@ export class Cuadrados extends Phaser.Scene {
       this.atras.setFrame(0);
     });
     this.atras.on("pointerdown", () => {
-      this.scene.start("Prin");
+      principal.stop();
+      this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozCuadrados" });
     });
 
-    this.ok = this.add.sprite(550, 400, "ok").setInteractive().setScale(0.2);
+    this.ok = this.add.sprite(750, 300, "ok").setInteractive().setScale(0.2);
     this.ok.on("pointerover", () => {
       this.ok.setFrame(1);
     });
@@ -52,104 +75,169 @@ export class Cuadrados extends Phaser.Scene {
       this.ok.setFrame(0);
     });
     this.ok.on("pointerdown", () => {
+      calificar();
+      generar();
       //   this.scene.start("Prin");
     });
 
-    this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
-    let instru = true;
-    this.ins.on("pointerover", () => {
-      this.ins.setFrame(1);
+    this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
+    this.pregunta.on("pointerover", () => {
+      this.pregunta.setFrame(1);
     });
-    this.ins.on("pointerout", () => {
-      if (instru === true) {
-        this.ins.setFrame(0);
-      } else {
-        this.ins.setFrame(2);
-      }
+    this.pregunta.on("pointerout", () => {
+      this.pregunta.setFrame(0);
+      voz.play();
+      Swal.fire(
+        "",
+        "Ayuda a la nave a llegar al planeta tierra. Sigue las instrucciones que se muestra al lado derecho de los cuadrados, para crear el camino que debe seguir la nave. Una vez él caminó este listo, selecciona el botón 👍 para continuar.",
+        "info"
+      );
     });
-    this.ins.on("pointerdown", () => {
-      if (instru === true) {
-        this.ins.setFrame(2);
-        alert("Cancion apagada");
-        instru = false;
-      } else {
-        this.ins.setFrame(0);
-        alert("Cancion tocando");
-        instru = true;
-      }
+    this.pregunta.on("pointerdown", () => {
+     
     });
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
-    let mus = true;
+
+    this.musica.setFrame(this.musicaIcono);
+    if (this.musicaIcono === 2) {
+      principal.stop();
+    }
     this.musica.on("pointerover", () => {
       this.musica.setFrame(1);
     });
     this.musica.on("pointerout", () => {
-    //  this.musica.setFrame(0);
-      if (mus === true) {
-        this.musica.setFrame(0);
-      } else {
+      console.log(principal.mute);
+      //  this.musica.setFrame(0);
+      if (principal.mute === false && this.musicaIcono === 0) {
         this.musica.setFrame(2);
+        this.musicaIcono = 2;
+        //    principal.play();
+        principal.mute = true;
+      } else {
+        this.musica.setFrame(0);
+        this.musicaIcono = 0;
+        principal.play();
+        principal.mute = false;
+
+      // mus = true;
       }
     });
-
     this.musica.on("pointerdown", () => {
-      if (mus === true) {
-        this.musica.setFrame(2);
-        alert("Cancion apagada");
-        mus = false;
-      } else {
-        this.musica.setFrame(0);
-        alert("Cancion tocando");
-        mus = true;
-      }
+    //  console.log(principal.mute);
     });
 
-    const grafico = this.add.graphics({ fillStyle: { color: 0x0000ff }, lineStyle: { color: 0x0000aa } });
+    this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
+    this.ins.setFrame(this.insIcono);
+    this.ins.on("pointerover", () => {
+      this.ins.setFrame(1);
+    });
+    this.ins.on("pointerout", () => {
+      if (voz.mute === false && this.insIcono === 0) {
+        this.ins.setFrame(2);
+        this.insIcono = 2;
+        voz.mute = true;
+      } else {
+        this.ins.setFrame(0);
+        this.insIcono = 0;
+        voz.mute = false;
+      }
+    });
+    this.ins.on("pointerdown", () => {
+
+    });
+
+    // this.add.image(370, 250, "nave2").setScale(0.3).setInteractive();
+
+    // const grafico = this.add.graphics({ fillStyle: { color: 0x0000ff }, lineStyle: { color: 0x0000aa } });
+    const datos = [
+      {
+        inst: ["1. Derecha", "2. Abajo", "3. Abajo"],
+        img: [100, 240, 180, 480],
+        resx: [180, 180, 180],
+        resy: [240, 320, 400]
+      },
+      {
+        inst: ["1. Derecha", "2. Derecha", "3. Derecha"],
+        img: [100, 480, 340, 400],
+        resx: [180, 260, 340],
+        resy: [480, 480, 480]
+      },
+      {
+        inst: ["1. Abajo", "2. Izquierda", "3. Abajo"],
+        img: [340, 240, 260, 480],
+        resx: [340, 260, 260],
+        resy: [320, 320, 400]
+      },
+      {
+        inst: ["1. Izquierda", "2. Arriba", "3. Izquierda"],
+        img: [340, 400, 100, 320],
+        resx: [260, 260, 180],
+        resy: [400, 320, 320]
+      }
+
+    ];
+
     const cuadrados = [];
-    let xx = 150;
+    let xx = 100;
 
-    for (let x = 0; x < 3; x++) {
+    for (let x = 0; x < 4; x++) {
       cuadrados[x] = [];
-      let yy = 250;
-      for (let y = 0; y < 3; y++) {
-        cuadrados[x][y] = new Phaser.Geom.Rectangle(0, 0, 100, 100);
-
+      let yy = 240;
+      for (let y = 0; y < 4; y++) {
+        cuadrados[x][y] = this.add.image(0, 0, "cuadrado").setScale(0.4).setInteractive();
+        //   new Phaser.Geom.Rectangle(0, 0, 80, 80);
+        cuadrados[x][y].setTint(0x00AA00);
         cuadrados[x][y].setPosition(xx, yy);
-        yy = yy + 100;
+        yy = yy + 80;
       }
-      xx = xx + 100;
+      xx = xx + 80;
     }
-    redraw();
+    let n;
 
-    this.input.on("pointerdown", function(pointer) {
-      if (cuadrados[0][2].contains(pointer.x, pointer.y)) {
-        redraw();
-        grafico.fillStyle(0x00AA00);
-        grafico.fillRectShape(cuadrados[0][2]);
-      } else {
-        for (let x = 0; x < 3; x++) {
-          for (let y = 0; y < 3; y++) {
-            if (cuadrados[x][y].contains(pointer.x, pointer.y)) {
-              redraw();
-              grafico.fillStyle(0x00AA00);
-              grafico.fillRectShape(cuadrados[x][y]);
-            }
-          }
-        }
-      }
-    });
+    // let t;
+    const img1 = this.add.image(0, 0, "nave").setScale(0.4).setInteractive();
+    const img2 = this.add.image(0, 0, "tierra").setScale(0.4).setInteractive();
+    const t = this.add.text(450, 250, datos[0].inst, { font: "20px Arial Black", fill: "#e8dfe1" });
 
-    function redraw() {
-      grafico.clear();
-
-      for (let x = 0; x < 3; x++) {
-        for (let y = 0; y < 3; y++) {
-          grafico.fillRectShape(cuadrados[x][y]);
-          grafico.strokeRectShape(cuadrados[x][y]);
-        }
-      }
+    generar();
+    function generar() {
+      // n = 3;
+      n = Phaser.Math.Between(0, 3);
+      img1.setPosition(datos[n].img[0], datos[n].img[1]);
+      img2.setPosition(datos[n].img[2], datos[n].img[3]);
+      //  console.log(datos[n].inst);
+      t.setText(datos[n].inst);
+      cuadrados.forEach(function(limp) {
+        limp.forEach(function(limpiar) {
+          limpiar.setTint(0x00AA00);
+        });
+      });
     }
+    function calificar() {
+      //   console.log(cuadrados);
+      cuadrados.forEach(function(calCua) {
+        calCua.forEach(function(calCuadra) {
+          //   console.log(calCuadra);
+          if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+          if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+          if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+        });
+        // console.log(datos[n].resx[0]);
+        //    console.log(calCua.x);
+      });
+      console.log(puntaje);
+    }
+    this.input.on("gameobjectup", this.pintar, this);
+    // console.log(cuadrados[2][2]);
+  }
+
+  pintar(pointer, fleee) {
+   
+
+    if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 16711680) { fleee.setTint(0x00AA00); } else { if (fleee.texture.key === "cuadrado") fleee.setTint(0xff0000); }
+
+    // if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 43520) { fleee.setTint(0xff0000); }
   }
 
   update() {
@@ -161,7 +249,10 @@ function onEvent() {
   this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
-    this.scene.start("Punt");
+    let pun = Math.trunc(puntaje);
+    this.scene.start("Punt", { punt: pun, letra: "es", nomb: "Selección de Cuadrados", time: this.min, sce: "Cuadrados" });
+    puntaje = 0;
+    pun = 0;
   }
 }
 function formato(segundos) {
