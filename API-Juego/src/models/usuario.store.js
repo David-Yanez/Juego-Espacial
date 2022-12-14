@@ -30,5 +30,12 @@ const newUser = await user.save();
 return newUser;
 }
 
+async function actualizarWins(id, win){
+    const user = await usuarioModel.findById(id);
+    user.wins = win;
+    const newUser = await user.save();
+    return newUser;
+}
 
-module.exports = {add: adduser, list: getUsers, update: actualizarUsuario}
+
+    module.exports = {add: adduser, list: getUsers, update: actualizarUsuario, updateWin: actualizarWins}

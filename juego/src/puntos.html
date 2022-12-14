@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puntajes</title>
+
+    <script  type="module" src="./js/puntajes.js"></script>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        .html,body{
+            height: 100vh;
+        }
+        body{
+             /* Ruta relativa o completa a la imagen */
+     background-image: url("assets/contra/foo.png");
+     /* Centramos el fondo horizontal y verticalmente */
+     background-position: center center;
+     /* El fonde no se repite */
+     background-repeat: no-repeat;
+     /* Fijamos la imagen a la ventana para que no supere el alto de la ventana */
+     background-attachment: fixed;
+     /* El fonde se re-escala automáticamente */
+     background-size: cover;
+     /* Color de fondo si la imagen no se encuentra o mientras se está cargando */
+     background-color: #FFF;
+        }
+    </style>
+</head>
+<body>
+    <center><img class= "img-fluid center" src="../assets/sprites/UI/tltRanking2.png" width="800" height="150"></center>
+    
+
+    <select class="form-select" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+
+    <table id="tabla1" class="table-success">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+        </tbody>
+
+    </table>
+</body>
+</html>

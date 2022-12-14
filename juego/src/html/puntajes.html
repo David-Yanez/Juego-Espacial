@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puntajes</title>
+    <script  type="module" src="../js/puntajes.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+        .html,body{
+            height: 100vh;
+        }
+        body{
+     background-image: url("../assets/contra/foo.png");
+     background-position: center center;
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-size: cover;
+     background-color: #0b5394;
+        }
+       
+    </style>
+</head>
+<body class="container">
+    <center><img class= "img-fluid center" src="../assets/sprites/UI/tltRanking2.png" width="800" height="150"></center>
+    
+    <br>
+
+    <div class="row">
+        <div class="col-4 col-md-3"></div>
+        <div  class="col-4 col-md-6"> <center><img class= "img-fluid center" src="../assets/sprites/UI/corona12.png" width="130" height="130"></center>
+            <div class="row">
+                <div  class="col-6 col-md-4"> <center><img  class= "img-fluid center" src="../assets/sprites/UI/medalla1.png" width="50" height="50" ></center></div> 
+                 <div  class="col-6 col-md-8"  >   
+                    <br>  
+                    <h2 id="n1" style="color: #ffffff"> </h2> 
+                  </div>
+          
+            </div>
+           
+        </div>
+        <div class="col-4 col-md-3"></div>
+    </div>
+
+    <br> 
+
+    <div class="row">
+        <div class="col-1"> </div>
+        <div class="col-5 col-md-5"><center><img class= "img-fluid center" src="../assets/sprites/UI/corona2.png" width="130" height="130"> </center>
+             <div class="row">
+            <div  class="col-4 col-md-4"> <center><img  class= "img-fluid center" src="../assets/sprites/UI/medalla2.png" width="50" height="50" ></center></div> 
+             <div  class="col-8 col-md-8"> 
+                <br> 
+             
+                 <h2 id="n2" style="color: #ffffff"> </h2></div>
+        </div>
+    </div>
+        <div class="col-5 col-md-5"><center><img class= "img-fluid center" src="../assets/sprites/UI/corona3.png" width="130" height="130"> </center>
+             <div class="row">
+            <div  class="col-4 col-md-4"> <center><img  class= "img-fluid center" src="../assets/sprites/UI/medalla3.png" width="50" height="50" ></center></div> 
+             <div  class="col-8 col-md-8"> 
+                  
+                <br>    <h2 id="n3" style="color: #ffffff"> </h2></div>
+      
+        </div>
+    </div>
+    <div class="col-1"> </div>
+</div>
+
+<br>
+<br>
+<br>
+   
+     
+
+    <div class="row">
+        <div class="col-2 col-md-3"> </div>
+        <div class="col-7 col-md-6"> 
+            
+    <table   class="table table-dark table-striped">
+        <thead class="table-success">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Jugador</th>
+            <th scope="col">Veces Completadas</th>
+          </tr>
+        </thead>
+        <tbody id="tabla1">
+        
+        </tbody>
+
+    </table>
+
+    </div>
+    <div class="col-3 col-md-3"> </div>
+</div>
+
+<br>
+<br>
+
+<center><img class= "img-fluid center" src="../assets/sprites/UI/consultas.png" width="350" height="350"></center>
+
+<br>
+<br>
+<form>
+<div class="row">
+  
+
+  
+<div class="col-12 col-md-4">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Jugador: </span>
+        <input id="nJugador" type="text" class="form-control" placeholder="nombre" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+</div>
+<div class="col-12 col-md-4">
+    <select id="nJuego" class="form-select" aria-label="Default select example">
+        <option selected>Selecciona un juego</option>
+        <option value="Selección de cuadrados">Selección de cuadrados</option>
+        <option value="Secuencia lógica">Secuencia lógica</option>
+        <option value="Colorear flechas">Colorear flechas</option>
+        <option value="Unión con líneas">Unión con líneas</option>
+        <option value="Comprensión de intrucciones">Comprensión de intrucciones</option>
+      </select>
+
+</div>
+
+
+
+
+</div>
+</form>
+
+<br>
+<center><p><input type="image" alt="cambiar" id="btnBuscar"  height="70" onmouseout="this.src='../assets/sprites/UI/buscar1.png';" 
+    onmouseover="this.src='../assets/sprites/UI/buscar2.png';" src="../assets/sprites/UI/buscar1.png"/></p></center>
+
+
+<br>
+<table  id="tabla22" class="table table-dark table-striped">
+    <thead class="table-success">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Jugador</th>
+        <th scope="col">Juego</th>
+        <th scope="col">Minutos</th>
+        <th scope="col">Puntaje</th>
+        <th scope="col">Estrellas</th>
+        <th scope="col">Fecha</th>
+      </tr>
+    </thead>
+    <tbody id="tabla2">
+    
+    </tbody>
+
+</table>
+    
+      
+</body>
+</html>

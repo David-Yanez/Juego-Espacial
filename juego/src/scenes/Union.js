@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import Swal from "sweetalert2";
+let principal;
 let puntaje = 0;
 export class Union extends Phaser.Scene {
   constructor() {
@@ -41,7 +42,7 @@ export class Union extends Phaser.Scene {
 
     // Sonidos
     const voz = this.sound.add("vozUnion");
-    const principal = this.sound.add("principal");
+    principal = this.sound.add("principal");
     principal.volume = 0.2;
     principal.loop = true;
     principal.play();
@@ -177,52 +178,65 @@ export class Union extends Phaser.Scene {
     });
     this.pregunta.on("pointerout", () => {
       this.pregunta.setFrame(0);
+    
+    });
+    this.pregunta.on("pointerdown", () => {
       voz.play();
+      if (this.insIcono === 2) {
+        voz.mute = true;
+      }
       Swal.fire({
         icon: "info",
         text: "Une las Imágenes con líneas. Une los puntos de las imágenes de arriba hacia abajo para que coincidan con la dirección de las flechas. Una vez las imágenes estén unidas con las flechas, selecciona el botón 👍 para continuar."
       });
     });
-    this.pregunta.on("pointerdown", () => {
-
-    });
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
-
     this.musica.setFrame(this.musicaIcono);
+
     if (this.musicaIcono === 2) {
       principal.stop();
-    }
+    } 
     this.musica.on("pointerover", () => {
       this.musica.setFrame(1);
     });
     this.musica.on("pointerout", () => {
-      console.log(principal.mute);
-      //  this.musica.setFrame(0);
+      // && this.musicaIcono === 2
+      if (principal.mute === true || this.musicaIcono === 2) {
+        this.musica.setFrame(2);
+      } else {
+        this.musica.setFrame(0);
+      }
+    });
+    this.musica.on("pointerdown", () => {
       if (principal.mute === false && this.musicaIcono === 0) {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
-        //    principal.play();
         principal.mute = true;
       } else {
         this.musica.setFrame(0);
         this.musicaIcono = 0;
         principal.play();
         principal.mute = false;
-
-      // mus = true;
       }
-    });
-    this.musica.on("pointerdown", () => {
-    //  console.log(principal.mute);
     });
 
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
     this.ins.setFrame(this.insIcono);
+    if (this.insIcono === 2) {
+      voz.stop();
+    }
     this.ins.on("pointerover", () => {
       this.ins.setFrame(1);
     });
     this.ins.on("pointerout", () => {
+      if (voz.mute === true || this.insIcono === 2) {
+        this.ins.setFrame(2);
+      } else {
+        this.ins.setFrame(0);
+      }
+    });
+    this.ins.on("pointerdown", () => {
       if (voz.mute === false && this.insIcono === 0) {
         this.ins.setFrame(2);
         this.insIcono = 2;
@@ -232,9 +246,6 @@ export class Union extends Phaser.Scene {
         this.insIcono = 0;
         voz.mute = false;
       }
-    });
-    this.ins.on("pointerdown", () => {
-
     });
 
     const graphi = this.add.graphics({ fillStyle: { color: 0xff0000 } });
@@ -459,8 +470,9 @@ function onEvent() {
   this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
-    this.scene.start("Punt", { punt: puntaje, letra: "pa", nomb: "Unión con líneas", time: this.min, sce: "Union" });
+    this.scene.start("Punt", { punt: puntaje, letra: "pa", nomb: "Unión con líneas", time: this.min, sce: "Union", musicaIcono: this.musicaIcono });
     puntaje = 0;
+    principal.stop();
   }
 }
 function formato(segundos) {

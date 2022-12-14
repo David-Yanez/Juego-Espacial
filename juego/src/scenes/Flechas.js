@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Swal from "sweetalert2";
 let puntaje = 0;
+let principal;
 let color;
 export class Flechas extends Phaser.Scene {
   constructor() {
@@ -36,7 +37,7 @@ export class Flechas extends Phaser.Scene {
 
     // Sonidos
     const voz = this.sound.add("vozFlechas");
-    const principal = this.sound.add("principal");
+    principal = this.sound.add("principal");
     principal.volume = 0.2;
     principal.loop = true;
     principal.play();
@@ -71,13 +72,12 @@ export class Flechas extends Phaser.Scene {
     });
     this.ok.on("pointerout", () => {
       this.ok.setFrame(0);
-
-      nivel();
-      calificar();
-      cambiar();
     });
     this.ok.on("pointerdown", () => {
       //   this.scene.start("Prin");
+      nivel();
+      calificar();
+      cambiar();
     });
 
     this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
@@ -85,21 +85,23 @@ export class Flechas extends Phaser.Scene {
       this.pregunta.setFrame(1);
     });
     this.pregunta.on("pointerout", () => {
-      voz.play();
       this.pregunta.setFrame(0);
+    });
+    this.pregunta.on("pointerdown", () => {
+      voz.play();
+      if (this.insIcono === 2) {
+        voz.mute = true;
+      }
       Swal.fire({
         icon: "info",
         text: "Colorea las flechas. Selecciona una flecha de color, luego selecciona las demás flechas en blanco que sean similares para pintarlas, para cambiar de color puedes seleccionar otra flecha. Una vez todas las flechas sean pintadas, selecciona el botón 👍 para continuar."
       }
       );
     });
-    this.pregunta.on("pointerdown", () => {
-
-    });
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
-
     this.musica.setFrame(this.musicaIcono);
+
     if (this.musicaIcono === 2) {
       principal.stop();
     }
@@ -107,32 +109,42 @@ export class Flechas extends Phaser.Scene {
       this.musica.setFrame(1);
     });
     this.musica.on("pointerout", () => {
-      console.log(principal.mute);
-      //  this.musica.setFrame(0);
+      // && this.musicaIcono === 2
+      if (principal.mute === true || this.musicaIcono === 2) {
+        this.musica.setFrame(2);
+      } else {
+        this.musica.setFrame(0);
+      }
+    });
+    this.musica.on("pointerdown", () => {
       if (principal.mute === false && this.musicaIcono === 0) {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
-        //    principal.play();
         principal.mute = true;
       } else {
         this.musica.setFrame(0);
         this.musicaIcono = 0;
         principal.play();
         principal.mute = false;
-
-      // mus = true;
       }
-    });
-    this.musica.on("pointerdown", () => {
-    //  console.log(principal.mute);
     });
 
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
     this.ins.setFrame(this.insIcono);
+    if (this.insIcono === 2) {
+      voz.stop();
+    }
     this.ins.on("pointerover", () => {
       this.ins.setFrame(1);
     });
     this.ins.on("pointerout", () => {
+      if (voz.mute === true || this.insIcono === 2) {
+        this.ins.setFrame(2);
+      } else {
+        this.ins.setFrame(0);
+      }
+    });
+    this.ins.on("pointerdown", () => {
       if (voz.mute === false && this.insIcono === 0) {
         this.ins.setFrame(2);
         this.insIcono = 2;
@@ -142,9 +154,6 @@ export class Flechas extends Phaser.Scene {
         this.insIcono = 0;
         voz.mute = false;
       }
-    });
-    this.ins.on("pointerdown", () => {
-
     });
 
     let contador = 0;
@@ -245,9 +254,10 @@ function onEvent() {
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
     let pun = Math.trunc(puntaje);
-    this.scene.start("Punt", { punt: pun, letra: "ci", nomb: "Colorear Flechas", time: this.min, sce: "Flechas" });
+    this.scene.start("Punt", { punt: pun, letra: "ci", nomb: "Colorear Flechas", time: this.min, sce: "Flechas", musicaIcono: this.musicaIcono });
     puntaje = 0;
     pun = 0;
+    principal.stop();
   }
 }
 function formato(segundos) {

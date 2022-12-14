@@ -28,8 +28,20 @@ resolve(store.list(filterUsers));
     }
    const result = await store.update(id, txt);
    resolve(result);
-  })
+  });
 
+}
+
+
+async function actualizarPorWin(id, win){
+  return new Promise( async(resolve, reject) =>{
+    if (!id || !win){
+      reject('Invalid data');
+      return false;
+    }
+   const result = await store.updateWin(id, win);
+   resolve(result);
+  });
 }
 
 async function getUserByname(nombre) {
@@ -50,7 +62,7 @@ async function getUserBycorreo(correo) {
   return user;
 }
 
-module.exports = {cearUsuario, getUsuarios, actualizarUsuario, getUserByname, getUserBycorreo};
+module.exports = {cearUsuario, getUsuarios, actualizarUsuario, getUserByname, getUserBycorreo, actualizarPorWin};
 
 /*const boom = require('@hapi/boom');
 

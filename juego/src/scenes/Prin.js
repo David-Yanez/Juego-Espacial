@@ -1,6 +1,7 @@
-import Phaser, { GameObjects } from "phaser";
+// import Phaser, { GameObjects } from "phaser";
+import Phaser from "phaser";
 import Swal from "sweetalert2";
-
+import { es11, pa11, ci11, a11, l11, reset } from "./RegisPuntos";
 const target = new Phaser.Math.Vector2();
 let spriteOvni;
 export class Prin extends Phaser.Scene {
@@ -10,10 +11,11 @@ export class Prin extends Phaser.Scene {
 
   preload() {
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
-    this.load.image("tlt", "assets/sprites/titulo.png");
+    this.load.image("tlt", "assets/sprites/UI/titulo.png");
     this.load.image("na", "assets/sprites/na.png");
     this.load.bitmapFont("azoXML", "assets/sprites/UI/bitmap-fonts-debug.png", "assets/sprites/UI/azo-fire.xml");
     this.load.image("user", "assets/sprites/UI/user.png");
+    this.load.image("red", "assets/sprites/UI/red.png");
     // Titulo
     this.load.image("es", "assets/sprites/titulo/es.png");
     this.load.image("pa", "assets/sprites/titulo/pa.png");
@@ -110,30 +112,90 @@ export class Prin extends Phaser.Scene {
     // this.titulo = this.add.image(200, 0, "tlt").setDisplayOrigin(0, 0).setScale(0.5);
     // creación titulo
 
-    let es1 = 0.2;
+    /* let es1 = 0.2;
     let pa1 = 0.2;
     let ci1 = 0.2;
     let a1 = 0.2;
-    let l1 = 0.2;
+    let l1 = 0.2; */
 
-    if (this.letra === "es") {
+    let es1;
+    let pa1;
+    let ci1;
+    let a1;
+    let l1;
+    // console.log(es1);
+
+    console.log(pa11);
+    /*  if (es1 === undefined && pa1 === undefined && ci1 === undefined && a1 === undefined && l1 === undefined) {
+      es1 = 0.2;
+      pa1 = 0.2;
+      ci1 = 0.2;
+      a1 = 0.2;
+      l1 = 0.2;
+    } else {
+      es1 = es11;
+      pa1 = pa11;
+      ci1 = ci11;
+      a1 = a11;
+      l1 = l11;
+    } */
+    es1 = es11;
+    pa1 = pa11;
+    ci1 = ci11;
+    a1 = a11;
+    l1 = l11;
+    /* if (this.letra === "es") {
       es1 = this.valor;
     } if (this.letra === "pa") {
       pa1 = this.valor;
-    }
-    if (this.letra === "ci") {
+    } if (this.letra === "ci") {
       ci1 = this.valor;
     } if (this.letra === "a") {
       a1 = this.valor;
     } if (this.letra === "l") {
       l1 = this.valor;
-    }
-
+    } */
+    // Textos
+    const player = localStorage.getItem("user");
     this.add.image(200, 10, "es").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(es1);
     this.add.image(300, 10, "pa").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(pa1);
     this.add.image(410, 10, "ci").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(ci1);
     this.add.image(490, 10, "a").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(a1);
     this.add.image(550, 10, "l").setDisplayOrigin(0, 0).setScale(0.5).setAlpha(l1);
+    const particles = this.add.particles("red");
+    const win = this.physics.add.image(400, 60, "tlt").setScale(0.4).setAlpha(0);
+
+    /* es1 = 1;
+    pa1 = 1;
+    ci1 = 1;
+    a1 = 1;
+    l1 = 1; */
+    if (es1 === 1 && pa1 === 1 && ci1 === 1 && a1 === 1 && l1 === 1) {
+      const empezar = particles.createEmitter({
+        speed: 100,
+        scale: { start: 1, end: 0 },
+        blendMode: "ADD"
+      });
+      win.setAlpha(1);
+      win.setVelocity(100, 200);
+      win.setBounce(1, 1);
+      win.setCollideWorldBounds(true);
+
+      empezar.startFollow(win);
+      Swal.fire({
+        title: "!FELICIDADES! " + player,
+        icon: "success",
+        text: "LOGRASTE COMPLETAR TODOS LOS RETOS CON EXITO",
+        confirmButtonText: "Volver a Jugar"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          reset();
+          this.scene.start("Prin");
+          principal.stop();
+        }
+      });
+      actualizarWin();
+    }
 
     // Animaciones de cuerpos celestes
     const spriteAu = this.add.sprite(700, 150, "au").setScale(0.6);
@@ -151,13 +213,9 @@ export class Prin extends Phaser.Scene {
     const spriteTie = this.add.sprite(100, 250, "tie").setScale(0.6);
     spriteTie.play({ key: "tie", repeat: -1 });
 
-    // Textos
-    const player = localStorage.getItem("user");
-
     //  this.add.bitmapText(45, 185, "azoXML", "Jupiter").setScale(0.25);
     // this.add.bitmapText(380, 185, "azoXML", "Sol").setScale(0.25);
     this.add.image(350, 550, "user").setScale(0.2);
-
     this.add.text(385, 540, player, { font: "20px Arial Black", fill: "#e01650" }).setStroke("#e8dfe1", 6);
     this.add.text(385, 185, "Sol", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
     this.add.text(620, 200, "Agujero Negro", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
@@ -177,15 +235,20 @@ export class Prin extends Phaser.Scene {
 
     // musica
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
-    // const mus = true;
     this.musica.setFrame(this.musicaIcono);
 
     this.musica.on("pointerover", () => {
       this.musica.setFrame(1);
     });
     this.musica.on("pointerout", () => {
-      //   this.musica.setFrame(0);
+      if (principal.mute === true) {
+        this.musica.setFrame(2);
+      } else {
+        this.musica.setFrame(0);
+      }
+    });
 
+    this.musica.on("pointerdown", () => {
       if (principal.mute === false && this.musicaIcono === 0) {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
@@ -195,22 +258,25 @@ export class Prin extends Phaser.Scene {
         this.musicaIcono = 0;
         principal.play();
         principal.mute = false;
-
-        // mus = true;
       }
     });
 
-    this.musica.on("pointerdown", () => {
-
-    });
-
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
-
     this.ins.setFrame(this.insIcono);
+
     this.ins.on("pointerover", () => {
       this.ins.setFrame(1);
     });
+
     this.ins.on("pointerout", () => {
+      if (voz.mute === true || this.insIcono === 2) {
+        this.ins.setFrame(2);
+      } else {
+        this.ins.setFrame(0);
+      }
+    });
+
+    this.ins.on("pointerdown", () => {
       if (voz.mute === false) {
         this.ins.setFrame(2);
         this.insIcono = 2;
@@ -221,9 +287,6 @@ export class Prin extends Phaser.Scene {
         voz.mute = false;
       }
     });
-    this.ins.on("pointerdown", () => {
-
-    });
 
     this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
     this.pregunta.on("pointerover", () => {
@@ -231,15 +294,14 @@ export class Prin extends Phaser.Scene {
     });
     this.pregunta.on("pointerout", () => {
       this.pregunta.setFrame(0);
+    });
+    this.pregunta.on("pointerdown", () => {
       voz.play();
       Swal.fire({
         title: "Bienvenido al Juego espacial.",
         icon: "info",
         text: "Para mover la nave debes hacer clic en la pantalla, existen 5 actividades diferentes, las cuales se puede seleccionar cuando la nave se encuentre en cima de un cuerpo espacial en movimiento. Para completar el juego debes coleccionar las letras de la palabra ESPACIAL."
       });
-    });
-    this.pregunta.on("pointerdown", () => {
-
     });
 
     this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
@@ -271,20 +333,14 @@ export class Prin extends Phaser.Scene {
         cancelButtonText: "Cancelar"
       //  denyButtonText: "Don't save",
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
 
           const url = "../index.html";
           window.location.href = url;
-          // Swal.fire("Saved!", "", "success");
-        } /* else if (result.isDenied) {
-          Swal.fire("Changes are not saved", "", "info");
-        } */
+        }
       });
-      /* const url = "../index.html";
-      window.location.href = url; */
     });
 
     this.puntajes = this.add.sprite(70, 550, "puntajes").setInteractive().setScale(0.2);
@@ -296,7 +352,8 @@ export class Prin extends Phaser.Scene {
     });
     this.puntajes.on("pointerdown", () => {
       principal.stop();
-      alert("Puntajes");
+      const url = "../html/puntajes.html";
+      window.location.href = url;
     });
 
     this.juegoUr = this.add.sprite(55, 250, "jugarJu").setInteractive().setScale(0.15);
@@ -305,7 +362,6 @@ export class Prin extends Phaser.Scene {
     });
     this.juegoUr.on("pointerout", () => {
       this.juegoUr.setFrame(0);
-      principal.stop();
     });
     this.juegoUr.on("pointerdown", () => {
       principal.stop();
@@ -323,7 +379,6 @@ export class Prin extends Phaser.Scene {
     });
     this.juegoSa.on("pointerout", () => {
       this.juegoSa.setFrame(0);
-      principal.stop();
     });
     this.juegoSa.on("pointerdown", () => {
       principal.stop();
@@ -342,7 +397,6 @@ export class Prin extends Phaser.Scene {
     });
     this.juegoSo.on("pointerout", () => {
       this.juegoSo.setFrame(0);
-      principal.stop();
     });
     this.juegoSo.on("pointerdown", () => {
       principal.stop();
@@ -359,7 +413,6 @@ export class Prin extends Phaser.Scene {
     });
     this.juegoGa.on("pointerout", () => {
       this.juegoGa.setFrame(0);
-      principal.stop();
     });
     this.juegoGa.on("pointerdown", () => {
       principal.stop();
@@ -376,7 +429,6 @@ export class Prin extends Phaser.Scene {
     });
     this.juegoAg.on("pointerout", () => {
       this.juegoAg.setFrame(0);
-      principal.stop();
     });
     this.juegoAg.on("pointerdown", () => {
       principal.stop();
@@ -455,4 +507,23 @@ async function irJuego() {
     });
     location.href = "./iniciar.html";
   }
+}
+
+async function actualizarWin() {
+  const player = localStorage.getItem("user");
+  const res = await fetch(import.meta.env.VITE_API_URL + "/usuario?usuario=" + player);
+  const data = await res.json();
+  const w = data.body[0].wins + 1;
+  const user = {
+    wins: w
+  };
+  const res2 = await fetch(import.meta.env.VITE_API_URL + "/usuario/win/" + data.body[0]._id, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+
+  });
+  console.log(res2);
 }

@@ -56,6 +56,16 @@ passport.authenticate('jwt', {session: false})*/,
     });
 
   }) ;
+
+  router.patch('/win/:id', (req, res) =>{
+    usuarioService.actualizarPorWin(req.params.id, req.body.wins)
+    .then((data) =>{
+        response.success(req, res, data, 200);  
+    })
+    .catch(e =>{
+        response.error(req, res, 'Error interno', 500, e); 
+    });
+  });
 module.exports = router;
 
 /*const UsuariosService = require('./../services/usuario.service');

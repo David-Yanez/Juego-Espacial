@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const service = require('../services/email.service');
 require("dotenv").config();
 
 
@@ -19,6 +20,18 @@ async (req, res, next )=>{
             usuario,
             token
             });
+    }catch (error){
+        next(error);
+    }
+
+    });
+
+    router.post('/recovery', 
+async (req, res, next )=>{
+    try {
+        const { correo } = req.body;
+        const rta = await service.sendMail(correo);
+        res.json(rta);
     }catch (error){
         next(error);
     }

@@ -103,32 +103,33 @@ export class Configuracion extends Phaser.Scene {
     });
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
-
     this.musica.setFrame(this.musicaIcono);
+
     if (this.musicaIcono === 2) {
       principal.stop();
-    }
+    } 
     this.musica.on("pointerover", () => {
       this.musica.setFrame(1);
     });
     this.musica.on("pointerout", () => {
-    //  this.musica.setFrame(0);
+      // && this.musicaIcono === 2
+      if (principal.mute === true || this.musicaIcono === 2) {
+        this.musica.setFrame(2);
+      } else {
+        this.musica.setFrame(0);
+      }
+    });
+    this.musica.on("pointerdown", () => {
       if (principal.mute === false && this.musicaIcono === 0) {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
-        //    principal.play();
         principal.mute = true;
       } else {
         this.musica.setFrame(0);
         this.musicaIcono = 0;
         principal.play();
         principal.mute = false;
-
-      // mus = true;
       }
-    });
-    this.musica.on("pointerdown", () => {
-
     });
 
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
@@ -140,6 +141,13 @@ export class Configuracion extends Phaser.Scene {
       this.ins.setFrame(1);
     });
     this.ins.on("pointerout", () => {
+      if (voz.mute === true || this.insIcono === 2) {
+        this.ins.setFrame(2);
+      } else {
+        this.ins.setFrame(0);
+      }
+    });
+    this.ins.on("pointerdown", () => {
       if (voz.mute === false && this.insIcono === 0) {
         this.ins.setFrame(2);
         this.insIcono = 2;
@@ -147,15 +155,9 @@ export class Configuracion extends Phaser.Scene {
       } else {
         this.ins.setFrame(0);
         this.insIcono = 0;
-     //   principal.play();
         voz.mute = false;
       }
     });
-    this.ins.on("pointerdown", () => {
-
-    });
-
-    
 
     this.juegoSa = this.add.sprite(400, 550, "jugar").setInteractive().setScale(0.25);
     this.juegoSa.on("pointerover", () => {
@@ -166,8 +168,8 @@ export class Configuracion extends Phaser.Scene {
     });
     this.juegoSa.on("pointerdown", () => {
     //  clickSonido.play();
-    voz.stop();
-    principal.stop();
+      voz.stop();
+      principal.stop();
       minutos();
       this.scene.start(this.es, { time: min, insIcono: this.insIcono, musicaIcono: this.musicaIcono, ins: data.instru, es: this.es, tlt: this.tlt, x: this.x });
     });

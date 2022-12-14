@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import {Puntajee} from "./RegisPuntos";
+import { Puntajee, letras } from "./RegisPuntos";
 
 export class Puntajes extends Phaser.Scene {
   constructor() {
@@ -15,7 +15,6 @@ export class Puntajes extends Phaser.Scene {
     this.load.image("estrella1", "assets/sprites/UI/estrella1.png");
     this.load.image("estrella2", "assets/sprites/UI/estrella2.png");
     this.load.image("tit", "assets/sprites/UI/tit.png");
-    
 
     // Letras
     this.load.image("es", "assets/sprites/titulo/es.png");
@@ -30,10 +29,10 @@ export class Puntajes extends Phaser.Scene {
     this.letras = data.letra;
     this.nomJuego = data.nomb;
     this.min = data.time;
-   // this.sce = data.sce;
+    this.musicaIcono = data.musicaIcono;
+    // this.sce = data.sce;
     let valorLetra;
     let estrellas;
-
 
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     this.add.image(240, 130, "marco").setDisplayOrigin(0, 0).setScale(0.5);
@@ -59,11 +58,12 @@ export class Puntajes extends Phaser.Scene {
       this.listo.setFrame(0);
     });
     this.listo.on("pointerdown", () => {
-      this.scene.start("Prin", { valLetra: valorLetra, letr: data.letra });
+      this.scene.start("Prin", { valLetra: valorLetra, letr: data.letra, musicaIcono: this.musicaIcono });
       console.log(valorLetra + " " + data.letra);
       Puntajee(this.nomJuego, this.min, this.puntaje, estrellas);
+      letras(data.letra, valorLetra);
     });
-  
+
     // this.add.text(260, 350, "Letras \nObtenidas: ", { fontFamily: "Times New Roman", fontSize: 12, color: "#1337ad" });
     if (this.puntaje <= 90) {
       this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
@@ -98,7 +98,7 @@ export class Puntajes extends Phaser.Scene {
       valorLetra = 1;
       estrellas = 5;
     }
-   
+
     /* this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(317, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(359, 159, "estrella1").setDisplayOrigin(0, 0).setScale(0.4);

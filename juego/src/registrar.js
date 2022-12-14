@@ -398,7 +398,8 @@ document.getElementById("btnRegistrar").onclick = function() {
     const usuario = {
       usuario: nombre,
       correo: corre,
-      password: pass
+      password: pass,
+      wins: 0
     };
     buscarXusuario(usuario);
   }
@@ -415,8 +416,8 @@ document.getElementById("btnRegistrar").onclick = function() {
 };
 
 async function buscarXusuario(user) {
-  const res = await fetch(import.meta.env.VITE_API_URL + "usuario?usuario=" + user.usuario);
-  const res2 = await fetch(import.meta.env.VITE_API_URL + "usuario/Ucor?correo=" + user.correo);
+  const res = await fetch(import.meta.env.VITE_API_URL + "/usuario?usuario=" + user.usuario);
+  const res2 = await fetch(import.meta.env.VITE_API_URL + "/usuario/Ucor?correo=" + user.correo);
   const data = await res.json();
   const data2 = await res2.json();
   console.log(data);
@@ -441,7 +442,7 @@ async function buscarXusuario(user) {
 }
 
 async function registrar(user) {
-  const res = await fetch(import.meta.env.VITE_API_URL + "usuario", {
+  const res = await fetch(import.meta.env.VITE_API_URL + "/usuario", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

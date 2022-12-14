@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Swal from "sweetalert2";
 let puntaje = 0;
+let principal;
 export class Cuadrados extends Phaser.Scene {
   constructor() {
     super({ key: "Cuadrados" });
@@ -35,7 +36,7 @@ export class Cuadrados extends Phaser.Scene {
     this.musicaIcono = data.musicaIcono;
     // Sonido
     const voz = this.sound.add("vozCuadrados");
-    const principal = this.sound.add("principal");
+    principal = this.sound.add("principal");
     principal.volume = 0.2;
     principal.loop = true;
     principal.play();
@@ -86,20 +87,22 @@ export class Cuadrados extends Phaser.Scene {
     });
     this.pregunta.on("pointerout", () => {
       this.pregunta.setFrame(0);
+    });
+    this.pregunta.on("pointerdown", () => {
       voz.play();
+      if (this.insIcono === 2) {
+        voz.mute = true;
+      }
       Swal.fire(
         "",
         "Ayuda a la nave a llegar al planeta tierra. Sigue las instrucciones que se muestra al lado derecho de los cuadrados, para crear el camino que debe seguir la nave. Una vez él caminó este listo, selecciona el botón 👍 para continuar.",
         "info"
       );
     });
-    this.pregunta.on("pointerdown", () => {
-     
-    });
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
-
     this.musica.setFrame(this.musicaIcono);
+
     if (this.musicaIcono === 2) {
       principal.stop();
     }
@@ -107,32 +110,40 @@ export class Cuadrados extends Phaser.Scene {
       this.musica.setFrame(1);
     });
     this.musica.on("pointerout", () => {
-      console.log(principal.mute);
-      //  this.musica.setFrame(0);
+      if (principal.mute === true || this.musicaIcono === 2) {
+        this.musica.setFrame(2);
+      } else {
+        this.musica.setFrame(0);
+      }
+    });
+    this.musica.on("pointerdown", () => {
+    //  console.log(principal.mute);
       if (principal.mute === false && this.musicaIcono === 0) {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
-        //    principal.play();
         principal.mute = true;
       } else {
         this.musica.setFrame(0);
         this.musicaIcono = 0;
         principal.play();
         principal.mute = false;
-
-      // mus = true;
       }
-    });
-    this.musica.on("pointerdown", () => {
-    //  console.log(principal.mute);
     });
 
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
     this.ins.setFrame(this.insIcono);
+
     this.ins.on("pointerover", () => {
       this.ins.setFrame(1);
     });
     this.ins.on("pointerout", () => {
+      if (voz.mute === true || this.insIcono === 2) {
+        this.ins.setFrame(2);
+      } else {
+        this.ins.setFrame(0);
+      }
+    });
+    this.ins.on("pointerdown", () => {
       if (voz.mute === false && this.insIcono === 0) {
         this.ins.setFrame(2);
         this.insIcono = 2;
@@ -142,9 +153,6 @@ export class Cuadrados extends Phaser.Scene {
         this.insIcono = 0;
         voz.mute = false;
       }
-    });
-    this.ins.on("pointerdown", () => {
-
     });
 
     // this.add.image(370, 250, "nave2").setScale(0.3).setInteractive();
@@ -233,8 +241,6 @@ export class Cuadrados extends Phaser.Scene {
   }
 
   pintar(pointer, fleee) {
-   
-
     if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 16711680) { fleee.setTint(0x00AA00); } else { if (fleee.texture.key === "cuadrado") fleee.setTint(0xff0000); }
 
     // if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 43520) { fleee.setTint(0xff0000); }
@@ -250,9 +256,10 @@ function onEvent() {
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
     let pun = Math.trunc(puntaje);
-    this.scene.start("Punt", { punt: pun, letra: "es", nomb: "Selección de Cuadrados", time: this.min, sce: "Cuadrados" });
+    this.scene.start("Punt", { punt: pun, letra: "es", nomb: "Selección de Cuadrados", time: this.min, sce: "Cuadrados", musicaIcono: this.musicaIcono });
     puntaje = 0;
     pun = 0;
+    principal.stop();
   }
 }
 function formato(segundos) {
