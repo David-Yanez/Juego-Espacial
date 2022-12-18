@@ -44,6 +44,17 @@ async function actualizarPorWin(id, win){
   });
 }
 
+async function actualizarToken(id, token){
+  return new Promise( async(resolve, reject) =>{
+    if (!id || !token){
+      reject('Invalid data');
+      return false;
+    }
+   const result = await store.updateToken(id, token);
+   resolve(result);
+  });
+}
+
 async function getUserByname(nombre) {
   const user = await usuarioModel.findOne({
     usuario: nombre
@@ -62,7 +73,7 @@ async function getUserBycorreo(correo) {
   return user;
 }
 
-module.exports = {cearUsuario, getUsuarios, actualizarUsuario, getUserByname, getUserBycorreo, actualizarPorWin};
+module.exports = {cearUsuario, getUsuarios, actualizarUsuario, getUserByname, getUserBycorreo, actualizarPorWin, actualizarToken};
 
 /*const boom = require('@hapi/boom');
 

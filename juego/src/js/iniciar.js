@@ -381,15 +381,20 @@ document.getElementById("btnLogin").onclick = function() {
   const contra2 = Array.from(radio2).find(radio => radio.checked);
   const contra3 = Array.from(radio3).find(radio => radio.checked);
 
-  const pass = contra1.value + contra2.value + contra3.value;
-  // console.log(contra1 + contra2 + contra3);
-
-  const usuario = {
-    username: nombre,
-    password: pass
-  };
-
-  login(usuario);
+  if (contra1 === undefined || contra2 === undefined || contra3 === undefined) {
+    Swal.fire({
+      icon: "warning",
+      // title: "Oops...",
+      text: "Complete la contraseña"
+    });
+  } else {
+    const pass = contra1.value + contra2.value + contra3.value;
+    const usuario = {
+      username: nombre,
+      password: pass,
+    };
+    login(usuario);
+  }
 };
 
 async function login(user) {
@@ -412,7 +417,7 @@ async function login(user) {
     const data = await res.json();
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", data.usuario.usuario);
-    location.href = "./Juego.html";
+    location.href = "../html/Juego.html";
     irJuego();
   }
 }
@@ -439,8 +444,44 @@ async function irJuego() {
     });
     location.href = "./iniciar.html";
   } else {
-    location.href = "./Juego.html";
+    location.href = "../Juego.html";
   }
 }
+
+document.getElementById("olvPass").onclick = async function() {
+  const { value: email } = await Swal.fire({
+    title: "¿Olvido su contraseña?",
+    input: "email",
+    inputLabel: "Ingrese su correo electrónico",
+    inputPlaceholder: "correo electrónico"
+  });
+
+  if (email) {
+    Swal.fire(`Correo enviado a: ${email}`);
+    const res2 = await fetch(import.meta.env.VITE_API_URL + "/usuario/Ucor?correo=" + email);
+    const data2 = await res2.json();
+    if (data2.body === null) {
+      Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "El Correo " + email + " no esta registrado"
+      });
+    } else {
+      const correo = {
+        correo: email
+      };
+      const res = await fetch(import.meta.env.VITE_API_URL + "/login/recuperar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(correo)
+      });
+      console.log(res);
+      //   const data2 = await res2.json();
+    }
+  }
+};
+/* */
 
 window.onload = lanzasaltar;

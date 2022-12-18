@@ -304,7 +304,7 @@ export class Prin extends Phaser.Scene {
       });
     });
 
-    this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
+    /* this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
     this.atras.on("pointerover", () => {
       this.atras.setFrame(1);
     });
@@ -314,7 +314,7 @@ export class Prin extends Phaser.Scene {
     this.atras.on("pointerdown", () => {
       const url = "../index.html";
       window.location.href = url;
-    });
+    }); */
 
     this.salir = this.add.sprite(740, 40, "salir").setInteractive();
     this.salir.on("pointerover", () => {
@@ -505,7 +505,7 @@ async function irJuego() {
       title: "Oops...",
       text: "Error al Ingresar"
     });
-    location.href = "./iniciar.html";
+    location.href = "../html/iniciar.html";
   }
 }
 

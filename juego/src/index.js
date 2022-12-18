@@ -26,13 +26,9 @@ async function loginInvi(user) {
     }); */
   } else {
     const data = await res.json();
-    //console.log(data);
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", data.usuario.usuario);
     location.href = "./Juego.html";
     // irJuego();
   }
 }
-
-
-// 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

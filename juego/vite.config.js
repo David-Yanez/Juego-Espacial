@@ -11,6 +11,17 @@ module.exports = {
   publicDir: "../public",
   build: {
     outDir: "../dist",
-    assetsDir: "./"
+    assetsDir: "./",
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "/index.html"),
+        juego: path.resolve(__dirname, "/Juego.html"),
+        informacion: path.resolve(__dirname, "/html/index.html"),
+        iniciar: path.resolve(__dirname, "/html/iniciar.html"),
+        puntajes: path.resolve(__dirname, "/html/puntajes.html"),
+        recuperar: path.resolve(__dirname, "/html/recuperar.html"),
+        registrar: path.resolve(__dirname, "/html/registrar.html")
+      }
+    }
   }
 };

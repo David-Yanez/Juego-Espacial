@@ -26,7 +26,7 @@ async (req, res, next )=>{
 
     });
 
-    router.post('/recovery', 
+    router.post('/recuperar', 
 async (req, res, next )=>{
     try {
         const { correo } = req.body;
@@ -37,5 +37,17 @@ async (req, res, next )=>{
     }
 
     });
+
+    router.post('/cambiar', 
+    async (req, res, next )=>{
+        try {
+            const { token, newPassword } = req.body;
+            const rta = await service.cambiarPassword(token, newPassword );
+            res.json(rta);
+        }catch (error){
+            next(error);
+        }
+    
+        });
 
     module.exports = router;

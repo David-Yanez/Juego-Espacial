@@ -399,7 +399,8 @@ document.getElementById("btnRegistrar").onclick = function() {
       usuario: nombre,
       correo: corre,
       password: pass,
-      wins: 0
+      wins: 0,
+      recuperar: ""
     };
     buscarXusuario(usuario);
   }
@@ -459,7 +460,7 @@ async function registrar(user) {
       text: "Nuevo jugador registrado correctamente"
     });
     // href="./informacion.html"
-    const url = "./index.html";
+    const url = "../index.html";
     window.location.href = url;
   } else {
     Swal.fire({

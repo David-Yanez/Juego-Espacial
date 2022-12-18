@@ -107,7 +107,7 @@ export class Configuracion extends Phaser.Scene {
 
     if (this.musicaIcono === 2) {
       principal.stop();
-    } 
+    }
     this.musica.on("pointerover", () => {
       this.musica.setFrame(1);
     });
@@ -151,11 +151,13 @@ export class Configuracion extends Phaser.Scene {
       if (voz.mute === false && this.insIcono === 0) {
         this.ins.setFrame(2);
         this.insIcono = 2;
+        clickSonido.mute = true;
         voz.mute = true;
       } else {
         this.ins.setFrame(0);
         this.insIcono = 0;
         voz.mute = false;
+        clickSonido.mute = false;
       }
     });
 
@@ -167,7 +169,7 @@ export class Configuracion extends Phaser.Scene {
       this.juegoSa.setFrame(0);
     });
     this.juegoSa.on("pointerdown", () => {
-    //  clickSonido.play();
+      clickSonido.play();
       voz.stop();
       principal.stop();
       minutos();

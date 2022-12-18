@@ -14,11 +14,11 @@ export class Union extends Phaser.Scene {
     this.load.image("tltUnion", "assets/sprites/UI/tltUnion.png");
 
     /// juegos
-
+    this.load.spritesheet("estrella", "assets/sprites/juegos/estre.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("astro1", "assets/sprites/juegos/astro1.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("marciano1", "assets/sprites/juegos/marciano1.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("nave1", "assets/sprites/juegos/nave1.png", { frameWidth: 202, frameHeight: 209 });
-
+ 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
     this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 200, frameHeight: 201 });
@@ -58,7 +58,7 @@ export class Union extends Phaser.Scene {
     this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 
-    const nombre = ["marciano1", "astro1", "nave1"];
+    const nombre = ["marciano1", "astro1", "nave1", "estrella"];
     let n;
     let a;
     let b;
@@ -79,7 +79,7 @@ export class Union extends Phaser.Scene {
     let dificultad = 0;
     generar2();
     function generar2() {
-      n = Phaser.Math.Between(0, 2);
+      n = Phaser.Math.Between(0, 3);
       if (dificultad <= 4) {
         aa = Phaser.Math.Between(0, 3);
         bb = Phaser.Math.Between(0, 3);
@@ -178,7 +178,6 @@ export class Union extends Phaser.Scene {
     });
     this.pregunta.on("pointerout", () => {
       this.pregunta.setFrame(0);
-    
     });
     this.pregunta.on("pointerdown", () => {
       voz.play();
@@ -196,7 +195,7 @@ export class Union extends Phaser.Scene {
 
     if (this.musicaIcono === 2) {
       principal.stop();
-    } 
+    }
     this.musica.on("pointerover", () => {
       this.musica.setFrame(1);
     });

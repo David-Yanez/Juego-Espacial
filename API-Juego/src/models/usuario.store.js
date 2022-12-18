@@ -26,6 +26,7 @@ async function actualizarUsuario(id, pass){
 });*/
 const hash = await bcrypt.hash(pass, 10);
 user.password = hash;
+user.recuperar ="";
 const newUser = await user.save();
 return newUser;
 }
@@ -37,5 +38,12 @@ async function actualizarWins(id, win){
     return newUser;
 }
 
+async function actualizarToken(id, token){
+    const user = await usuarioModel.findById(id);
+    user.recuperar = token;
+    const newUser = await user.save();
+    return newUser;
+}
 
-    module.exports = {add: adduser, list: getUsers, update: actualizarUsuario, updateWin: actualizarWins}
+
+    module.exports = {add: adduser, list: getUsers, update: actualizarUsuario, updateWin: actualizarWins, updateToken: actualizarToken}

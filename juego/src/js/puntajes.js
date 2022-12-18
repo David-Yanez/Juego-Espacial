@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 // let data;
 // alert("hola");
 export async function rakingPuntajes() {
+  irPuntajes();
   const res = await fetch(import.meta.env.VITE_API_URL + "/usuario/");
   const data = await res.json();
   // console.log(data);
@@ -104,3 +105,27 @@ document.getElementById("btnBuscar").onclick = function() {
 
   consultas();
 };
+
+async function irPuntajes() {
+  const auth = localStorage.getItem("token");
+
+  const res = await fetch(import.meta.env.VITE_API_URL + "/juego", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + auth
+    },
+    body: JSON.stringify()
+  });
+
+  if (res.status !== 200) {
+    // spanError.innerHTML = "Hubo un error:" + res.status + data.message;
+    // alert("error");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Error al Ingresar"
+    });
+    location.href = "../html/iniciar.html";
+  }
+}
