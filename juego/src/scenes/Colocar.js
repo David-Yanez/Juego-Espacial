@@ -14,7 +14,7 @@ export class Colocar extends Phaser.Scene {
     this.load.bitmapFont("desyrel", "assets/sprites/UI/desyrel.png", "assets/sprites/UI/desyrel.xml");
     this.load.bitmapFont("azoXML", "assets/sprites/UI/bitmap-fonts-debug.png", "assets/sprites/UI/azo-fire.xml");
     // Matriz
-    this.load.image("matri", "assets/sprites/UI/matri.png");
+    this.load.image("matri", "assets/sprites/UI/matri.PNG");
     this.load.image("matri2", "assets/sprites/UI/matri2.png");
 
     // Imagenes
