@@ -146,7 +146,7 @@ export class Colocar extends Phaser.Scene {
     c = this.add.image(610, 250, datos[n].img[2]).setScale(0.3).setInteractive();
     d = this.add.image(730, 250, datos[n].img[3]).setScale(0.3).setInteractive();
 
-    t = this.add.text(340, 330, datos[n].ints).setColor("#ffff00");
+    t = this.add.text(340, 330, datos[n].ints).setColor("#efff00");
     d.setAlpha(0);
     this.input.setDraggable(a);
     this.input.setDraggable(b);

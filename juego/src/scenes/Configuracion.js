@@ -35,7 +35,7 @@ export class Configuracion extends Phaser.Scene {
     this.load.image("5m", "assets/sprites/UI/5m.png");
     this.load.image("10m", "assets/sprites/UI/10m.png");
     this.load.image("pizarra", "assets/sprites/UI/pizarra.png");
-    this.load.html("Formula", "assets/sprites/UI/Configuracioon.html");
+    this.load.html("Formula", "./html/tiempo.html");
 
     this.load.image("buoepn", "assets/sprites/UI/buoepn.png");
     // this.load.html("Formula", "assets/sprites/UI/loginform.html");
@@ -124,10 +124,12 @@ export class Configuracion extends Phaser.Scene {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
         principal.mute = true;
+        clickSonido.mute = true;
       } else {
         this.musica.setFrame(0);
         this.musicaIcono = 0;
         principal.play();
+        clickSonido.mute = false;
         principal.mute = false;
       }
     });
@@ -151,13 +153,13 @@ export class Configuracion extends Phaser.Scene {
       if (voz.mute === false && this.insIcono === 0) {
         this.ins.setFrame(2);
         this.insIcono = 2;
-        clickSonido.mute = true;
+        // clickSonido.mute = true;
         voz.mute = true;
       } else {
         this.ins.setFrame(0);
         this.insIcono = 0;
         voz.mute = false;
-        clickSonido.mute = false;
+        // clickSonido.mute = false;
       }
     });
 
@@ -169,7 +171,9 @@ export class Configuracion extends Phaser.Scene {
       this.juegoSa.setFrame(0);
     });
     this.juegoSa.on("pointerdown", () => {
-      clickSonido.play();
+      if (this.musicaIcono === 0) {
+        clickSonido.play();
+      }
       voz.stop();
       principal.stop();
       minutos();
@@ -197,6 +201,4 @@ function minutos() {
   if (res === "3") {
     min = 600;
   }
-  console.log(res);
-  console.log(min);
 }

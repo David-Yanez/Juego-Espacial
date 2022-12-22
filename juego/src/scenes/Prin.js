@@ -46,6 +46,8 @@ export class Prin extends Phaser.Scene {
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
     this.load.audio("vozPrin", "assets/sounds/voz/vozPrin.mp3");
+    this.load.audio("aplausos", "assets/sounds/aplausos.mp3");
+
 
     irJuego();
   }
@@ -64,6 +66,7 @@ export class Prin extends Phaser.Scene {
     //   principal.stop();
     //   principal.play();
     const voz = this.sound.add("vozPrin");
+    const aplausos = this.sound.add("aplausos");
 
     const principal = this.sound.add("principal");
     principal.play();
@@ -180,7 +183,7 @@ export class Prin extends Phaser.Scene {
       win.setVelocity(100, 200);
       win.setBounce(1, 1);
       win.setCollideWorldBounds(true);
-
+      aplausos.play();
       empezar.startFollow(win);
       Swal.fire({
         title: "!FELICIDADES! " + player,
@@ -252,12 +255,14 @@ export class Prin extends Phaser.Scene {
       if (principal.mute === false && this.musicaIcono === 0) {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
+        aplausos.mute = true;
         principal.mute = true;
       } else {
         this.musica.setFrame(0);
         this.musicaIcono = 0;
         principal.play();
         principal.mute = false;
+        aplausos.mute = false;
       }
     });
 
@@ -337,7 +342,7 @@ export class Prin extends Phaser.Scene {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
 
-          const url = "../index.html";
+          const url = "./index.html";
           window.location.href = url;
         }
       });
@@ -352,7 +357,7 @@ export class Prin extends Phaser.Scene {
     });
     this.puntajes.on("pointerdown", () => {
       principal.stop();
-      const url = "../html/puntajes.html";
+      const url = "./html/puntajes.html";
       window.location.href = url;
     });
 

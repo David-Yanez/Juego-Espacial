@@ -417,7 +417,7 @@ async function login(user) {
     const data = await res.json();
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", data.usuario.usuario);
-    location.href = "../html/Juego.html";
+    location.href = "../Juego.html";
     irJuego();
   }
 }
