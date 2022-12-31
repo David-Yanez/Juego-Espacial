@@ -35,6 +35,10 @@ export class Ordenar extends Phaser.Scene {
     this.load.spritesheet("pio", "assets/sprites/secuencia/pio.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("pio2", "assets/sprites/secuencia/pio2.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("planta2", "assets/sprites/secuencia/planta2.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("planta3", "assets/sprites/secuencia/planta3.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("hombre", "assets/sprites/secuencia/hombre.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("nina", "assets/sprites/secuencia/nina.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("dibujo", "assets/sprites/secuencia/dibujo.png", { frameWidth: 202, frameHeight: 202 });
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
@@ -111,15 +115,15 @@ export class Ordenar extends Phaser.Scene {
 
     function generar() {
       if (dificultad <= 4) {
-        nombre = ["cabello", "plantar", "cabello2", "galletas", "patos", "perro", "bb", "burbujas", "dientes", "pez", "pio"];
-        n = Phaser.Math.Between(0, 10);
+        nombre = ["cabello", "plantar", "cabello2", "galletas", "patos", "perro", "bb", "burbujas", "dientes", "pez", "pio", "dibujo"];
+        n = Phaser.Math.Between(0, 11);
         ord = [0, 1, 2];
         ord.sort(() => Math.random() - 0.5);
       }
 
       if (dificultad > 4 && dificultad <= 8) {
-        nombre = ["globos", "resbaladera", "levantarse", "nieve", "pio", "planta2"];
-        n = Phaser.Math.Between(0, 5);
+        nombre = ["globos", "resbaladera", "levantarse", "nieve", "planta2", "planta3", "hombre", "nina"];
+        n = Phaser.Math.Between(0, 7);
         ord = [0, 1, 2, 3];
 
         ord.sort(() => Math.random() - 0.5);

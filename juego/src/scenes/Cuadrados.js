@@ -160,28 +160,94 @@ export class Cuadrados extends Phaser.Scene {
     // const grafico = this.add.graphics({ fillStyle: { color: 0x0000ff }, lineStyle: { color: 0x0000aa } });
     const datos = [
       {
-        inst: ["1. Derecha", "2. Abajo", "3. Abajo"],
+        inst: ["1. Derecha", "", "2. Abajo", "", "3. Abajo"],
         img: [100, 240, 180, 480],
         resx: [180, 180, 180],
         resy: [240, 320, 400]
       },
       {
-        inst: ["1. Derecha", "2. Derecha", "3. Derecha"],
+        inst: ["1. Derecha", "", "2. Derecha", "", "3. Derecha"],
         img: [100, 480, 340, 400],
         resx: [180, 260, 340],
         resy: [480, 480, 480]
       },
       {
-        inst: ["1. Abajo", "2. Izquierda", "3. Abajo"],
+        inst: ["1. Abajo", "", "2. Izquierda", "", "3. Abajo"],
         img: [340, 240, 260, 480],
         resx: [340, 260, 260],
         resy: [320, 320, 400]
       },
       {
-        inst: ["1. Izquierda", "2. Arriba", "3. Izquierda"],
+        inst: ["1. Izquierda", "", "2. Arriba", "", "3. Izquierda"],
         img: [340, 400, 100, 320],
         resx: [260, 260, 180],
         resy: [400, 320, 320]
+      },
+      {
+        inst: ["1. Derecha", "", "2. Derecha", "", "3. Abajo"],
+        img: [180, 240, 340, 400],
+        resx: [260, 340, 340],
+        resy: [240, 240, 320]
+      },
+      {
+        inst: ["1. Derecha", "", "2. Abajo", "", "3. Derecha"],
+        img: [100, 400, 340, 480],
+        resx: [180, 180, 260],
+        resy: [400, 480, 480]
+      },
+      {
+        inst: ["1. Derecha", "", "2. Derecha", "", "3. Arriba"],
+        img: [100, 320, 340, 240],
+        resx: [180, 260, 260],
+        resy: [320, 320, 240]
+      },
+      {
+        inst: ["1. Abajo", "", "2. Derecha", "", "3. Abajo"],
+        img: [180, 240, 260, 480],
+        resx: [180, 260, 260],
+        resy: [320, 320, 400]
+      },
+      {
+        inst: ["1. Abajo", "", "2. Izquierda", "", "3. Abajo"],
+        img: [260, 320, 100, 480],
+        resx: [260, 180, 180],
+        resy: [480, 400, 480]
+      },
+      {
+        inst: ["1. Derecha", "", "2. Abajo", "", "3. Derecha", "", "4. Abajo"],
+        img: [100, 240, 340, 400],
+        resx: [180, 180, 260, 260],
+        resy: [240, 320, 320, 400]
+      },
+      {
+        inst: ["1. Derecha", "", "2. Derecha", "", "3. Arriba", "", "4. Izquierda"],
+        img: [100, 480, 100, 400],
+        resx: [180, 260, 260, 180],
+        resy: [480, 480, 400, 400]
+      },
+      {
+        inst: ["1. Izquierda", "", "2. Izquierda", "", "3. Arriba", "", "4. Arriba"],
+        img: [340, 480, 100, 320],
+        resx: [260, 180, 180, 180],
+        resy: [480, 480, 400, 320]
+      },
+      {
+        inst: ["1. Abajo", "", "2. Izquierda", "", "3. Abajo", "", "4. Izquierda"],
+        img: [340, 240, 180, 480],
+        resx: [340, 260, 260, 180],
+        resy: [320, 320, 400, 400]
+      },
+      {
+        inst: ["1. Derecha", "", "2. Derecha", "", "3. Derecha", "", "4. Abajo"],
+        img: [100, 240, 340, 400],
+        resx: [180, 260, 340, 340],
+        resy: [240, 240, 240, 320]
+      },
+      {
+        inst: ["1. Arriba", "", "2. Izquierda", "", "3. Arriba", "", "4. Arriba"],
+        img: [260, 480, 260, 240],
+        resx: [260, 180, 180, 180],
+        resy: [400, 400, 320, 240]
       }
 
     ];
@@ -202,6 +268,7 @@ export class Cuadrados extends Phaser.Scene {
       xx = xx + 80;
     }
     let n;
+    let difi = 0;
 
     // let t;
     const img1 = this.add.image(0, 0, "nave").setScale(0.4).setInteractive();
@@ -211,7 +278,18 @@ export class Cuadrados extends Phaser.Scene {
     generar();
     function generar() {
       // n = 3;
-      n = Phaser.Math.Between(0, 3);
+      if (difi < 6) {
+        n = Phaser.Math.Between(0, 8);
+      }
+      if (difi >= 5 && difi < 10) {
+        n = Phaser.Math.Between(9, 14);
+      }
+      if (difi >= 10) {
+      //  difi = 0;
+        n = Phaser.Math.Between(0, 14);
+      }
+      difi++;
+      console.log(n);
       img1.setPosition(datos[n].img[0], datos[n].img[1]);
       img2.setPosition(datos[n].img[2], datos[n].img[3]);
       //  console.log(datos[n].inst);
@@ -227,9 +305,17 @@ export class Cuadrados extends Phaser.Scene {
       cuadrados.forEach(function(calCua) {
         calCua.forEach(function(calCuadra) {
           //   console.log(calCuadra);
-          if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
-          if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
-          if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+          console.log(datos[n].resx.length);
+          if (datos[n].resx.length === 3) {
+            if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+          } else {
+            if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[3] && calCuadra.y === datos[n].resy[3] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+          }
         });
         // console.log(datos[n].resx[0]);
         //    console.log(calCua.x);
@@ -242,7 +328,7 @@ export class Cuadrados extends Phaser.Scene {
 
   pintar(pointer, fleee) {
     if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 16711680) { fleee.setTint(0x00AA00); } else { if (fleee.texture.key === "cuadrado") fleee.setTint(0xff0000); }
-
+    console.log("x: " + fleee.x + " y: " + fleee.y);
     // if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 43520) { fleee.setTint(0xff0000); }
   }
 

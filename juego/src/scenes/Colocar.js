@@ -121,6 +121,33 @@ export class Colocar extends Phaser.Scene {
       {
         ints: ["1. Coloca en el cuadro del centro la estrella.",
           " ",
+          "2. Coloca a la izquierda de la estrella ", "el marciano.",
+          " ",
+          "3. Coloca a la derecha de la estrella ", "el astronauta."],
+        img: ["estrella", "mar", "astro"],
+        res: [5, 4, 6]
+      },
+      {
+        ints: ["1. Coloca en el cuadro del centro la tierra.",
+          " ",
+          "2. Coloca sobre la tierra ", "la nave.",
+          " ",
+          "3. Coloca a la derecha de la nave ", "la luna"],
+        img: ["nave", "luna", "tierra"],
+        res: [2, 3, 5]
+      },
+      {
+        ints: ["1. Coloca en el cuadro del centro la nave.",
+          " ",
+          "2. Coloca debajo de la nave ", "la luna.",
+          " ",
+          "3. Coloca a la derecha de la luna ", "la tierra"],
+        img: ["nave", "luna", "tierra"],
+        res: [5, 8, 9]
+      },
+      {
+        ints: ["1. Coloca en el cuadro del centro la estrella.",
+          " ",
           "2. Coloca debajo de la estrella ", "la luna.",
           " ",
           "3. Coloca a la derecha de la estrella", "el astronauta.",
@@ -128,6 +155,61 @@ export class Colocar extends Phaser.Scene {
           "4. Coloca a la izquierda de la luna ", "el marciano."],
         img: ["estrella", "luna", "astro", "mar"],
         res: [5, 8, 6, 7]
+      },
+      {
+        ints: ["1. Coloca en el cuadro del centro la luna.",
+          " ",
+          "2. Coloca debajo de la luna ", "el astronauta.",
+          " ",
+          "3. Coloca a la derecha de la luna ", "el marciano.",
+          " ",
+          "4. Coloca a la izquierda del astronauta ", "la estrella."],
+        img: ["luna", "mar", "estrella", "astro"],
+        res: [5, 6, 7, 8]
+      },
+      {
+        ints: ["1. Coloca en el cuadro del centro el astronauta.",
+          " ",
+          "2. Coloca a la derecha del estronauta ", "la estrella.",
+          " ",
+          "3. Coloca a la izquierda del estronauta ", "el marciano.",
+          " ",
+          "4. Coloca debajo del astronauta ", "la luna."],
+        img: ["mar", "astro", "estrella", "luna"],
+        res: [4, 5, 6, 8]
+      },
+      {
+        ints: ["1. Coloca en el cuadro del centro el astronauta.",
+          " ",
+          "2. Coloca a la derecha del estronauta ", "la estrella.",
+          " ",
+          "3. Coloca a la izquierda del estronauta ", "el marciano.",
+          " ",
+          "4. Coloca debajo del astronauta ", "la luna."],
+        img: ["mar", "astro", "estrella", "luna"],
+        res: [4, 5, 6, 8]
+      },
+      {
+        ints: ["1. Coloca en el cuadro del centro la estrella.",
+          " ",
+          "2. Coloca a la izquierda de la estrella ", "la luna.",
+          " ",
+          "3. Coloca sobre la luna ", "el marciano.",
+          " ",
+          "4. Coloca debajo de la luna ", "el astronauta."],
+        img: ["mar", "luna", "estrella", "astro"],
+        res: [1, 4, 5, 7]
+      },
+      {
+        ints: ["1. Coloca en el cuadro del centro el marciano.",
+          " ",
+          "2. Coloca a la derecha de la marciano ", "la luna.",
+          " ",
+          "3. Coloca sobre la luna ", "la estrella.",
+          " ",
+          "4. Coloca debajo de la luna ", "el astronauta."],
+        img: ["estrella", "mar", "luna", "astro"],
+        res: [3, 5, 6, 9]
       }
     ];
 
@@ -138,7 +220,7 @@ export class Colocar extends Phaser.Scene {
     let d;
     let t;
 
-    //  n = 5;
+    // n = 7;
     n = 0;
     // Phaser.Math.Between(3, 5);
     a = this.add.image(370, 250, datos[n].img[0]).setScale(0.3).setInteractive();
@@ -163,7 +245,7 @@ export class Colocar extends Phaser.Scene {
       //  d.input.setDraggable;
 
       // n = 5;
-      n = Phaser.Math.Between(0, 5);
+      n = Phaser.Math.Between(0, (datos.length - 1));
       a.setTexture(datos[n].img[0]);
       b.setTexture(datos[n].img[1]);
       c.setTexture(datos[n].img[2]);
@@ -352,31 +434,7 @@ export class Colocar extends Phaser.Scene {
       if (datos[n].img[1] === gameObject.texture.key) { p2 = dropZone; p12 = gameObject; }
       if (datos[n].img[2] === gameObject.texture.key) { p3 = dropZone; p13 = gameObject; }
       if (datos[n].img[3] === gameObject.texture.key) { p4 = dropZone; p14 = gameObject; }
-      /* if ()
-      if (dropZone.x === 77 && dropZone.y === 245) {
-       if(gameObject.texture.key === ) z1 = gameObject.texture.key;
-       }
-      if (dropZone.x === 168 && dropZone.y === 245) { z2 = gameObject.texture.key; }
-      if (dropZone.x === 261 && dropZone.y === 245) { z3 = gameObject.texture.key; }
-      if (dropZone.x === 77 && dropZone.y === 336) { z4 = gameObject.texture.key; }
-
-      if (dropZone.x === 168 && dropZone.y === 336) { z5 = gameObject.texture.key; }
-      if (dropZone.x === 261 && dropZone.y === 336) { z6 = gameObject.texture.key; }
-      if (dropZone.x === 77 && dropZone.y === 427) { z7 = gameObject.texture.key; }
-      if (dropZone.x === 168 && dropZone.y === 427) { z8 = gameObject.texture.key; }
-      if (dropZone.x === 261 && dropZone.y === 427) { z9 = gameObject.texture.key; } */
-      // console.log(gameObject.texture.key);
-
-      // gameObject.input.enabled = false;
     });
-    /*  const graphics0 = this.add.graphics();
-    graphics0.lineStyle(2, 0xffff00);
-    graphics0.strokeRect(zone0.x - zone0.input.hitArea.width / 2, zone0.y - zone0.input.hitArea.height / 2, zone0.input.hitArea.width, zone0.input.hitArea.height);
-    */
-    /* this.input.on("pointerdown", function(pointer) {
-      console.log(pointer.x);
-      console.log(pointer.y);
-    }); */
   }
 }
 
