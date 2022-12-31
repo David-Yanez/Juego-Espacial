@@ -19,7 +19,15 @@
      background-size: cover;
      background-color: #0b5394;
         }
-       
+     
+        #scro{
+        overflow:scroll;
+        height:400px;  
+        }
+        #scro2{
+        overflow:scroll;
+        height:500px;  
+        }
     </style>
 </head>
 <body class="container">
@@ -81,8 +89,8 @@
     <div class="row">
         <div class="col-2 col-md-3"> </div>
         <div class="col-7 col-md-6"> 
-            
-    <table   class="table table-dark table-striped">
+       <div id="scro">    
+    <table   class="table table-dark table-striped" >
         <thead class="table-success">
         <tr>
             <th scope="col">#</th>
@@ -95,6 +103,7 @@
         </tbody>
 
     </table>
+</div> 
 
     </div>
     <div class="col-3 col-md-3"> </div>
@@ -142,6 +151,7 @@
 
 
 <br>
+<div id="scro2">
 <table  id="tabla22" class="table table-dark table-striped">
     <thead class="table-success">
     <tr>
@@ -159,7 +169,7 @@
     </tbody>
 
 </table>
-    
+</div>
       
 </body>
 </html>
