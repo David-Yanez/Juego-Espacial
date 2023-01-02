@@ -32,7 +32,9 @@ export class Prin extends Phaser.Scene {
     this.load.spritesheet("tie", "assets/sprites/tie.png", { frameWidth: 100, frameHeight: 100 });
   //  this.load.spritesheet("tie", "assets/sprites/tie2.png", { frameWidth: 23.6, frameHeight: 24 });
  
-    this.load.spritesheet("ovni", "assets/sprites/nave/ovni.png", { frameWidth: 84.28, frameHeight: 59 });
+ //   this.load.spritesheet("ovni", "assets/sprites/nave/ovni.png", { frameWidth: 84.28, frameHeight: 59 });
+    this.load.spritesheet("ovni", "assets/sprites/nave/ovni2.png", { frameWidth: 357.1, frameHeight: 250 });
+  
     this.load.spritesheet("puntajes", "assets/sprites/UI/puntajes.png", { frameWidth: 197.5, frameHeight: 192 });
     this.load.spritesheet("jugarJu", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
     this.load.spritesheet("jugarSa", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
@@ -233,7 +235,7 @@ export class Prin extends Phaser.Scene {
     this.add.text(65, 190, "Júpiter", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
     this.add.text(30, 500, "Puntajes", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
 
-    spriteOvni = this.physics.add.sprite(400, 350, "ovni").setScale(0.6);
+    spriteOvni = this.physics.add.sprite(400, 350, "ovni").setScale(0.1);
     spriteOvni.play({ key: "ovni", repeat: -1 });
 
     this.input.on("pointerdown", function(pointer) {
