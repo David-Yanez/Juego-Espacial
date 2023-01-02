@@ -270,17 +270,17 @@ export class Union extends Phaser.Scene {
     const line4 = new Phaser.Geom.Line();
     const line5 = new Phaser.Geom.Line();
 
-    const circle1 = new Phaser.Geom.Circle(100, 300, 7);
-    const circle2 = new Phaser.Geom.Circle(200, 300, 7);
-    const circle3 = new Phaser.Geom.Circle(300, 300, 7);
-    const circle4 = new Phaser.Geom.Circle(400, 300, 7);
-    const circle5 = new Phaser.Geom.Circle(500, 300, 7);
+    const circle1 = new Phaser.Geom.Circle(100, 300, 8);
+    const circle2 = new Phaser.Geom.Circle(200, 300, 8);
+    const circle3 = new Phaser.Geom.Circle(300, 300, 8);
+    const circle4 = new Phaser.Geom.Circle(400, 300, 8);
+    const circle5 = new Phaser.Geom.Circle(500, 300, 8);
 
-    const circle6 = new Phaser.Geom.Circle(100, 500, 7);
-    const circle7 = new Phaser.Geom.Circle(200, 500, 7);
-    const circle8 = new Phaser.Geom.Circle(300, 500, 7);
-    const circle9 = new Phaser.Geom.Circle(400, 500, 7);
-    const circle10 = new Phaser.Geom.Circle(500, 500, 7);
+    const circle6 = new Phaser.Geom.Circle(100, 500, 8);
+    const circle7 = new Phaser.Geom.Circle(200, 500, 8);
+    const circle8 = new Phaser.Geom.Circle(300, 500, 8);
+    const circle9 = new Phaser.Geom.Circle(400, 500, 8);
+    const circle10 = new Phaser.Geom.Circle(500, 500, 8);
 
     // circle4.
 

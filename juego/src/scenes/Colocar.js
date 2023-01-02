@@ -65,8 +65,8 @@ export class Colocar extends Phaser.Scene {
     // Contador
     this.min = data.time / 60;
     this.inicio = data.time;
-    //  this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
-    this.contador = this.add.bitmapText(300, 100, "desyrel", "").setScale(0.5);
+    this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
+    // this.contador = this.add.bitmapText(300, 100, "desyrel", "").setScale(0.5);
     // this.contador = this.add.bitmapText(300, 100, "azoXML", "").setScale(0.3);
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 
