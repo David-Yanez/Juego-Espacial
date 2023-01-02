@@ -27,7 +27,9 @@ export class Prin extends Phaser.Scene {
     this.load.spritesheet("sol", "assets/sprites/sol.png", { frameWidth: 200, frameHeight: 200 });
     this.load.spritesheet("gal", "assets/sprites/gal.png", { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet("sat", "assets/sprites/sat.png", { frameWidth: 300, frameHeight: 300 });
-    this.load.spritesheet("tie", "assets/sprites/tie.png", { frameWidth: 100, frameHeight: 100 });
+  //  this.load.spritesheet("tie", "assets/sprites/tie.png", { frameWidth: 100, frameHeight: 100 });
+    this.load.spritesheet("tie", "assets/sprites/tie2.png", { frameWidth: 23.6, frameHeight: 24 });
+ 
     this.load.spritesheet("ovni", "assets/sprites/ovni.png", { frameWidth: 84.28, frameHeight: 59 });
     this.load.spritesheet("puntajes", "assets/sprites/UI/puntajes.png", { frameWidth: 197.5, frameHeight: 192 });
     this.load.spritesheet("jugarJu", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
@@ -213,7 +215,9 @@ export class Prin extends Phaser.Scene {
     const spriteSat = this.add.sprite(200, 450, "sat").setScale(0.6);
     spriteSat.play({ key: "sat", repeat: -1 });
 
-    const spriteTie = this.add.sprite(100, 250, "tie").setScale(0.6);
+ //   const spriteTie = this.add.sprite(100, 250, "tie").setScale(0.6);
+    const spriteTie = this.add.sprite(100, 250, "tie").setScale(1.5);
+  
     spriteTie.play({ key: "tie", repeat: -1 });
 
     //  this.add.bitmapText(45, 185, "azoXML", "Jupiter").setScale(0.25);
