@@ -27,7 +27,9 @@ export class Prin extends Phaser.Scene {
   //  this.load.spritesheet("au", "assets/sprites/agu2.png", { frameWidth: 23.6, frameHeight: 24 });
    
     this.load.spritesheet("sol", "assets/sprites/sol.png", { frameWidth: 200, frameHeight: 200 });
-    this.load.spritesheet("gal", "assets/sprites/gal.png", { frameWidth: 100, frameHeight: 100 });
+ //   this.load.spritesheet("gal", "assets/sprites/gal.png", { frameWidth: 100, frameHeight: 100 });
+    this.load.spritesheet("gal", "assets/sprites/gal2.png", { frameWidth: 200, frameHeight: 200 });
+  
     this.load.spritesheet("sat", "assets/sprites/sat.png", { frameWidth: 300, frameHeight: 300 });
     this.load.spritesheet("tie", "assets/sprites/tie.png", { frameWidth: 100, frameHeight: 100 });
   //  this.load.spritesheet("tie", "assets/sprites/tie2.png", { frameWidth: 23.6, frameHeight: 24 });
@@ -213,7 +215,7 @@ export class Prin extends Phaser.Scene {
     const spriteSol = this.add.sprite(400, 150, "sol").setScale(0.6);
     spriteSol.play({ key: "sol", repeat: -1 });
 
-    const spriteGal = this.add.sprite(612, 450, "gal").setScale(1.1);
+    const spriteGal = this.add.sprite(612, 450, "gal").setScale(0.5);
     spriteGal.play({ key: "gal", repeat: -1 });
 
     const spriteSat = this.add.sprite(200, 450, "sat").setScale(0.6);
