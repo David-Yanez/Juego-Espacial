@@ -31,7 +31,7 @@ export class Prin extends Phaser.Scene {
     this.load.spritesheet("gal", "assets/sprites/gal2.png", { frameWidth: 200, frameHeight: 200 });
   
   //  this.load.spritesheet("sat", "assets/sprites/sat.png", { frameWidth: 300, frameHeight: 300 });
-    this.load.spritesheet("sat", "assets/sprites/sat2.png", { frameWidth: 300, frameHeight: 300 });
+    this.load.spritesheet("sat", "assets/sprites/sat2.png", { frameWidth: 198, frameHeight: 198 });
   
    // this.load.spritesheet("tie", "assets/sprites/tie.png", { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet("tie", "assets/sprites/tie2.png", { frameWidth: 200, frameHeight: 200 });
@@ -217,10 +217,10 @@ export class Prin extends Phaser.Scene {
     const spriteSol = this.add.sprite(400, 150, "sol").setScale(0.6);
     spriteSol.play({ key: "sol", repeat: -1 });
 
-    const spriteGal = this.add.sprite(612, 450, "gal").setScale(0.5);
+    const spriteGal = this.add.sprite(612, 450, "gal").setScale(0.6);
     spriteGal.play({ key: "gal", repeat: -1 });
 
-    const spriteSat = this.add.sprite(200, 450, "sat").setScale(0.6);
+    const spriteSat = this.add.sprite(200, 450, "sat").setScale(0.9);
     spriteSat.play({ key: "sat", repeat: -1 });
 
     const spriteTie = this.add.sprite(100, 250, "tie").setScale(0.35);
@@ -239,7 +239,7 @@ export class Prin extends Phaser.Scene {
     this.add.text(65, 190, "Júpiter", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
     this.add.text(30, 500, "Puntajes", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
 
-    spriteOvni = this.physics.add.sprite(400, 350, "ovni").setScale(0.5);
+    spriteOvni = this.physics.add.sprite(400, 350, "ovni").setScale(0.6);
     spriteOvni.play({ key: "ovni", repeat: -1 });
 
     this.input.on("pointerdown", function(pointer) {
