@@ -23,7 +23,9 @@ export class Prin extends Phaser.Scene {
     this.load.image("a", "assets/sprites/titulo/a.png");
     this.load.image("l", "assets/sprites/titulo/l.png");
     //
-    this.load.spritesheet("au", "assets/sprites/agu.png", { frameWidth: 200, frameHeight: 200 });
+    this.load.spritesheet("au", "assets/sprites/agu3.png", { frameWidth: 200, frameHeight: 200 });
+ //   this.load.spritesheet("au", "assets/sprites/agu2.png", { frameWidth: 23.6, frameHeight: 24 });
+   
     this.load.spritesheet("sol", "assets/sprites/sol.png", { frameWidth: 200, frameHeight: 200 });
     this.load.spritesheet("gal", "assets/sprites/gal.png", { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet("sat", "assets/sprites/sat.png", { frameWidth: 300, frameHeight: 300 });
@@ -203,7 +205,7 @@ export class Prin extends Phaser.Scene {
     }
 
     // Animaciones de cuerpos celestes
-    const spriteAu = this.add.sprite(700, 150, "au").setScale(0.6);
+    const spriteAu = this.add.sprite(700, 150, "au").setScale(0.5);
     spriteAu.play({ key: "gir", repeat: -1 });
 
     const spriteSol = this.add.sprite(400, 150, "sol").setScale(0.6);
@@ -216,7 +218,7 @@ export class Prin extends Phaser.Scene {
     spriteSat.play({ key: "sat", repeat: -1 });
 
  //   const spriteTie = this.add.sprite(100, 250, "tie").setScale(0.6);
-    const spriteTie = this.add.sprite(100, 250, "tie").setScale(1.5);
+    const spriteTie = this.add.sprite(100, 250, "tie").setScale(2.5);
   
     spriteTie.play({ key: "tie", repeat: -1 });
 
