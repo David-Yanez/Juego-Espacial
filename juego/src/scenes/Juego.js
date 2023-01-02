@@ -9,7 +9,8 @@ import { Flechas } from "./Flechas";
 import { Configuracion } from "./Configuracion";
 
 const config = {
-  type: Phaser.AUTO,
+  //type: Phaser.AUTO,
+  type: Phaser.CANVAS,
   width: 800,
   height: 600,
   backgroundColor: "#71a08b",
