@@ -98,22 +98,22 @@ export class Prin extends Phaser.Scene {
     const solAnim = this.anims.create({
       key: "sol",
       frames: this.anims.generateFrameNumbers("sol"),
-      frameRate: 4
+      frameRate: 6
     });
     const galAnim = this.anims.create({
       key: "gal",
       frames: this.anims.generateFrameNumbers("gal"),
-      frameRate: 5
+      frameRate: 7
     });
     const satAnim = this.anims.create({
       key: "sat",
       frames: this.anims.generateFrameNumbers("sat"),
-      frameRate: 5
+      frameRate: 7
     });
     const tieAnim = this.anims.create({
       key: "tie",
       frames: this.anims.generateFrameNumbers("tie"),
-      frameRate: 5
+      frameRate: 7
     });
     const ovniAnim = this.anims.create({
       key: "ovni",

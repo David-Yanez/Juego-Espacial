@@ -11,7 +11,7 @@ export class Ordenar extends Phaser.Scene {
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
     // Titulo
     this.load.image("tltSecuencia", "assets/sprites/UI/tltSecuencia.png");
-    this.load.image("unoo", "assets/sprites/UI/unoo.jpg");
+    //this.load.image("unoo", "assets/sprites/UI/unoo.jpg");
 
     // Numeros
     this.load.spritesheet("nums", "assets/sprites/UI/numeros.png", { frameWidth: 202, frameHeight: 202 });
@@ -39,6 +39,31 @@ export class Ordenar extends Phaser.Scene {
     this.load.spritesheet("hombre", "assets/sprites/secuencia/hombre.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("nina", "assets/sprites/secuencia/nina.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("dibujo", "assets/sprites/secuencia/dibujo.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("alberja", "assets/sprites/secuencia/alberja.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("arbol", "assets/sprites/secuencia/arbol.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("cebolla", "assets/sprites/secuencia/cebolla.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("color", "assets/sprites/secuencia/color.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("comer", "assets/sprites/secuencia/comer.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("comer2", "assets/sprites/secuencia/comer2.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("durazno", "assets/sprites/secuencia/durazno.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("edificio", "assets/sprites/secuencia/edificio.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("fresa", "assets/sprites/secuencia/fresa.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("helados", "assets/sprites/secuencia/helados.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("lapiz", "assets/sprites/secuencia/lapiz.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("manzana", "assets/sprites/secuencia/manzana.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("nieve2", "assets/sprites/secuencia/nieve2.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("niño", "assets/sprites/secuencia/niño.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("oruga", "assets/sprites/secuencia/oruga.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("papa", "assets/sprites/secuencia/papa.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("pastel", "assets/sprites/secuencia/pastel.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("pepino", "assets/sprites/secuencia/pepino.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("rosa", "assets/sprites/secuencia/rosa.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("sandia", "assets/sprites/secuencia/sandia.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("sapo", "assets/sprites/secuencia/sapo.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("tomate", "assets/sprites/secuencia/tomate.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("vela", "assets/sprites/secuencia/vela.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("vela2", "assets/sprites/secuencia/vela2.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("zanahoria", "assets/sprites/secuencia/zanahoria.png", { frameWidth: 202, frameHeight: 202 });
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
@@ -115,15 +140,16 @@ export class Ordenar extends Phaser.Scene {
 
     function generar() {
       if (dificultad <= 4) {
-        nombre = ["cabello", "plantar", "cabello2", "galletas", "patos", "perro", "bb", "burbujas", "dientes", "pez", "pio", "dibujo"];
-        n = Phaser.Math.Between(0, 11);
+        nombre = ["cabello", "plantar", "cabello2", "galletas", "patos", "perro", "bb", "burbujas", "dientes", "pez", "pio", "dibujo", "alberja",
+          "cebolla", "color", "comer", "comer2", "durazno", "fresa", "manzana", "nieve2", "oruga", "papa", "pepino", "sapo", "tomate", "vela2", "zanahoria"];
+        n = Phaser.Math.Between(0, (nombre.length - 1));
         ord = [0, 1, 2];
         ord.sort(() => Math.random() - 0.5);
       }
 
       if (dificultad > 4 && dificultad <= 8) {
-        nombre = ["globos", "resbaladera", "levantarse", "nieve", "planta2", "planta3", "hombre", "nina"];
-        n = Phaser.Math.Between(0, 7);
+        nombre = ["globos", "resbaladera", "levantarse", "nieve", "planta2", "planta3", "hombre", "nina", "arbol", "edificio", "helados", "lapiz", "niño", "pastel", "rosa", "sandia", "vela"];
+        n = Phaser.Math.Between(0, (nombre.length - 1));
         ord = [0, 1, 2, 3];
 
         ord.sort(() => Math.random() - 0.5);
@@ -132,9 +158,9 @@ export class Ordenar extends Phaser.Scene {
         dd1.setAlpha(1);
       }
       if (dificultad > 8) {
-        nombre = ["cabello", "plantar", "cabello2", "galletas", "patos",
-          "perro", "bb", "burbujas", "dientes", "pez", "pio"];
-        n = Phaser.Math.Between(0, 10);
+        nombre = ["cabello", "plantar", "cabello2", "galletas", "patos", "perro", "bb", "burbujas", "dientes", "pez", "pio", "dibujo", "alberja",
+          "cebolla", "color", "comer", "comer2", "durazno", "fresa", "manzana", "nieve2", "oruga", "papa", "pepino", "sapo", "tomate", "vela2", "zanahoria"];
+        n = Phaser.Math.Between(0, (nombre.length - 1));
         ord = [0, 1, 2];
         ord.sort(() => Math.random() - 0.5);
         dificultad = 1;
@@ -142,6 +168,7 @@ export class Ordenar extends Phaser.Scene {
         dd.setAlpha(0);
         dd1.setAlpha(0);
       }
+      console.log(nombre[n]);
     }
 
     function res() {
