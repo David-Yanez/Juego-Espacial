@@ -387,6 +387,12 @@ document.getElementById("btnLogin").onclick = function() {
       // title: "Oops...",
       text: "Complete la contraseña"
     });
+  } if (nombre === "") {
+    Swal.fire({
+      icon: "warning",
+      // title: "Oops...",
+      text: "Ingrese un nombre"
+    });
   } else {
     const pass = contra1.value + contra2.value + contra3.value;
     const usuario = {
