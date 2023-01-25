@@ -376,7 +376,7 @@ function onEvent() {
   this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
-    this.scene.start("Punt", { punt: puntaje, letra: "a", nomb: "Secuancia Lógica", time: this.min, sce: "Ordenar", musicaIcono: this.musicaIcono });
+    this.scene.start("Punt", { punt: puntaje, letra: "a", nomb: "Secuencia Lógica", time: this.min, sce: "Ordenar", musicaIcono: this.musicaIcono });
     puntaje = 0;
     principal.stop();
   }

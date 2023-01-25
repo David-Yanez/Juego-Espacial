@@ -27,7 +27,10 @@ export class Union extends Phaser.Scene {
     this.load.spritesheet("marciano6", "assets/sprites/juegos/marciano6.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("meteoro", "assets/sprites/juegos/meteoro.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("nave2", "assets/sprites/juegos/nave2.png", { frameWidth: 202, frameHeight: 202 });
-   
+    this.load.spritesheet("meteoro2", "assets/sprites/juegos/meteoro2.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("meteoro3", "assets/sprites/juegos/meteoro3.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("nave3", "assets/sprites/juegos/nave3.png", { frameWidth: 202, frameHeight: 202 });
+  
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
@@ -68,7 +71,7 @@ export class Union extends Phaser.Scene {
     this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 
-    const nombre = ["marciano1", "astro1", "nave1", "estrella", "astro2", "astro3", "marciano2", "marciano3", "marciano4", "marciano5", "marciano6", "meteoro", "nave2"];
+    const nombre = ["marciano1", "astro1", "nave1", "estrella", "astro2", "astro3", "marciano2", "marciano3", "marciano4", "marciano5", "marciano6", "meteoro", "nave2", "meteoro2", "meteoro3", "nave3"];
     let n;
     let a;
     let b;
@@ -89,7 +92,7 @@ export class Union extends Phaser.Scene {
     let dificultad = 0;
     generar2();
     function generar2() {
-      n = Phaser.Math.Between(0, 12);
+      n = Phaser.Math.Between(0, 15);
       if (dificultad <= 4) {
         aa = Phaser.Math.Between(0, 3);
         bb = Phaser.Math.Between(0, 3);
@@ -479,7 +482,7 @@ function onEvent() {
   this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
-    this.scene.start("Punt", { punt: puntaje, letra: "pa", nomb: "Unión con líneas", time: this.min, sce: "Union", musicaIcono: this.musicaIcono });
+    this.scene.start("Punt", { punt: puntaje, letra: "pa", nomb: "Unión con Líneas", time: this.min, sce: "Union", musicaIcono: this.musicaIcono });
     puntaje = 0;
     principal.stop();
   }

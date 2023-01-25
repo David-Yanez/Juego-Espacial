@@ -178,7 +178,7 @@ export class Prin extends Phaser.Scene {
     const particles = this.add.particles("red");
     const win = this.physics.add.image(400, 60, "tlt").setScale(0.4).setAlpha(0);
 
-    /* es1 = 1;
+   /* es1 = 1;
     pa1 = 1;
     ci1 = 1;
     a1 = 1;
