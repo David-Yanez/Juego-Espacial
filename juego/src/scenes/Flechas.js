@@ -17,10 +17,10 @@ export class Flechas extends Phaser.Scene {
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
-    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 200, frameHeight: 201 });
+    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 456, frameHeight: 201 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
-    this.load.spritesheet("pregunta", "assets/sprites/UI/pregunta.png", { frameWidth: 206, frameHeight: 185 });
+    this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
 
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
@@ -66,7 +66,7 @@ export class Flechas extends Phaser.Scene {
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozFlechas" });
     });
 
-    this.ok = this.add.sprite(600, 400, "ok").setInteractive().setScale(0.2);
+    this.ok = this.add.sprite(650, 350, "ok").setInteractive().setScale(0.2);
     this.ok.on("pointerover", () => {
       this.ok.setFrame(1);
     });
@@ -80,7 +80,7 @@ export class Flechas extends Phaser.Scene {
       cambiar();
     });
 
-    this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
+    this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
     this.pregunta.on("pointerover", () => {
       this.pregunta.setFrame(1);
     });
@@ -94,10 +94,13 @@ export class Flechas extends Phaser.Scene {
       }
       Swal.fire({
         icon: "info",
-        text: "Colorea las flechas. Selecciona una flecha de color, luego selecciona las demás flechas en blanco que sean similares para pintarlas, para cambiar de color puedes seleccionar otra flecha. Una vez todas las flechas sean pintadas, selecciona el botón 👍 para continuar."
+        text: "Selecciona una flecha de color, luego selecciona las flechas de blanco que sean iguales para pintarlas. Para cambiar el color puedes seleccionar otra flecha de muestra. Una vez todas las flechas sean pintadas, selecciona el botón validar para continuar."
       }
       );
     });
+
+    this.add.text(240, 135, "Pinta las flechas según la dirección del modelo.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
     this.musica.setFrame(this.musicaIcono);
@@ -156,38 +159,58 @@ export class Flechas extends Phaser.Scene {
       }
     });
 
+    const graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 } });
+    const rect = new Phaser.Geom.Rectangle(70, 252, 450, 330);
+    graphics.strokeRectShape(rect);
+
     let contador = 0;
     let i = 1;
 
-    this.verde = this.add.image(140, 200, "flecha").setScale(0.3).setInteractive().setTint(0x00FF00);
-    this.rojo = this.add.image(230, 200, "flecha").setScale(0.3).setAngle(180).setInteractive().setTint(0xff0000);
-    const azul = this.add.image(320, 200, "flecha").setScale(0.3).setAngle(270).setInteractive().setTint(0x0080FF).setAlpha(0);
+    this.amarillo = this.add.image(140, 200, "flecha").setScale(0.3).setInteractive().setTint(0xFBFF2F);
+    this.azul = this.add.image(230, 200, "flecha").setScale(0.3).setAngle(180).setInteractive().setTint(0x0080FF);
+    const naranja = this.add.image(320, 200, "flecha").setScale(0.3).setAngle(270).setInteractive().setTint(0xCF7C3A).setAlpha(0);
     const morado = this.add.image(410, 200, "flecha").setScale(0.3).setAngle(90).setInteractive().setTint(0x8000FF).setAlpha(0);
 
-    this.verde.on("pointerdown", () => {
-      color = 0x00FF00;
+    this.amarillo.on("pointerdown", () => {
+      color = 0xFBFF2F;
       console.log(color);
+      this.amarillo.setScale(0.5);
+      this.azul.setScale(0.3);
+      naranja.setScale(0.3);
+      morado.setScale(0.3);
     }, this);
 
-    this.rojo.on("pointerdown", () => {
-      color = 0xff0000;
-      console.log(color);
-    }, this);
-
-    azul.on("pointerdown", () => {
+    this.azul.on("pointerdown", () => {
       color = 0x0080FF;
       console.log(color);
+      this.azul.setScale(0.5);
+      this.amarillo.setScale(0.3);
+      naranja.setScale(0.3);
+      morado.setScale(0.3);
+    }, this);
+
+    naranja.on("pointerdown", () => {
+      color = 0xCF7C3A;
+      console.log(color);
+      naranja.setScale(0.5);
+      this.azul.setScale(0.3);
+      this.amarillo.setScale(0.3);
+      morado.setScale(0.3);
     }, this);
 
     morado.on("pointerdown", () => {
       color = 0x8000FF;
       console.log(color);
+      morado.setScale(0.5);
+      naranja.setScale(0.3);
+      this.azul.setScale(0.3);
+      this.amarillo.setScale(0.3);
     }, this);
 
     nivel();
     function nivel() {
       if (contador === 4) {
-        azul.setAlpha(1);
+        naranja.setAlpha(1);
         i = 2;
       }
       if (contador === 7) {

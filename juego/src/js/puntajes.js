@@ -21,9 +21,9 @@ export async function rakingPuntajes() {
   const numero2 = document.getElementById("n2");
   const numero3 = document.getElementById("n3");
 
-  numero1.innerHTML = data.body[0].usuario + "&nbsp; &nbsp; &nbsp;" + data.body[0].wins;
-  numero2.innerHTML = data.body[1].usuario + "&nbsp; &nbsp; &nbsp;" + data.body[1].wins;
-  numero3.innerHTML = data.body[2].usuario + "&nbsp; &nbsp; &nbsp;" + data.body[2].wins;
+  numero1.innerHTML = data.body[0].usuario + "&nbsp; &nbsp; " + data.body[0].wins + " veces";
+  numero2.innerHTML = data.body[1].usuario + "&nbsp; &nbsp; " + data.body[1].wins + " veces";
+  numero3.innerHTML = data.body[2].usuario + "&nbsp; &nbsp; " + data.body[2].wins + " veces";
 
   for (let i = 3; i < data.body.length; i++) {
     const row = "<tr><td>" + n + "</td><td>" + data.body[i].usuario + "</td><td>" + data.body[i].wins + "</td></tr>";

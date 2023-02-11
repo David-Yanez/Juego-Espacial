@@ -30,15 +30,14 @@ export class Union extends Phaser.Scene {
     this.load.spritesheet("meteoro2", "assets/sprites/juegos/meteoro2.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("meteoro3", "assets/sprites/juegos/meteoro3.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("nave3", "assets/sprites/juegos/nave3.png", { frameWidth: 202, frameHeight: 202 });
-  
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
-    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 200, frameHeight: 201 });
+    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 456, frameHeight: 201 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
     this.load.spritesheet("flechas", "assets/sprites/juegos/flechas.png", { frameWidth: 202, frameHeight: 202 });
-    this.load.spritesheet("pregunta", "assets/sprites/UI/pregunta.png", { frameWidth: 206, frameHeight: 185 });
+    this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
 
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
@@ -166,7 +165,7 @@ export class Union extends Phaser.Scene {
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozUnion" });
     });
 
-    this.ok = this.add.sprite(600, 400, "ok").setInteractive().setScale(0.2);
+    this.ok = this.add.sprite(630, 400, "ok").setInteractive().setScale(0.2);
     this.ok.on("pointerover", () => {
       this.ok.setFrame(1);
     });
@@ -185,7 +184,7 @@ export class Union extends Phaser.Scene {
       console.log(puntaje);
     });
 
-    this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
+    this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
     this.pregunta.on("pointerover", () => {
       this.pregunta.setFrame(1);
     });
@@ -199,7 +198,7 @@ export class Union extends Phaser.Scene {
       }
       Swal.fire({
         icon: "info",
-        text: "Une las Imágenes con líneas. Une los puntos de las imágenes de arriba hacia abajo para que coincidan con la dirección de las flechas. Una vez las imágenes estén unidas con las flechas, selecciona el botón 👍 para continuar."
+        text: "Une los puntos de las imágenes de arriba hacia abajo para que coincidan con la dirección de las flechas. Una vez las imágenes estén unidas con las flechas, selecciona el botón validar para continuar."
       });
     });
 
@@ -286,6 +285,9 @@ export class Union extends Phaser.Scene {
     const circle10 = new Phaser.Geom.Circle(500, 500, 8);
 
     // circle4.
+
+    //const s = ["Da clic en los cuadrados de acuerdo a las", "siguientes instrucciones:"];
+    this.add.text(240, 150, "Da clic para unir la imagen con su dirección.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     graphi.fillCircleShape(circle1);
     graphi.fillCircleShape(circle2);
@@ -416,6 +418,11 @@ export class Union extends Phaser.Scene {
       pun3 = 0;
       pun4 = 0;
       pun5 = 0;
+      a1.clearTint();
+      b1.clearTint();
+      c1.clearTint();
+      d1.clearTint();
+      e1.clearTint();
     }
 
     let pun1 = 0;
@@ -432,6 +439,9 @@ export class Union extends Phaser.Scene {
       graphic1.strokeLineShape(line1);
       if (p1 === p2) {
         pun1 = 1;
+        a1.setTint(0x00AA00);
+      } else {
+        a1.setTint(0xff0000);
       }
     }
     function dibu2(x1, y1, x2, y2, p1, p2) {
@@ -442,6 +452,9 @@ export class Union extends Phaser.Scene {
       graphic2.strokeLineShape(line2);
       if (p1 === p2) {
         pun2 = 1;
+        b1.setTint(0x00AA00);
+      } else {
+        b1.setTint(0xff0000);
       }
     }
     function dibu3(x1, y1, x2, y2, p1, p2) {
@@ -452,6 +465,9 @@ export class Union extends Phaser.Scene {
       graphic3.strokeLineShape(line3);
       if (p1 === p2) {
         pun3 = 1;
+        c1.setTint(0x00AA00);
+      } else {
+        c1.setTint(0xff0000);
       }
     }
     function dibu4(x1, y1, x2, y2, p1, p2) {
@@ -462,6 +478,9 @@ export class Union extends Phaser.Scene {
       graphic4.strokeLineShape(line4);
       if (p1 === p2) {
         pun4 = 1;
+        d1.setTint(0x00AA00);
+      } else {
+        d1.setTint(0xff0000);
       }
     }
     function dibu5(x1, y1, x2, y2, p1, p2) {
@@ -472,6 +491,9 @@ export class Union extends Phaser.Scene {
       graphic5.strokeLineShape(line5);
       if (p1 === p2) {
         pun5 = 1;
+        e1.setTint(0x00AA00);
+      } else {
+        e1.setTint(0xff0000);
       }
     }
   }

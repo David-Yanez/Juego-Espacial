@@ -108,7 +108,8 @@ export class Puntajes extends Phaser.Scene {
     this.punt = this.add.text(260, 300, "Puntaje: ", { font: "15px Arial Black", fill: "#fff" });
     this.punt.setStroke("#4f9ae0", 5);
 
-    this.letras = this.add.text(260, 390, "Letras: ", { font: "15px Arial Black", fill: "#fff" });
+    const s = ["Letra", "obtenida:"];
+    this.letras = this.add.text(260, 390, s, { font: "15px Arial Black", fill: "#fff" });
     this.letras.setStroke("#4f9ae0", 5);
 
     this.letras = this.add.text(360, 300, this.puntaje, { font: "15px Arial Black", fill: "#e8dfe1" });

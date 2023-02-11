@@ -11,11 +11,11 @@ export class Ordenar extends Phaser.Scene {
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
     // Titulo
     this.load.image("tltSecuencia", "assets/sprites/UI/tltSecuencia.png");
-    //this.load.image("unoo", "assets/sprites/UI/unoo.jpg");
+    // this.load.image("unoo", "assets/sprites/UI/unoo.jpg");
 
     // Numeros
     this.load.spritesheet("nums", "assets/sprites/UI/numeros.png", { frameWidth: 202, frameHeight: 202 });
-    this.load.spritesheet("nums2", "assets/sprites/UI/numeros2.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("nums2", "assets/sprites/UI/numeros23.png", { frameWidth: 202, frameHeight: 202 });
 
     // Secuencias
     this.load.spritesheet("cabello", "assets/sprites/secuencia/cabello.png", { frameWidth: 202, frameHeight: 202 });
@@ -67,10 +67,10 @@ export class Ordenar extends Phaser.Scene {
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
-    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 200, frameHeight: 201 });
+    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 456, frameHeight: 201 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
-    this.load.spritesheet("pregunta", "assets/sprites/UI/pregunta.png", { frameWidth: 206, frameHeight: 185 });
+    this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
 
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
@@ -104,9 +104,10 @@ export class Ordenar extends Phaser.Scene {
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
     // this.add.image(70, 380, "unoo").setDisplayOrigin(0, 0).setScale(0.3);
     // Numeros
-    this.add.sprite(150, 400, "nums2").setInteractive().setScale(0.6).setFrame(0);
-    this.add.sprite(300, 400, "nums2").setInteractive().setScale(0.6).setFrame(1);
-    this.add.sprite(450, 400, "nums2").setInteractive().setScale(0.6).setFrame(2);
+
+    const aa = this.add.sprite(150, 400, "nums2").setInteractive().setScale(0.6).setFrame(0);
+    const bb = this.add.sprite(300, 400, "nums2").setInteractive().setScale(0.6).setFrame(1);
+    const cc = this.add.sprite(450, 400, "nums2").setInteractive().setScale(0.6).setFrame(2);
     const dd = this.add.sprite(600, 400, "nums2").setInteractive().setScale(0.6).setFrame(3);
 
     this.add.sprite(150, 510, "nums").setInteractive().setScale(0.5).setFrame(0);
@@ -169,6 +170,10 @@ export class Ordenar extends Phaser.Scene {
         dd1.setAlpha(0);
       }
       console.log(nombre[n]);
+      aa.clearTint();
+      bb.clearTint();
+      cc.clearTint();
+      dd.clearTint();
     }
 
     function res() {
@@ -211,6 +216,13 @@ export class Ordenar extends Phaser.Scene {
       p14 = 0;
     }
 
+    function calificar2() {
+      if (p1 === 150 && p11.x === 150) { aa.setTint(0x00AA00); } else { aa.setTint(0xff0000); }
+      if (p2 === 300 && p12.x === 300) { bb.setTint(0x00AA00); } else { bb.setTint(0xff0000); }
+      if (p3 === 450 && p13.x === 450) { cc.setTint(0x00AA00); } else { cc.setTint(0xff0000); }
+      if (p4 === 600 && p14.x === 600) { dd.setTint(0x00AA00); } else { dd.setTint(0xff0000); }
+    }
+
     this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
     this.atras.on("pointerover", () => {
       this.atras.setFrame(1);
@@ -224,7 +236,7 @@ export class Ordenar extends Phaser.Scene {
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozOrdenar" });
     });
 
-    this.ok = this.add.sprite(750, 300, "ok").setInteractive().setScale(0.2);
+    this.ok = this.add.sprite(730, 300, "ok").setInteractive().setScale(0.2);
     this.ok.on("pointerover", () => {
       this.ok.setFrame(1);
     });
@@ -241,7 +253,7 @@ export class Ordenar extends Phaser.Scene {
       res();
     });
 
-    this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
+    this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
     this.pregunta.on("pointerover", () => {
       this.pregunta.setFrame(1);
     });
@@ -255,10 +267,13 @@ export class Ordenar extends Phaser.Scene {
       }
       Swal.fire({
         icon: "info",
-        text: "Arrastra las imágenes para ordenar. Ordena las imágenes según su secuencia lógica, arrastrando al cuadrado que está sobre el número que corresponda. Una vez las imágenes estén ordenadas, selecciona el botón 👍 para continuar."
+        text: "Ordena las imágenes según su secuencia lógica, arrastrando al cuadrado que está sobre el número que corresponda. Una vez las imágenes estén ordenadas, selecciona el botón validar para continuar."
 
       });
     });
+
+    this.add.text(180, 150, "Arrastra las imágenes para ordenar según su secuencia lógica.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+  
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
     this.musica.setFrame(this.musicaIcono);
@@ -355,13 +370,13 @@ export class Ordenar extends Phaser.Scene {
       gameObject.x = dropZone.x;
       gameObject.y = dropZone.y;
 
-      console.log(gameObject.frame.name);
-      console.log(gameObject);
+     /* console.log(gameObject.frame.name);
+      console.log(gameObject);*/
       if (gameObject.frame.name === 0) { p1 = gameObject.x; p11 = gameObject; }
       if (gameObject.frame.name === 1) { p2 = gameObject.x; p12 = gameObject; }
       if (gameObject.frame.name === 2) { p3 = gameObject.x; p13 = gameObject; }
       if (gameObject.frame.name === 3) { p4 = gameObject.x; p14 = gameObject; }
-
+      calificar2();
       //  console.log("drop x: " + gameObject.x);
       //  console.log(dropZone);
       //   console.log(gameObject.texture.key);

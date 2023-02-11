@@ -14,8 +14,10 @@ export class Colocar extends Phaser.Scene {
     this.load.bitmapFont("desyrel", "assets/sprites/UI/desyrel.png", "assets/sprites/UI/desyrel.xml");
     this.load.bitmapFont("azoXML", "assets/sprites/UI/bitmap-fonts-debug.png", "assets/sprites/UI/azo-fire.xml");
     // Matriz
-    this.load.image("matri", "assets/sprites/UI/matri.PNG");
-    this.load.image("matri2", "assets/sprites/UI/matri2.png");
+    // this.load.image("matri", "assets/sprites/UI/matri.PNG");
+    this.load.image("cuadrado", "assets/sprites/UI/cuadrado.png");
+
+    // this.load.image("matri2", "assets/sprites/UI/matri2.png");
 
     // Imagenes
     this.load.image("astro", "assets/sprites/colocar/astro.png");
@@ -28,10 +30,10 @@ export class Colocar extends Phaser.Scene {
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
-    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 200, frameHeight: 201 });
+    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 456, frameHeight: 201 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
-    this.load.spritesheet("pregunta", "assets/sprites/UI/pregunta.png", { frameWidth: 206, frameHeight: 185 });
+    this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
 
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
@@ -69,6 +71,8 @@ export class Colocar extends Phaser.Scene {
     // this.contador = this.add.bitmapText(300, 100, "desyrel", "").setScale(0.5);
     // this.contador = this.add.bitmapText(300, 100, "azoXML", "").setScale(0.3);
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
+
+    this.add.text(180, 150, "Arrastra las imágenes dentro de la matriz según las instrucciones.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     // Textos
 
@@ -262,6 +266,16 @@ export class Colocar extends Phaser.Scene {
       c.y = 250;
       d.x = 730;
       d.y = 250;
+
+      c1.clearTint();
+      c2.clearTint();
+      c3.clearTint();
+      c4.clearTint();
+      c5.clearTint();
+      c6.clearTint();
+      c7.clearTint();
+      c8.clearTint();
+      c9.clearTint();
     }
     // console.log(datos);
 
@@ -279,7 +293,7 @@ export class Colocar extends Phaser.Scene {
       puntaje = 0;
     });
 
-    this.ok = this.add.sprite(750, 380, "ok").setInteractive().setScale(0.2);
+    this.ok = this.add.sprite(520, 530, "ok").setInteractive().setScale(0.2);
     this.ok.on("pointerover", () => {
       this.ok.setFrame(1);
     });
@@ -293,7 +307,7 @@ export class Colocar extends Phaser.Scene {
       //   this.scene.start("Prin");
     });
 
-    this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
+    this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
     this.pregunta.on("pointerover", () => {
       this.pregunta.setFrame(1);
     });
@@ -307,7 +321,7 @@ export class Colocar extends Phaser.Scene {
       }
       Swal.fire({
         icon: "info",
-        text: "Comprensión de instrucciones. Sigue las instrucciones que se muestra al lado derecho de los cuadrados, arrastra las imágenes y coloca según las instrucciones. Una vez hayas colocado las imágenes, selecciona el botón 👍 para continuar."
+        text: "Arrastra las imágenes para colocarlas en la matriz siguiendo las instrucciones que se encuentran de lado derecho. Una vez hayas colocado las imágenes, selecciona el botón validar para continuar."
 
       });
     });
@@ -371,15 +385,23 @@ export class Colocar extends Phaser.Scene {
 
     const zone1 = this.add.zone(77, 245, 46, 45).setRectangleDropZone(90, 90);
     const zone2 = this.add.zone(168, 245, 46, 45).setRectangleDropZone(90, 90);
-    const zone3 = this.add.zone(261, 245, 46, 45).setRectangleDropZone(90, 90);
+    const zone3 = this.add.zone(259, 245, 46, 45).setRectangleDropZone(90, 90);
 
     const zone4 = this.add.zone(77, 336, 46, 45).setRectangleDropZone(90, 90);
     const zone5 = this.add.zone(168, 336, 46, 45).setRectangleDropZone(90, 90);
-    const zone6 = this.add.zone(261, 336, 46, 45).setRectangleDropZone(90, 90);
+    const zone6 = this.add.zone(259, 336, 46, 45).setRectangleDropZone(90, 90);
 
     const zone7 = this.add.zone(77, 427, 46, 45).setRectangleDropZone(90, 90);
     const zone8 = this.add.zone(168, 427, 46, 45).setRectangleDropZone(90, 90);
-    const zone9 = this.add.zone(261, 427, 46, 45).setRectangleDropZone(90, 90);
+    const zone9 = this.add.zone(259, 427, 46, 45).setRectangleDropZone(90, 90);
+
+    /* const graphics = this.add.graphics();
+    // graphics.fillStyle(0xffff00);
+    graphics.lineStyle(2, 0xffff00);
+    graphics.strokeRect(zone6.x - zone6.input.hitArea.width / 2, zone6.y - zone6.input.hitArea.height / 2, zone6.input.hitArea.width, zone6.input.hitArea.height);
+    // graphics.fillRectShape(zone1);
+    // graphics.fillRectShape(zone3);
+    console.log(zone1); */
 
     zone1.name = 1;
     zone2.name = 2;
@@ -390,6 +412,20 @@ export class Colocar extends Phaser.Scene {
     zone7.name = 7;
     zone8.name = 8;
     zone9.name = 9;
+
+    const c1 = this.add.image(77, 245, "cuadrado").setScale(0.45);
+    const c2 = this.add.image(168, 245, "cuadrado").setScale(0.45);
+    const c3 = this.add.image(259, 245, "cuadrado").setScale(0.45);
+
+    const c4 = this.add.image(77, 336, "cuadrado").setScale(0.45);
+    const c5 = this.add.image(168, 336, "cuadrado").setScale(0.45);
+    const c6 = this.add.image(259, 336, "cuadrado").setScale(0.45);
+
+    const c7 = this.add.image(77, 427, "cuadrado").setScale(0.45);
+    const c8 = this.add.image(168, 427, "cuadrado").setScale(0.45);
+    const c9 = this.add.image(259, 427, "cuadrado").setScale(0.45);
+
+    const cuadradoss = [c1, c2, c3, c4, c5, c6, c7, c8, c9];
 
     this.input.on("dragstart", function(pointer, gameObject) {
       this.children.bringToTop(gameObject);
@@ -424,17 +460,64 @@ export class Colocar extends Phaser.Scene {
       }
       console.log("puntaje: " + puntaje);
     }
+
+    /*  function calificar2() {
+      if (datos[n].res.length === 4) {
+        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { cuadradoss[p1.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { cuadradoss[p2.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { cuadradoss[p3.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[3] === p4.name && p4.x === p14.x && p4.y === p14.y) { cuadradoss[p4.name - 1].setTint(0x00AA00); }
+        console.log(p1.name);
+      } else {
+        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { cuadradoss[p1.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { cuadradoss[p2.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { cuadradoss[p3.name - 1].setTint(0x00AA00); }
+        console.log("hola2");
+      }
+    } */
+
     this.input.on("drop", function(pointer, gameObject, dropZone) {
       gameObject.x = dropZone.x;
       gameObject.y = dropZone.y;
 
-      // console.log(dropZone); */
+      if (datos[n].img[0] === gameObject.texture.key) {
+        console.log("hola");
+        p1 = dropZone; p11 = gameObject; if (datos[n].res[0] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); } else {cuadradoss[dropZone.name - 1].setTint(0xff0000);}
+      }
+      if (datos[n].img[1] === gameObject.texture.key) { p2 = dropZone; p12 = gameObject; if (datos[n].res[1] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00);} else {cuadradoss[dropZone.name - 1].setTint(0xff0000);} }
+      if (datos[n].img[2] === gameObject.texture.key) { p3 = dropZone; p13 = gameObject; if (datos[n].res[2] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); } else {cuadradoss[dropZone.name - 1].setTint(0xff0000);} }
+      if (datos[n].img[3] === gameObject.texture.key) { p4 = dropZone; p14 = gameObject; if (datos[n].res[3] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00);} else {cuadradoss[dropZone.name - 1].setTint(0xff0000);} }
+      //  calificar2();
+      console.log(dropZone.name);
+      //  calificar23();
 
-      if (datos[n].img[0] === gameObject.texture.key) { p1 = dropZone; p11 = gameObject; }
-      if (datos[n].img[1] === gameObject.texture.key) { p2 = dropZone; p12 = gameObject; }
-      if (datos[n].img[2] === gameObject.texture.key) { p3 = dropZone; p13 = gameObject; }
-      if (datos[n].img[3] === gameObject.texture.key) { p4 = dropZone; p14 = gameObject; }
+    /*  if (datos[n].res.length === 4) {
+        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { cuadradoss[p1.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { cuadradoss[p2.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { cuadradoss[p3.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[3] === p4.name && p4.x === p14.x && p4.y === p14.y) { cuadradoss[p4.name - 1].setTint(0x00AA00); }
+        console.log("hola1");
+      } else {
+        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { cuadradoss[p1.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { cuadradoss[p2.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { cuadradoss[p3.name - 1].setTint(0x00AA00); }
+        console.log("hola2");
+      } */
     });
+
+    /* function calificar23() {
+      if (datos[n].res.length === 4) {
+        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { cuadradoss[p1.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { cuadradoss[p2.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { cuadradoss[p3.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[3] === p4.name && p4.x === p14.x && p4.y === p14.y) { cuadradoss[p4.name - 1].setTint(0x00AA00); }
+      } else {
+        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { cuadradoss[p1.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { cuadradoss[p2.name - 1].setTint(0x00AA00); }
+        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { cuadradoss[p3.name - 1].setTint(0x00AA00); }
+      }
+      console.log("puntaje: " + puntaje);
+    } */
   }
 }
 

@@ -28,6 +28,14 @@ export class Configuracion extends Phaser.Scene {
     /*  this.load.image("difi", "assets/sprites/UI/dificultad.png");
     this.load.image("facil", "assets/sprites/UI/facil.png");
     this.load.image("dificil", "assets/sprites/UI/dificil.png"); */
+    // GIFs
+    this.load.spritesheet("OrdenarGif", "assets/sprites/gifs/OrdenarGifs.png", { frameWidth: 855, frameHeight: 482 });
+    this.load.spritesheet("CuadradosGif", "assets/sprites/gifs/cuadradosGifs.png", { frameWidth: 855, frameHeight: 482 });
+    this.load.spritesheet("UnionGif", "assets/sprites/gifs/UnionGifs.png", { frameWidth: 855, frameHeight: 482 });
+    this.load.spritesheet("FlechasGif", "assets/sprites/gifs/FlechasGifs.png", { frameWidth: 855, frameHeight: 482 });
+    this.load.spritesheet("ColocarGif", "assets/sprites/gifs/ColocarGifs.png", { frameWidth: 855, frameHeight: 482 });
+
+    // Configs
     this.load.image("instruc", "assets/sprites/UI/instruc.png");
     this.load.image("tiempo", "assets/sprites/UI/tiempo.png");
     this.load.image("1m", "assets/sprites/UI/1m.png");
@@ -50,6 +58,7 @@ export class Configuracion extends Phaser.Scene {
   }
 
   create(data) {
+  
     this.ins = data.instru;
     this.es = data.scene;
     this.tlt = data.titulo;
@@ -77,6 +86,16 @@ export class Configuracion extends Phaser.Scene {
     /* this.add.image(40, 150, "difi").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(20, 230, "facil").setDisplayOrigin(0, 0).setScale(0.4);
     this.add.image(200, 230, "dificil").setDisplayOrigin(0, 0).setScale(0.4); */
+    this.anims.create({
+      key: (this.es + "Gif"),
+      frames: this.anims.generateFrameNumbers(this.es + "Gif"),
+      frameRate: 5
+    });
+
+    const spriteAu = this.add.sprite(570, 520, (this.es + "Gif")).setScale(0.35);
+    spriteAu.play({ key: (this.es + "Gif"), repeat: -1 });
+    console.log(spriteAu);
+
     this.add.image(555, 135, "instruc").setScale(0.55);
     this.add.image(60, 220, "tiempo").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(20, 310, "1m").setDisplayOrigin(0, 0).setScale(0.2);
@@ -163,7 +182,7 @@ export class Configuracion extends Phaser.Scene {
       }
     });
 
-    this.juegoSa = this.add.sprite(400, 550, "jugar").setInteractive().setScale(0.25);
+    this.juegoSa = this.add.sprite(350, 550, "jugar").setInteractive().setScale(0.25);
     this.juegoSa.on("pointerover", () => {
       this.juegoSa.setFrame(1);
     });

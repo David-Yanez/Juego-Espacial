@@ -18,9 +18,9 @@ export class Cuadrados extends Phaser.Scene {
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
-    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 200, frameHeight: 201 });
+    this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 456, frameHeight: 201 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
-    this.load.spritesheet("pregunta", "assets/sprites/UI/pregunta.png", { frameWidth: 206, frameHeight: 185 });
+    this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
@@ -53,7 +53,8 @@ export class Cuadrados extends Phaser.Scene {
 
     // Instrucciones
     // this.instrucciones = this.add.text(400, 170, "Centro, Izquierda, Abajo", { fontFamily: "Times New Roman", fontSize: 25, color: "#ffff00" });
-
+   // const s = ["Da clic en los cuadrados de acuerdo a las", "siguientes instrucciones:"];
+    this.add.text(170, 150, "Da clic en los cuadrados de acuerdo a las siguientes instrucciones:", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
     // Botones
 
     this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
@@ -68,7 +69,7 @@ export class Cuadrados extends Phaser.Scene {
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozCuadrados" });
     });
 
-    this.ok = this.add.sprite(750, 300, "ok").setInteractive().setScale(0.2);
+    this.ok = this.add.sprite(730, 300, "ok").setInteractive().setScale(0.2);
     this.ok.on("pointerover", () => {
       this.ok.setFrame(1);
     });
@@ -81,7 +82,7 @@ export class Cuadrados extends Phaser.Scene {
       //   this.scene.start("Prin");
     });
 
-    this.pregunta = this.add.sprite(750, 450, "pregunta").setInteractive().setScale(0.2);
+    this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
     this.pregunta.on("pointerover", () => {
       this.pregunta.setFrame(1);
     });
@@ -95,7 +96,7 @@ export class Cuadrados extends Phaser.Scene {
       }
       Swal.fire(
         "",
-        "Ayuda a la nave a llegar al planeta tierra. Sigue las instrucciones que se muestra al lado derecho de los cuadrados, para crear el camino que debe seguir la nave. Una vez él caminó este listo, selecciona el botón 👍 para continuar.",
+        "Sigue las instrucciones que se muestran al lado derecho de la matriz para crear el camino que debe seguir la nave. Una vez el camino este listo, selecciona el botón validar para continuar.",
         "info"
       );
     });
@@ -211,7 +212,7 @@ export class Cuadrados extends Phaser.Scene {
         inst: ["1. Abajo", "", "2. Izquierda", "", "3. Abajo"],
         img: [260, 320, 100, 480],
         resx: [260, 180, 180],
-        resy: [480, 400, 480]
+        resy: [400, 400, 480]
       },
       {
         inst: ["1. Derecha", "", "2. Abajo", "", "3. Derecha", "", "4. Abajo"],
@@ -261,7 +262,7 @@ export class Cuadrados extends Phaser.Scene {
       for (let y = 0; y < 4; y++) {
         cuadrados[x][y] = this.add.image(0, 0, "cuadrado").setScale(0.4).setInteractive();
         //   new Phaser.Geom.Rectangle(0, 0, 80, 80);
-        cuadrados[x][y].setTint(0x00AA00);
+        cuadrados[x][y].setTint(0xf6f6a3);
         cuadrados[x][y].setPosition(xx, yy);
         yy = yy + 80;
       }
@@ -296,7 +297,7 @@ export class Cuadrados extends Phaser.Scene {
       t.setText(datos[n].inst);
       cuadrados.forEach(function(limp) {
         limp.forEach(function(limpiar) {
-          limpiar.setTint(0x00AA00);
+          limpiar.setTint(0xf6f6a3);
         });
       });
     }
@@ -307,14 +308,14 @@ export class Cuadrados extends Phaser.Scene {
           //   console.log(calCuadra);
           console.log(datos[n].resx.length);
           if (datos[n].resx.length === 3) {
-            if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
-            if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
-            if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
           } else {
-            if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
-            if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
-            if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
-            if (calCuadra.x === datos[n].resx[3] && calCuadra.y === datos[n].resy[3] && calCuadra.tintBottomLeft === 16711680) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
+            if (calCuadra.x === datos[n].resx[3] && calCuadra.y === datos[n].resy[3] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
           }
         });
         // console.log(datos[n].resx[0]);
@@ -322,14 +323,29 @@ export class Cuadrados extends Phaser.Scene {
       });
       console.log(puntaje);
     }
+
     this.input.on("gameobjectup", this.pintar, this);
-    // console.log(cuadrados[2][2]);
+
+    this.input.on("gameobjectup", (pon, obj) => {
+      if (datos[n].resx.length === 3) {
+        if (obj.x === datos[n].resx[0] && obj.y === datos[n].resy[0] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
+        if (obj.x === datos[n].resx[1] && obj.y === datos[n].resy[1] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
+        if (obj.x === datos[n].resx[2] && obj.y === datos[n].resy[2] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
+      } else {
+        if (obj.x === datos[n].resx[0] && obj.y === datos[n].resy[0] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
+        if (obj.x === datos[n].resx[1] && obj.y === datos[n].resy[1] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
+        if (obj.x === datos[n].resx[2] && obj.y === datos[n].resy[2] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
+        if (obj.x === datos[n].resx[3] && obj.y === datos[n].resy[3] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
+      }
+    });
   }
 
   pintar(pointer, fleee) {
-    if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 16711680) { fleee.setTint(0x00AA00); } else { if (fleee.texture.key === "cuadrado") fleee.setTint(0xff0000); }
+    if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 16711680) { fleee.setTint(0xf6f6a3); } else { if (fleee.texture.key === "cuadrado") fleee.setTint(0xff0000); }
     console.log("x: " + fleee.x + " y: " + fleee.y);
-    // if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 43520) { fleee.setTint(0xff0000); }
+    // calificar2();
+    // console.log(fleee);
+    // if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 43520) { fleee.setTint(0xff0000); 0x00AA00}  0x0000ff  0xffff00 0xf6f6a3 0xffffff
   }
 
   update() {
