@@ -33,7 +33,7 @@ export class Configuracion extends Phaser.Scene {
     this.load.spritesheet("CuadradosGif", "assets/sprites/gifs/cuadradosGifs.png", { frameWidth: 855, frameHeight: 482 });
     this.load.spritesheet("UnionGif", "assets/sprites/gifs/UnionGifs.png", { frameWidth: 855, frameHeight: 482 });
     this.load.spritesheet("FlechasGif", "assets/sprites/gifs/FlechasGifs.png", { frameWidth: 855, frameHeight: 482 });
-    this.load.spritesheet("ColocarGif", "assets/sprites/gifs/ColocarGifs.png", { frameWidth: 855, frameHeight: 482 });
+    this.load.spritesheet("ColocarGif", "assets/sprites/gifs/ColocarGifs1.png", { frameWidth: 355.2, frameHeight: 200 });
 
     // Configs
     this.load.image("instruc", "assets/sprites/UI/instruc.png");
@@ -92,7 +92,7 @@ export class Configuracion extends Phaser.Scene {
       frameRate: 5
     });
 
-    const spriteAu = this.add.sprite(570, 520, (this.es + "Gif")).setScale(0.35);
+    const spriteAu = this.add.sprite(570, 520, (this.es + "Gif")).setScale(0.8);
     spriteAu.play({ key: (this.es + "Gif"), repeat: -1 });
     console.log(spriteAu);
 
