@@ -24,19 +24,19 @@ export class Prin extends Phaser.Scene {
     this.load.image("l", "assets/sprites/titulo/l.png");
     //
     // this.load.spritesheet("au", "assets/sprites/agu.png", { frameWidth: 200, frameHeight: 200 });
-    this.load.spritesheet("au", "assets/sprites/agu2.png", { frameWidth: 200, frameHeight: 200 });
+    this.load.spritesheet("au", "assets/sprites/Planetas/agu2.png", { frameWidth: 200, frameHeight: 200 });
 
-    this.load.spritesheet("sol", "assets/sprites/sol2.png", { frameWidth: 200, frameHeight: 200 });
+    this.load.spritesheet("sol", "assets/sprites/Planetas/sol2.png", { frameWidth: 200, frameHeight: 200 });
     //   this.load.spritesheet("gal", "assets/sprites/gal.png", { frameWidth: 100, frameHeight: 100 });
-    this.load.spritesheet("gal", "assets/sprites/gal2.png", { frameWidth: 200, frameHeight: 200 });
+    this.load.spritesheet("gal", "assets/sprites/Planetas/gal2.png", { frameWidth: 200, frameHeight: 200 });
 
     //  this.load.spritesheet("sat", "assets/sprites/sat.png", { frameWidth: 300, frameHeight: 300 });
-    this.load.spritesheet("sat", "assets/sprites/sat2.png", { frameWidth: 198, frameHeight: 198 });
+    this.load.spritesheet("sat", "assets/sprites/Planetas/sat2.png", { frameWidth: 198, frameHeight: 198 });
 
     // this.load.spritesheet("tie", "assets/sprites/tie.png", { frameWidth: 100, frameHeight: 100 });
-    this.load.spritesheet("tie", "assets/sprites/tie2.png", { frameWidth: 200, frameHeight: 200 });
+    this.load.spritesheet("tie", "assets/sprites/Planetas/tie2.png", { frameWidth: 200, frameHeight: 200 });
 
-    this.load.spritesheet("ovni", "assets/sprites/ovni.png", { frameWidth: 84.28, frameHeight: 59 });
+    this.load.spritesheet("ovni", "assets/sprites/Planetas/ovni.png", { frameWidth: 84.28, frameHeight: 59 });
     // this.load.spritesheet("ovni", "assets/sprites/nave/ovni2.png", { frameWidth: 357.1, frameHeight: 250 });
 
     this.load.spritesheet("puntajes", "assets/sprites/UI/puntajes.png", { frameWidth: 197.5, frameHeight: 192 });
