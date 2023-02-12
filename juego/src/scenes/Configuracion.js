@@ -33,7 +33,7 @@ export class Configuracion extends Phaser.Scene {
     this.load.spritesheet("CuadradosGif", "assets/sprites/gifs/cuadradosGifs.png", { frameWidth: 855, frameHeight: 482 });
     this.load.spritesheet("UnionGif", "assets/sprites/gifs/UnionGifs.png", { frameWidth: 855, frameHeight: 482 });
     this.load.spritesheet("FlechasGif", "assets/sprites/gifs/FlechasGifs.png", { frameWidth: 855, frameHeight: 482 });
-    this.load.spritesheet("ColocarGif", "assets/sprites/gifs/ColocarGifs1.png", { frameWidth: 354.6, frameHeight: 200 });
+    this.load.spritesheet("ColocarGif", "assets/sprites/gifs/ColocarGifs2.png", { frameWidth: 200, frameHeight: 200 });
 
     // Configs
     this.load.image("instruc", "assets/sprites/UI/instruc.png");
