@@ -30,10 +30,10 @@ export class Configuracion extends Phaser.Scene {
     this.load.image("dificil", "assets/sprites/UI/dificil.png"); */
     // GIFs
     this.load.spritesheet("OrdenarGif", "assets/sprites/gifs/OrdenarGifs.png", { frameWidth: 855, frameHeight: 482 });
-    this.load.spritesheet("CuadradosGif", "assets/sprites/gifs/cuadradosGifs.png", { frameWidth: 855, frameHeight: 482 });
+    this.load.spritesheet("CuadradosGif", "assets/sprites/gifs/cuadradosGifs1.png", { frameWidth: 200, frameHeight: 200 });
     this.load.spritesheet("UnionGif", "assets/sprites/gifs/UnionGifs.png", { frameWidth: 855, frameHeight: 482 });
     this.load.spritesheet("FlechasGif", "assets/sprites/gifs/FlechasGifs.png", { frameWidth: 855, frameHeight: 482 });
-    this.load.spritesheet("ColocarGif", "assets/sprites/gifs/ColocarGifs2.png", { frameWidth: 200, frameHeight: 200 });
+    this.load.spritesheet("ColocarGif", "assets/sprites/gifs/ColocarGifs.png", { frameWidth: 200, frameHeight: 200 });
 
     // Configs
     this.load.image("instruc", "assets/sprites/UI/instruc.png");
@@ -92,7 +92,7 @@ export class Configuracion extends Phaser.Scene {
       frameRate: 5
     });
 
-    const spriteAu = this.add.sprite(570, 520, (this.es + "Gif")).setScale(0.9);
+    const spriteAu = this.add.sprite(570, 520, (this.es + "Gif")).setScale(1);
     spriteAu.play({ key: (this.es + "Gif"), repeat: -1 });
     console.log(spriteAu);
 
