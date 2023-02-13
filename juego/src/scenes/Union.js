@@ -42,6 +42,8 @@ export class Union extends Phaser.Scene {
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
     this.load.audio("vozUnion", "assets/sounds/voz/vozUnion.mp3");
+    this.load.audio("correcto", "assets/sounds/correcto.mp3");
+    this.load.audio("error", "assets/sounds/error.mp3");
   }
 
   create(data) {
@@ -53,6 +55,11 @@ export class Union extends Phaser.Scene {
     this.musicaIcono = data.musicaIcono;
 
     // Sonidos
+    const error = this.sound.add("error");
+    const correcto = this.sound.add("correcto");
+    error.volume = 0.2;
+    correcto.volume = 0.2;
+
     const voz = this.sound.add("vozUnion");
     principal = this.sound.add("principal");
     principal.volume = 0.2;
@@ -224,13 +231,22 @@ export class Union extends Phaser.Scene {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
         principal.mute = true;
+        error.mute = true;
+        correcto.mute = true;
       } else {
         this.musica.setFrame(0);
         this.musicaIcono = 0;
         principal.play();
         principal.mute = false;
+        error.mute = false;
+        correcto.mute = false;
       }
     });
+
+    if (this.musicaIcono === 2) {
+      error.mute = true;
+      correcto.mute = true;
+    }
 
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
     this.ins.setFrame(this.insIcono);
@@ -286,7 +302,7 @@ export class Union extends Phaser.Scene {
 
     // circle4.
 
-    //const s = ["Da clic en los cuadrados de acuerdo a las", "siguientes instrucciones:"];
+    // const s = ["Da clic en los cuadrados de acuerdo a las", "siguientes instrucciones:"];
     this.add.text(240, 150, "Da clic para unir la imagen con su dirección.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     graphi.fillCircleShape(circle1);
@@ -440,8 +456,10 @@ export class Union extends Phaser.Scene {
       if (p1 === p2) {
         pun1 = 1;
         a1.setTint(0x00AA00);
+        correcto.play();
       } else {
         a1.setTint(0xff0000);
+        error.play();
       }
     }
     function dibu2(x1, y1, x2, y2, p1, p2) {
@@ -453,8 +471,10 @@ export class Union extends Phaser.Scene {
       if (p1 === p2) {
         pun2 = 1;
         b1.setTint(0x00AA00);
+        correcto.play();
       } else {
         b1.setTint(0xff0000);
+        error.play();
       }
     }
     function dibu3(x1, y1, x2, y2, p1, p2) {
@@ -466,8 +486,10 @@ export class Union extends Phaser.Scene {
       if (p1 === p2) {
         pun3 = 1;
         c1.setTint(0x00AA00);
+        correcto.play();
       } else {
         c1.setTint(0xff0000);
+        error.play();
       }
     }
     function dibu4(x1, y1, x2, y2, p1, p2) {
@@ -479,8 +501,10 @@ export class Union extends Phaser.Scene {
       if (p1 === p2) {
         pun4 = 1;
         d1.setTint(0x00AA00);
+        correcto.play();
       } else {
         d1.setTint(0xff0000);
+        error.play();
       }
     }
     function dibu5(x1, y1, x2, y2, p1, p2) {
@@ -492,8 +516,10 @@ export class Union extends Phaser.Scene {
       if (p1 === p2) {
         pun5 = 1;
         e1.setTint(0x00AA00);
+        this.correcto.play();
       } else {
         e1.setTint(0xff0000);
+        this.error.play();
       }
     }
   }

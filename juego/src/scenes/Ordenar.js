@@ -75,6 +75,8 @@ export class Ordenar extends Phaser.Scene {
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
     this.load.audio("vozOrdenar", "assets/sounds/voz/vozOrdenar.mp3");
+    this.load.audio("correcto", "assets/sounds/correcto.mp3");
+    this.load.audio("error", "assets/sounds/error.mp3");
   }
 
   create(data) {
@@ -86,6 +88,11 @@ export class Ordenar extends Phaser.Scene {
     this.musicaIcono = data.musicaIcono;
 
     // Sonidos
+    const error = this.sound.add("error");
+    const correcto = this.sound.add("correcto");
+    error.volume = 0.2;
+    correcto.volume = 0.2;
+
     const voz = this.sound.add("vozOrdenar");
     principal = this.sound.add("principal");
     principal.volume = 0.2;
@@ -273,7 +280,6 @@ export class Ordenar extends Phaser.Scene {
     });
 
     this.add.text(180, 150, "Arrastra las imágenes para ordenar según su secuencia lógica.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
-  
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
     this.musica.setFrame(this.musicaIcono);
@@ -297,13 +303,21 @@ export class Ordenar extends Phaser.Scene {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
         principal.mute = true;
+        error.mute = true;
+        correcto.mute = true;
       } else {
         this.musica.setFrame(0);
         this.musicaIcono = 0;
         principal.play();
         principal.mute = false;
+        error.mute = false;
+        correcto.mute = false;
       }
     });
+    if (this.musicaIcono === 2) {
+      error.mute = true;
+      correcto.mute = true;
+    }
 
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
     this.ins.setFrame(this.insIcono);
@@ -370,13 +384,21 @@ export class Ordenar extends Phaser.Scene {
       gameObject.x = dropZone.x;
       gameObject.y = dropZone.y;
 
-     /* console.log(gameObject.frame.name);
-      console.log(gameObject);*/
+
+      /* console.log(gameObject); */
       if (gameObject.frame.name === 0) { p1 = gameObject.x; p11 = gameObject; }
       if (gameObject.frame.name === 1) { p2 = gameObject.x; p12 = gameObject; }
       if (gameObject.frame.name === 2) { p3 = gameObject.x; p13 = gameObject; }
       if (gameObject.frame.name === 3) { p4 = gameObject.x; p14 = gameObject; }
+
+      if (gameObject.frame.name === dropZone.name) {
+        console.log("correcto");
+        correcto.play();
+      } else {
+        error.play();
+      }
       calificar2();
+     
       //  console.log("drop x: " + gameObject.x);
       //  console.log(dropZone);
       //   console.log(gameObject.texture.key);

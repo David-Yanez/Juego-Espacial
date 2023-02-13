@@ -38,6 +38,8 @@ export class Colocar extends Phaser.Scene {
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
     this.load.audio("vozColocar", "assets/sounds/voz/vozColocar.mp3");
+    this.load.audio("correcto", "assets/sounds/correcto.mp3");
+    this.load.audio("error", "assets/sounds/error.mp3");
 
     /*  this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
@@ -53,6 +55,11 @@ export class Colocar extends Phaser.Scene {
     this.musicaIcono = data.musicaIcono;
 
     // Sonidos
+    const error = this.sound.add("error");
+    const correcto = this.sound.add("correcto");
+    error.volume = 0.2;
+    correcto.volume = 0.2;
+
     const voz = this.sound.add("vozColocar");
     principal = this.sound.add("principal");
     principal.volume = 0.2;
@@ -348,15 +355,22 @@ export class Colocar extends Phaser.Scene {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
         principal.mute = true;
+        error.mute = true;
+        correcto.mute = true;
       } else {
         this.musica.setFrame(0);
         this.musicaIcono = 0;
         principal.play();
         principal.mute = false;
-
+        error.mute = false;
+        correcto.mute = false;
       // mus = true;
       }
     });
+    if (this.musicaIcono === 2) {
+      error.mute = true;
+      correcto.mute = true;
+    }
 
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
     this.ins.setFrame(this.insIcono);
@@ -482,42 +496,15 @@ export class Colocar extends Phaser.Scene {
 
       if (datos[n].img[0] === gameObject.texture.key) {
         console.log("hola");
-        p1 = dropZone; p11 = gameObject; if (datos[n].res[0] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); } else {cuadradoss[dropZone.name - 1].setTint(0xff0000);}
+        p1 = dropZone; p11 = gameObject; if (datos[n].res[0] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); correcto.play(); } else { cuadradoss[dropZone.name - 1].setTint(0xff0000); error.play(); }
       }
-      if (datos[n].img[1] === gameObject.texture.key) { p2 = dropZone; p12 = gameObject; if (datos[n].res[1] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00);} else {cuadradoss[dropZone.name - 1].setTint(0xff0000);} }
-      if (datos[n].img[2] === gameObject.texture.key) { p3 = dropZone; p13 = gameObject; if (datos[n].res[2] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); } else {cuadradoss[dropZone.name - 1].setTint(0xff0000);} }
-      if (datos[n].img[3] === gameObject.texture.key) { p4 = dropZone; p14 = gameObject; if (datos[n].res[3] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00);} else {cuadradoss[dropZone.name - 1].setTint(0xff0000);} }
+      if (datos[n].img[1] === gameObject.texture.key) { p2 = dropZone; p12 = gameObject; if (datos[n].res[1] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); correcto.play(); } else { cuadradoss[dropZone.name - 1].setTint(0xff0000); error.play(); } }
+      if (datos[n].img[2] === gameObject.texture.key) { p3 = dropZone; p13 = gameObject; if (datos[n].res[2] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); correcto.play(); } else { cuadradoss[dropZone.name - 1].setTint(0xff0000); error.play(); } }
+      if (datos[n].img[3] === gameObject.texture.key) { p4 = dropZone; p14 = gameObject; if (datos[n].res[3] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); correcto.play(); } else { cuadradoss[dropZone.name - 1].setTint(0xff0000); error.play(); } }
       //  calificar2();
       console.log(dropZone.name);
       //  calificar23();
-
-    /*  if (datos[n].res.length === 4) {
-        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { cuadradoss[p1.name - 1].setTint(0x00AA00); }
-        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { cuadradoss[p2.name - 1].setTint(0x00AA00); }
-        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { cuadradoss[p3.name - 1].setTint(0x00AA00); }
-        if (datos[n].res[3] === p4.name && p4.x === p14.x && p4.y === p14.y) { cuadradoss[p4.name - 1].setTint(0x00AA00); }
-        console.log("hola1");
-      } else {
-        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { cuadradoss[p1.name - 1].setTint(0x00AA00); }
-        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { cuadradoss[p2.name - 1].setTint(0x00AA00); }
-        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { cuadradoss[p3.name - 1].setTint(0x00AA00); }
-        console.log("hola2");
-      } */
     });
-
-    /* function calificar23() {
-      if (datos[n].res.length === 4) {
-        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { cuadradoss[p1.name - 1].setTint(0x00AA00); }
-        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { cuadradoss[p2.name - 1].setTint(0x00AA00); }
-        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { cuadradoss[p3.name - 1].setTint(0x00AA00); }
-        if (datos[n].res[3] === p4.name && p4.x === p14.x && p4.y === p14.y) { cuadradoss[p4.name - 1].setTint(0x00AA00); }
-      } else {
-        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { cuadradoss[p1.name - 1].setTint(0x00AA00); }
-        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { cuadradoss[p2.name - 1].setTint(0x00AA00); }
-        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { cuadradoss[p3.name - 1].setTint(0x00AA00); }
-      }
-      console.log("puntaje: " + puntaje);
-    } */
   }
 }
 

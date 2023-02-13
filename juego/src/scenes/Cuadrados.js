@@ -25,6 +25,8 @@ export class Cuadrados extends Phaser.Scene {
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
     this.load.audio("vozCuadrados", "assets/sounds/voz/vozCuadrados.mp3");
+    this.load.audio("correcto", "assets/sounds/correcto.mp3");
+    this.load.audio("error", "assets/sounds/error.mp3");
   }
 
   create(data) {
@@ -34,7 +36,13 @@ export class Cuadrados extends Phaser.Scene {
     this.x = data.x;
     this.insIcono = data.insIcono;
     this.musicaIcono = data.musicaIcono;
+
     // Sonido
+    this.error = this.sound.add("error");
+    this.correcto = this.sound.add("correcto");
+    this.error.volume = 0.2;
+    this.correcto.volume = 0.2;
+
     const voz = this.sound.add("vozCuadrados");
     principal = this.sound.add("principal");
     principal.volume = 0.2;
@@ -53,7 +61,7 @@ export class Cuadrados extends Phaser.Scene {
 
     // Instrucciones
     // this.instrucciones = this.add.text(400, 170, "Centro, Izquierda, Abajo", { fontFamily: "Times New Roman", fontSize: 25, color: "#ffff00" });
-   // const s = ["Da clic en los cuadrados de acuerdo a las", "siguientes instrucciones:"];
+    // const s = ["Da clic en los cuadrados de acuerdo a las", "siguientes instrucciones:"];
     this.add.text(170, 150, "Da clic en los cuadrados de acuerdo a las siguientes instrucciones:", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
     // Botones
 
@@ -123,13 +131,22 @@ export class Cuadrados extends Phaser.Scene {
         this.musica.setFrame(2);
         this.musicaIcono = 2;
         principal.mute = true;
+        this.error.mute = true;
+        this.correcto.mute = true;
       } else {
         this.musica.setFrame(0);
         this.musicaIcono = 0;
         principal.play();
         principal.mute = false;
+        this.error.mute = false;
+        this.correcto.mute = false;
       }
     });
+
+    if (this.musicaIcono === 2) {
+      this.error.mute = true;
+      this.correcto.mute = true;
+    }
 
     this.ins = this.add.sprite(750, 550, "instrucciones").setInteractive().setScale(0.2);
     this.ins.setFrame(this.insIcono);
@@ -328,21 +345,25 @@ export class Cuadrados extends Phaser.Scene {
 
     this.input.on("gameobjectup", (pon, obj) => {
       if (datos[n].resx.length === 3) {
-        if (obj.x === datos[n].resx[0] && obj.y === datos[n].resy[0] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
-        if (obj.x === datos[n].resx[1] && obj.y === datos[n].resy[1] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
-        if (obj.x === datos[n].resx[2] && obj.y === datos[n].resy[2] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
+        if (obj.x === datos[n].resx[0] && obj.y === datos[n].resy[0] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); /* if (obj.tintBottomLeft === 16711680) { this.error.play(); console.log("sonido error"); } else { this.correcto.play(); } */ }
+        if (obj.x === datos[n].resx[1] && obj.y === datos[n].resy[1] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); /* if (obj.tintBottomLeft === 16711680) { this.error.play(); } else { this.correcto.play(); } */ }
+        if (obj.x === datos[n].resx[2] && obj.y === datos[n].resy[2] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); /* if (obj.tintBottomLeft === 16711680) { this.error.play(); } else { this.correcto.play(); } */ }
       } else {
-        if (obj.x === datos[n].resx[0] && obj.y === datos[n].resy[0] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
-        if (obj.x === datos[n].resx[1] && obj.y === datos[n].resy[1] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
-        if (obj.x === datos[n].resx[2] && obj.y === datos[n].resy[2] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
-        if (obj.x === datos[n].resx[3] && obj.y === datos[n].resy[3] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); }
+        if (obj.x === datos[n].resx[0] && obj.y === datos[n].resy[0] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); /* if (obj.tintBottomLeft === 16711680) { this.error.play(); } else { this.correcto.play(); } */ }
+        if (obj.x === datos[n].resx[1] && obj.y === datos[n].resy[1] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); /* if (obj.tintBottomLeft === 16711680) { this.error.play(); } else { this.correcto.play(); } */ }
+        if (obj.x === datos[n].resx[2] && obj.y === datos[n].resy[2] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00);/* if (obj.tintBottomLeft === 16711680) { this.error.play(); } else { this.correcto.play(); } */ }
+        if (obj.x === datos[n].resx[3] && obj.y === datos[n].resy[3] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); /* if (obj.tintBottomLeft === 16711680) { this.error.play(); } else { this.correcto.play(); } */ }
       }
+      if (obj.tintBottomLeft === 16711680) { this.error.play(); }
+      if (obj.tintBottomLeft === 43520) { this.correcto.play(); }
     });
   }
 
   pintar(pointer, fleee) {
     if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 16711680) { fleee.setTint(0xf6f6a3); } else { if (fleee.texture.key === "cuadrado") fleee.setTint(0xff0000); }
-    console.log("x: " + fleee.x + " y: " + fleee.y);
+    /* console.log("x: " + fleee.x + " y: " + fleee.y);
+    console.log("correcto " + this.correcto.mute); */
+
     // calificar2();
     // console.log(fleee);
     // if (fleee.texture.key === "cuadrado" && fleee.tintBottomLeft === 43520) { fleee.setTint(0xff0000); 0x00AA00}  0x0000ff  0xffff00 0xf6f6a3 0xffffff
