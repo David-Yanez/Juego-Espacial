@@ -47,12 +47,12 @@ export class Prin extends Phaser.Scene {
     this.load.spritesheet("jugarAg", "assets/sprites/UI/jugar.png", { frameWidth: 198.5, frameHeight: 203 });
     // musicatons
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
-     this.load.spritesheet("atras", "assets/sprites/UI/atras.png", { frameWidth: 201, frameHeight: 196 });
+    this.load.spritesheet("atras", "assets/sprites/UI/atras.png", { frameWidth: 201, frameHeight: 196 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("salir", "assets/sprites/UI/salir.png", { frameWidth: 40, frameHeight: 40 });
     this.load.spritesheet("can", "assets/sprites/UI/musica.png", { frameWidth: 200.5, frameHeight: 190 });
     this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
-   
+
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
     this.load.audio("vozPrin", "assets/sounds/voz/vozPrin.mp3");
@@ -177,11 +177,11 @@ export class Prin extends Phaser.Scene {
     const particles = this.add.particles("red");
     const win = this.physics.add.image(400, 60, "tlt").setScale(0.4).setAlpha(0);
 
-    /* es1 = 1;
+   /* es1 = 1;
     pa1 = 1;
     ci1 = 1;
     a1 = 1;
-    l1 = 1; */
+    l1 = 1;*/
     if (es1 === 1 && pa1 === 1 && ci1 === 1 && a1 === 1 && l1 === 1) {
       const empezar = particles.createEmitter({
         speed: 100,
@@ -195,9 +195,10 @@ export class Prin extends Phaser.Scene {
       aplausos.play();
       empezar.startFollow(win);
       Swal.fire({
-        title: "!FELICIDADES! " + player,
+        title: "! FELICIDADES ! ",
         icon: "success",
-        text: "LOGRASTE COMPLETAR TODOS LOS RETOS CON EXITO",
+        html: "<h2>" + player + "</h2>" +
+        "<p>LOGRASTE COMPLETAR TODOS LOS RETOS CON EXITO</p>",
         confirmButtonText: "Volver a Jugar"
       }).then((result) => {
         if (result.isConfirmed) {
@@ -237,7 +238,7 @@ export class Prin extends Phaser.Scene {
     this.add.text(585, 390, "Galaxia", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
     this.add.text(65, 190, "Júpiter", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
     this.add.text(30, 500, "Puntajes", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
-    this.add.text(220, 270, "Dando clic, lleva la nave sobre uno de los astros para jugar.", { font: "11px Arial Black", fill: "#e8dfe1" });
+    this.add.text(220, 270, "Dando clic, mueve la nave sobre uno de los astros para jugar.", { font: "11px Arial", fill: "#e8dfe1" });
 
     spriteOvni = this.physics.add.sprite(400, 350, "ovni").setScale(0.6);
     spriteOvni.play({ key: "ovni", repeat: -1 });
@@ -305,8 +306,7 @@ export class Prin extends Phaser.Scene {
       }
     });
 
-    //this.pregunta = this.add.sprite(750, 350, "info").setInteractive().setScale(0.2);
-
+    // this.pregunta = this.add.sprite(750, 350, "info").setInteractive().setScale(0.2);
 
     this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
     this.pregunta.on("pointerover", () => {
