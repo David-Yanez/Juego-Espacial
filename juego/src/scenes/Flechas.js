@@ -1,6 +1,8 @@
 import Phaser from "phaser";
 import Swal from "sweetalert2";
 let puntaje = 0;
+let aciertos = 0;
+let intentos = 0;
 let principal;
 let color;
 export class Flechas extends Phaser.Scene {
@@ -18,6 +20,7 @@ export class Flechas extends Phaser.Scene {
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
     this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 456, frameHeight: 201 });
+    this.load.spritesheet("terminar", "assets/sprites/UI/BtnTerminar.png", { frameWidth: 454.5, frameHeight: 193 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
     this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
@@ -63,6 +66,9 @@ export class Flechas extends Phaser.Scene {
     this.atras.on("pointerdown", () => {
       principal.stop();
       voz.stop();
+      intentos = 0;
+      aciertos = 0;
+      puntaje = 0;
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozFlechas" });
     });
 
@@ -76,8 +82,24 @@ export class Flechas extends Phaser.Scene {
     this.ok.on("pointerdown", () => {
       //   this.scene.start("Prin");
       nivel();
-      calificar();
+      this.Objcali.varCalificar();
+  //    calificar();
       cambiar();
+      console.log("Intentos: " + intentos);
+      console.log("aciertos: " + aciertos);
+    });
+
+    this.terminar = this.add.sprite(650, 430, "terminar").setInteractive().setScale(0.2);
+    this.terminar.on("pointerover", () => {
+      this.terminar.setFrame(1);
+    });
+    this.terminar.on("pointerout", () => {
+      this.terminar.setFrame(0);
+    });
+    this.terminar.on("pointerdown", () => {
+      this.Objcali.varCalificar();
+    //  calificar();
+      this.inicio = 0;
     });
 
     this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
@@ -99,8 +121,7 @@ export class Flechas extends Phaser.Scene {
       );
     });
 
-    this.add.text(240, 135, "Pinta las flechas según la dirección del modelo.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
-
+    this.add.text(120, 135, "Selecciona una flecha modelo y pinta las flechas que coincidan con  la dirección del modelo.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
     this.musica.setFrame(this.musicaIcono);
@@ -236,21 +257,24 @@ export class Flechas extends Phaser.Scene {
       }
     }
 
-    function calificar() {
-      flechas.forEach(function(calFle) {
-        if (calFle.angle === 0 && calFle.tintBottomLeft === 65280) { puntaje = puntaje + 0.25; }
-        if (calFle.angle === -180 && calFle.tintBottomLeft === 16711680) { puntaje = puntaje + 0.25; }
-        if (calFle.angle === -90 && calFle.tintBottomLeft === 33023) { puntaje = puntaje + 0.25; }
-        if (calFle.angle === 90 && calFle.tintBottomLeft === 8388863) { puntaje = puntaje + 0.25; }
+    this.Objcali = {
+      varCalificar: function calificar() {
+        flechas.forEach(function(calFle) {
+          if (calFle.angle === 0 && calFle.tintBottomLeft === 16514863) { puntaje = puntaje + 0.25; aciertos++; }
+          if (calFle.angle === -180 && calFle.tintBottomLeft === 33023) { puntaje = puntaje + 0.25; aciertos++; }
+          if (calFle.angle === -90 && calFle.tintBottomLeft === 13597754) { puntaje = puntaje + 0.25; aciertos++; }
+          if (calFle.angle === 90 && calFle.tintBottomLeft === 8388863) { puntaje = puntaje + 0.25; aciertos++; }
 
         // console.log(calFle);
         // if (ran === 0) { fle.angle = 0; }
         // puntaje++;
-      });
-      console.log("puntaje " + puntaje);
-    }
-
+        });
+        console.log("puntaje " + puntaje);
+      }
+    };
+    intentos = 20;
     function cambiar() {
+      intentos = intentos + 20;
       flechas.forEach(function(fle) {
         const ran = Phaser.Math.Between(0, i);
         fle.setTint(16777215);
@@ -276,10 +300,13 @@ function onEvent() {
   this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
+    this.Objcali.varCalificar();
     let pun = Math.trunc(puntaje);
-    this.scene.start("Punt", { punt: pun, letra: "ci", nomb: "Colorear Flechas", time: this.min, sce: "Flechas", musicaIcono: this.musicaIcono });
+    this.scene.start("Punt", { punt: pun, letra: "ci", nomb: "Colorear Flechas", time: this.min, sce: "Flechas", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
     pun = 0;
+    intentos = 0;
+    aciertos = 0;
     principal.stop();
   }
 }

@@ -58,25 +58,25 @@ async function consultas() {
   for (let i = 0; i < data.body.length; i++) {
     if (data.body[i].jugador === nJugador && data.body[i].juego === nJuego) {
       const fe = new Date(data.body[i].fecha);
-      const row = "<tr><td>" + n + "</td><td>" + data.body[i].jugador + "</td><td>" + data.body[i].juego + "</td><td>" + data.body[i].tiempo + "</td><td>" + data.body[i].puntaje + "</td><td>" + data.body[i].estrellas + "</td><td>" + fe.toLocaleString() + "</td></tr>";
+      const row = "<tr><td>" + n + "</td><td>" + data.body[i].jugador + "</td><td>" + data.body[i].juego + "</td><td>" + data.body[i].tiempo + "</td><td>" + data.body[i].puntaje + "</td><td>" + data.body[i].estrellas + "</td><td>" + data.body[i].intentos + "</td><td>" + data.body[i].aciertos + "</td><td>" + fe.toLocaleString() + "</td></tr>";
       tabla.innerHTML += row;
       n++;
     }
     if (data.body[i].jugador === nJugador && nJuego === "Selecciona un juego") {
       const fe = new Date(data.body[i].fecha);
-      const row = "<tr><td>" + n + "</td><td>" + data.body[i].jugador + "</td><td>" + data.body[i].juego + "</td><td>" + data.body[i].tiempo + "</td><td>" + data.body[i].puntaje + "</td><td>" + data.body[i].estrellas + "</td><td>" + fe.toLocaleString() + "</td></tr>";
+      const row = "<tr><td>" + n + "</td><td>" + data.body[i].jugador + "</td><td>" + data.body[i].juego + "</td><td>" + data.body[i].tiempo + "</td><td>" + data.body[i].puntaje + "</td><td>" + data.body[i].estrellas + "</td><td>" + data.body[i].intentos + "</td><td>" + data.body[i].aciertos + "</td><td>" + fe.toLocaleString() + "</td></tr>";
       tabla.innerHTML += row;
       n++;
     }
     if (nJugador === "" && data.body[i].juego === nJuego) {
       const fe = new Date(data.body[i].fecha);
-      const row = "<tr><td>" + n + "</td><td>" + data.body[i].jugador + "</td><td>" + data.body[i].juego + "</td><td>" + data.body[i].tiempo + "</td><td>" + data.body[i].puntaje + "</td><td>" + data.body[i].estrellas + "</td><td>" + fe.toLocaleString() + "</td></tr>";
+      const row = "<tr><td>" + n + "</td><td>" + data.body[i].jugador + "</td><td>" + data.body[i].juego + "</td><td>" + data.body[i].tiempo + "</td><td>" + data.body[i].puntaje + "</td><td>" + data.body[i].estrellas + "</td><td>" + data.body[i].intentos + "</td><td>" + data.body[i].aciertos + "</td><td>" + fe.toLocaleString() + "</td></tr>";
       tabla.innerHTML += row;
       n++;
     }
     if (nJugador === "" && nJuego === "Selecciona un juego") {
       const fe = new Date(data.body[i].fecha);
-      const row = "<tr><td>" + n + "</td><td>" + data.body[i].jugador + "</td><td>" + data.body[i].juego + "</td><td>" + data.body[i].tiempo + "</td><td>" + data.body[i].puntaje + "</td><td>" + data.body[i].estrellas + "</td><td>" + fe.toLocaleString() + "</td></tr>";
+      const row = "<tr><td>" + n + "</td><td>" + data.body[i].jugador + "</td><td>" + data.body[i].juego + "</td><td>" + data.body[i].tiempo + "</td><td>" + data.body[i].puntaje + "</td><td>" + data.body[i].estrellas + "</td><td>" + data.body[i].intentos + "</td><td>" + data.body[i].aciertos + "</td><td>" + fe.toLocaleString() + "</td></tr>";
       tabla.innerHTML += row;
       n++;
     }

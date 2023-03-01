@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import Swal from "sweetalert2";
 let puntaje = 0;
 let principal;
+let aciertos = 0;
+let intentos = 0;
 export class Cuadrados extends Phaser.Scene {
   constructor() {
     super({ key: "Cuadrados" });
@@ -19,6 +21,7 @@ export class Cuadrados extends Phaser.Scene {
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
     this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 456, frameHeight: 201 });
+    this.load.spritesheet("terminar", "assets/sprites/UI/BtnTerminar.png", { frameWidth: 454.5, frameHeight: 193 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
@@ -62,7 +65,9 @@ export class Cuadrados extends Phaser.Scene {
     // Instrucciones
     // this.instrucciones = this.add.text(400, 170, "Centro, Izquierda, Abajo", { fontFamily: "Times New Roman", fontSize: 25, color: "#ffff00" });
     // const s = ["Da clic en los cuadrados de acuerdo a las", "siguientes instrucciones:"];
-    this.add.text(170, 150, "Da clic en los cuadrados de acuerdo a las siguientes instrucciones:", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(230, 140, "Ayuda a la nave a retornar al pleneta tierra.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+
+    this.add.text(170, 160, "Da clic en los casilleros de acuerdo a las siguientes instrucciones:", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
     // Botones
 
     this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
@@ -74,6 +79,9 @@ export class Cuadrados extends Phaser.Scene {
     });
     this.atras.on("pointerdown", () => {
       principal.stop();
+      intentos = 0;
+      aciertos = 0;
+      puntaje = 0;
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozCuadrados" });
     });
 
@@ -85,9 +93,26 @@ export class Cuadrados extends Phaser.Scene {
       this.ok.setFrame(0);
     });
     this.ok.on("pointerdown", () => {
-      calificar();
+      intentos++;
+      this.Objcali.varCalificar();
+      // calificar();
       generar();
+      console.log("Intentos: " + intentos);
+      console.log("aciertos: " + aciertos);
       //   this.scene.start("Prin");
+    });
+
+    this.terminar = this.add.sprite(730, 360, "terminar").setInteractive().setScale(0.2);
+    this.terminar.on("pointerover", () => {
+      this.terminar.setFrame(1);
+    });
+    this.terminar.on("pointerout", () => {
+      this.terminar.setFrame(0);
+    });
+    this.terminar.on("pointerdown", () => {
+    //  calificar();
+      this.Objcali.varCalificar();
+      this.inicio = 0;
     });
 
     this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
@@ -318,29 +343,39 @@ export class Cuadrados extends Phaser.Scene {
         });
       });
     }
-    function calificar() {
+
+    let ayudaAciertos1 = 0;
+    let ayudaAciertos2 = 0;
+    this.Objcali = {
+      varCalificar: function calificar() {
       //   console.log(cuadrados);
-      cuadrados.forEach(function(calCua) {
-        calCua.forEach(function(calCuadra) {
+        cuadrados.forEach(function(calCua) {
+          calCua.forEach(function(calCuadra) {
           //   console.log(calCuadra);
-          console.log(datos[n].resx.length);
-          if (datos[n].resx.length === 3) {
-            if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
-            if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
-            if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
-          } else {
-            if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
-            if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
-            if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
-            if (calCuadra.x === datos[n].resx[3] && calCuadra.y === datos[n].resy[3] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; }
-          }
-        });
+            console.log(datos[n].resx.length);
+            if (datos[n].resx.length === 3) {
+              if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; ayudaAciertos1++; }
+              if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; ayudaAciertos1++; }
+              if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; ayudaAciertos1++; }
+            } else {
+              if (calCuadra.x === datos[n].resx[0] && calCuadra.y === datos[n].resy[0] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; ayudaAciertos2++; }
+              if (calCuadra.x === datos[n].resx[1] && calCuadra.y === datos[n].resy[1] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; ayudaAciertos2++; }
+              if (calCuadra.x === datos[n].resx[2] && calCuadra.y === datos[n].resy[2] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; ayudaAciertos2++; }
+              if (calCuadra.x === datos[n].resx[3] && calCuadra.y === datos[n].resy[3] && calCuadra.tintBottomLeft === 43520) { puntaje += 0.2; ayudaAciertos2++; }
+            }
+          });
         // console.log(datos[n].resx[0]);
         //    console.log(calCua.x);
-      });
-      console.log(puntaje);
-    }
+        });
+        if (ayudaAciertos1 === 3) { aciertos++; }
+        if (ayudaAciertos2 === 4) { aciertos++; }
 
+        ayudaAciertos1 = 0;
+        ayudaAciertos2 = 0;
+
+        console.log(puntaje);
+      }
+    };
     this.input.on("gameobjectup", this.pintar, this);
 
     this.input.on("gameobjectup", (pon, obj) => {
@@ -378,10 +413,14 @@ function onEvent() {
   this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
+    this.Objcali.varCalificar();
+    // this.calificar();
     let pun = Math.trunc(puntaje);
-    this.scene.start("Punt", { punt: pun, letra: "es", nomb: "Selección de Cuadrados", time: this.min, sce: "Cuadrados", musicaIcono: this.musicaIcono });
+    this.scene.start("Punt", { punt: pun, letra: "es", nomb: "Selección de Cuadrados", time: this.min, sce: "Cuadrados", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
     pun = 0;
+    intentos = 0;
+    aciertos = 0;
     principal.stop();
   }
 }

@@ -238,7 +238,7 @@ export class Prin extends Phaser.Scene {
     this.add.text(585, 390, "Galaxia", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
     this.add.text(65, 190, "Júpiter", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
     this.add.text(30, 500, "Puntajes", { font: "15px Arial Black", fill: "#e8dfe1" }).setStroke("#e01650", 6);
-    this.add.text(220, 270, "Dando clic, mueve la nave sobre uno de los astros para jugar.", { font: "11px Arial", fill: "#e8dfe1" });
+    this.add.text(220, 270, "Da clic para desplazar la nave sobre uno de los astros e iniciar el juego.", { font: "11px Arial", fill: "#e8dfe1" });
 
     spriteOvni = this.physics.add.sprite(400, 350, "ovni").setScale(0.6);
     spriteOvni.play({ key: "ovni", repeat: -1 });
@@ -387,8 +387,8 @@ export class Prin extends Phaser.Scene {
       principal.stop();
       const cont = [
         "",
-        "Sigue las instrucciones que se muestran", "al lado derecho de la matriz para crear el",
-        "camino que debe seguir la nave.", "", " ",
+        "Sigue las instrucciones que se muestran", "en pantalla para crear el camino que debe",
+        "seguir la nave para retornar al planeta tierra.", "", " ",
         "Una vez el camino este listo, selecciona", "el botón validar para continuar."];
       this.scene.start("Configuracion", { instru: cont, scene: "Cuadrados", titulo: "tlt1", x: 130, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozCuadrados" });
     });
@@ -404,9 +404,9 @@ export class Prin extends Phaser.Scene {
       principal.stop();
       //  this.scene.start("Union");
       const cont = [" ",
-        "Une los puntos de las imágenes de arriba",
-        "hacia abajo para que coincidan con la ",
-        "dirección de las flechas.", " ",
+        "Selecciona la dirección de la flecha",
+        "que corresponde a la imagen de arriba. ",
+        "Une los puntos de arriba hacia abajo.", " ",
         "Una vez las imágenes estén unidas", "con las flechas, selecciona el botón validar", "para continuar."];
       this.scene.start("Configuracion", { instru: cont, scene: "Union", titulo: "tltUnion", x: 170, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozUnion" });
     });
@@ -422,7 +422,7 @@ export class Prin extends Phaser.Scene {
       principal.stop();
       const cont = [" ",
         "Ordena las imágenes según su secuencia",
-        "lógica, arrastrando al cuadrado que ", "está sobre el número que corresponda.", " ",
+        "lógica. Arrastra la imagen al cuadrado que", "está sobre el número que corresponda.", " ",
         "Una vez las imágenes estén ordenadas,", "selecciona el botón validar para continuar."];
       this.scene.start("Configuracion", { instru: cont, scene: "Ordenar", titulo: "tltSecuencia", x: 160, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozOrdenar" });
     });
@@ -439,7 +439,7 @@ export class Prin extends Phaser.Scene {
       const cont = [" ",
         "Arrastra las imágenes para colocarlas ", "en la matriz siguiendo las instrucciones",
         "que se encuentran de lado derecho.", " ",
-        "Una vez hayas colocado las imágenes,", "selecciona el botón validar para continuar."];
+        "Una vez que hayas colocado las imágenes,", "selecciona el botón validar para continuar."];
       this.scene.start("Configuracion", { instru: cont, scene: "Colocar", titulo: "tltColocar", x: 90, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozColocar" });
     });
 
@@ -453,9 +453,9 @@ export class Prin extends Phaser.Scene {
     this.juegoAg.on("pointerdown", () => {
       principal.stop();
       const cont = [
-        "Selecciona una flecha de color, luego",
-        "selecciona las flechas de blanco que ", "sean iguales para pintarlas. Para cambiar ",
-        "el color puedes seleccionar otra flecha", "de muestra.", " ",
+        "Selecciona una flecha modelo de color y",
+        "luego selecciona las flechas en blanco que", "correspondan al modelo para pintarlas.  ",
+        "Para cambiar el color puedes seleccionar ", "otra flecha modelo.", " ",
         "Una vez todas las flechas sean pintadas,",
         "selecciona el botón validar para continuar."];
       this.scene.start("Configuracion", { instru: cont, scene: "Flechas", titulo: "tltFlechas", x: 180, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozFlechas" });

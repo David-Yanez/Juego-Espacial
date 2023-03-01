@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import Swal from "sweetalert2";
 let puntaje = 0;
 let principal;
+let aciertos = 0;
+let intentos = 0;
 export class Ordenar extends Phaser.Scene {
   constructor() {
     super({ key: "Ordenar" });
@@ -67,6 +69,7 @@ export class Ordenar extends Phaser.Scene {
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
+    this.load.spritesheet("terminar", "assets/sprites/UI/BtnTerminar.png", { frameWidth: 454.5, frameHeight: 193 });
     this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 456, frameHeight: 201 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
@@ -145,7 +148,7 @@ export class Ordenar extends Phaser.Scene {
     this.input.setDraggable(c);
     this.input.setDraggable(d);
     // a.input.draggable = true;
-
+    intentos = 3;
     function generar() {
       if (dificultad <= 4) {
         nombre = ["cabello", "plantar", "cabello2", "galletas", "patos", "perro", "bb", "burbujas", "dientes", "pez", "pio", "dibujo", "alberja",
@@ -153,13 +156,14 @@ export class Ordenar extends Phaser.Scene {
         n = Phaser.Math.Between(0, (nombre.length - 1));
         ord = [0, 1, 2];
         ord.sort(() => Math.random() - 0.5);
+        intentos = intentos + 3;
       }
 
       if (dificultad > 4 && dificultad <= 8) {
         nombre = ["globos", "resbaladera", "levantarse", "nieve", "planta2", "planta3", "hombre", "nina", "arbol", "edificio", "helados", "lapiz", "niño", "pastel", "rosa", "sandia", "vela"];
         n = Phaser.Math.Between(0, (nombre.length - 1));
         ord = [0, 1, 2, 3];
-
+        intentos = intentos + 4;
         ord.sort(() => Math.random() - 0.5);
         d.setAlpha(1);
         dd.setAlpha(1);
@@ -170,6 +174,7 @@ export class Ordenar extends Phaser.Scene {
           "cebolla", "color", "comer", "comer2", "durazno", "fresa", "manzana", "nieve2", "oruga", "papa", "pepino", "sapo", "tomate", "vela2", "zanahoria"];
         n = Phaser.Math.Between(0, (nombre.length - 1));
         ord = [0, 1, 2];
+        intentos = intentos + 3;
         ord.sort(() => Math.random() - 0.5);
         dificultad = 1;
         d.setAlpha(0);
@@ -200,28 +205,30 @@ export class Ordenar extends Phaser.Scene {
       d.y = 240;
     }
 
-    function calificar() {
-      console.log("p1 " + p1);
-      console.log("p2 " + p2);
-      console.log("p3 " + p3);
-      console.log("p4 " + p4);
+    this.Objcali = {
+      varCalificar: function calificar() {
+        console.log("p1 " + p1);
+        console.log("p2 " + p2);
+        console.log("p3 " + p3);
+        console.log("p4 " + p4);
 
-      if (p1 === 150 && p11.x === 150) { puntaje = puntaje + 0.5; }
-      if (p2 === 300 && p12.x === 300) { puntaje = puntaje + 0.5; }
-      if (p3 === 450 && p13.x === 450) { puntaje = puntaje + 0.5; }
-      if (p4 === 600 && p14.x === 600) { puntaje = puntaje + 0.5; }
+        if (p1 === 150 && p11.x === 150) { puntaje = puntaje + 0.5; aciertos++; }
+        if (p2 === 300 && p12.x === 300) { puntaje = puntaje + 0.5; aciertos++; }
+        if (p3 === 450 && p13.x === 450) { puntaje = puntaje + 0.5; aciertos++; }
+        if (p4 === 600 && p14.x === 600) { puntaje = puntaje + 0.5; aciertos++; }
 
-      console.log("calificacion " + puntaje);
+        console.log("calificacion " + puntaje);
 
-      p1 = 0;
-      p2 = 0;
-      p3 = 0;
-      p4 = 0;
-      p11 = 0;
-      p12 = 0;
-      p13 = 0;
-      p14 = 0;
-    }
+        p1 = 0;
+        p2 = 0;
+        p3 = 0;
+        p4 = 0;
+        p11 = 0;
+        p12 = 0;
+        p13 = 0;
+        p14 = 0;
+      }
+    };
 
     function calificar2() {
       if (p1 === 150 && p11.x === 150) { aa.setTint(0x00AA00); } else { aa.setTint(0xff0000); }
@@ -240,6 +247,9 @@ export class Ordenar extends Phaser.Scene {
     this.atras.on("pointerdown", () => {
       voz.stop();
       principal.stop();
+      intentos = 0;
+      aciertos = 0;
+      puntaje = 0;
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozOrdenar" });
     });
 
@@ -251,13 +261,29 @@ export class Ordenar extends Phaser.Scene {
       this.ok.setFrame(0);
     });
     this.ok.on("pointerdown", () => {
-      calificar();
+      this.Objcali.varCalificar();
+      //   calificar();
       //   this.scene.start("Prin");
 
       dificultad++;
+      console.log("Intentos: " + intentos);
+      console.log("aciertos: " + aciertos);
 
       // generar();
       res();
+    });
+
+    this.terminar = this.add.sprite(730, 370, "terminar").setInteractive().setScale(0.2);
+    this.terminar.on("pointerover", () => {
+      this.terminar.setFrame(1);
+    });
+    this.terminar.on("pointerout", () => {
+      this.terminar.setFrame(0);
+    });
+    this.terminar.on("pointerdown", () => {
+      this.Objcali.varCalificar();
+      //   calificar();
+      this.inicio = 0;
     });
 
     this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
@@ -279,7 +305,8 @@ export class Ordenar extends Phaser.Scene {
       });
     });
 
-    this.add.text(180, 150, "Arrastra las imágenes para ordenar según su secuencia lógica.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(160, 140, "Arrastra las imágenes dentro del casillero para ordenarlas según su secuencia lógica.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(230, 160, "Para corregir arrastralas nuevamente al lugar correcto.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
     this.musica.setFrame(this.musicaIcono);
@@ -384,7 +411,6 @@ export class Ordenar extends Phaser.Scene {
       gameObject.x = dropZone.x;
       gameObject.y = dropZone.y;
 
-
       /* console.log(gameObject); */
       if (gameObject.frame.name === 0) { p1 = gameObject.x; p11 = gameObject; }
       if (gameObject.frame.name === 1) { p2 = gameObject.x; p12 = gameObject; }
@@ -398,7 +424,7 @@ export class Ordenar extends Phaser.Scene {
         error.play();
       }
       calificar2();
-     
+
       //  console.log("drop x: " + gameObject.x);
       //  console.log(dropZone);
       //   console.log(gameObject.texture.key);
@@ -413,8 +439,11 @@ function onEvent() {
   this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
-    this.scene.start("Punt", { punt: puntaje, letra: "a", nomb: "Secuencia Lógica", time: this.min, sce: "Ordenar", musicaIcono: this.musicaIcono });
+    this.Objcali.varCalificar();
+    this.scene.start("Punt", { punt: puntaje, letra: "a", nomb: "Secuencia Lógica", time: this.min, sce: "Ordenar", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
+    intentos = 0;
+    aciertos = 0;
     principal.stop();
   }
 }

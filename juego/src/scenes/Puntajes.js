@@ -30,6 +30,8 @@ export class Puntajes extends Phaser.Scene {
     this.nomJuego = data.nomb;
     this.min = data.time;
     this.musicaIcono = data.musicaIcono;
+    this.intentos = data.Intentos;
+    this.aciertos = data.Aciertos;
     // this.sce = data.sce;
     let valorLetra;
     let estrellas;
@@ -60,7 +62,7 @@ export class Puntajes extends Phaser.Scene {
     this.listo.on("pointerdown", () => {
       this.scene.start("Prin", { valLetra: valorLetra, letr: data.letra, musicaIcono: this.musicaIcono });
       console.log(valorLetra + " " + data.letra);
-      Puntajee(this.nomJuego, this.min, this.puntaje, estrellas);
+      Puntajee(this.nomJuego, this.min, this.puntaje, estrellas, this.intentos, this.aciertos);
       letras(data.letra, valorLetra);
     });
 
@@ -85,11 +87,11 @@ export class Puntajes extends Phaser.Scene {
       this.add.image(317, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       this.add.image(359, 159, "estrella1").setDisplayOrigin(0, 0).setScale(0.4);
       this.add.image(414, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
-      this.add.image(355, 380, this.letras).setDisplayOrigin(0, 0).setScale(0.4);
+      this.add.image(355, 400, this.letras).setDisplayOrigin(0, 0).setScale(0.4);
       valorLetra = 1;
       estrellas = 4;
     } if (this.puntaje > 210) {
-      this.add.image(355, 380, this.letras).setDisplayOrigin(0, 0).setScale(0.4);
+      this.add.image(355, 400, this.letras).setDisplayOrigin(0, 0).setScale(0.4);
       this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       this.add.image(317, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       this.add.image(359, 159, "estrella1").setDisplayOrigin(0, 0).setScale(0.4);
@@ -105,14 +107,27 @@ export class Puntajes extends Phaser.Scene {
     this.add.image(414, 181, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
     this.add.image(457, 196, "estrella1").setDisplayOrigin(0, 0).setScale(0.3); */
 
-    this.punt = this.add.text(260, 300, "Puntaje: ", { font: "15px Arial Black", fill: "#fff" });
+    this.punt = this.add.text(260, 250, "Puntaje: ", { font: "15px Arial Black", fill: "#fff" });
+    this.punt.setStroke("#4f9ae0", 5);
+
+    
+    this.punt = this.add.text(260, 300, "Intentos:", { font: "15px Arial Black", fill: "#fff" });
+    this.punt.setStroke("#4f9ae0", 5);
+    
+    this.punt = this.add.text(260, 350, "Aciertos: ", { font: "15px Arial Black", fill: "#fff" });
     this.punt.setStroke("#4f9ae0", 5);
 
     const s = ["Letra", "obtenida:"];
-    this.letras = this.add.text(260, 390, s, { font: "15px Arial Black", fill: "#fff" });
+    this.letras = this.add.text(260, 410, s, { font: "15px Arial Black", fill: "#fff" });
     this.letras.setStroke("#4f9ae0", 5);
 
-    this.letras = this.add.text(360, 300, this.puntaje, { font: "15px Arial Black", fill: "#e8dfe1" });
+    this.letras = this.add.text(360, 250, this.puntaje, { font: "15px Arial Black", fill: "#e8dfe1" });
+    this.letras.setStroke("#e01650", 5);
+
+    this.letras = this.add.text(360, 300, this.intentos, { font: "15px Arial Black", fill: "#e8dfe1" });
+    this.letras.setStroke("#e01650", 5);
+
+    this.letras = this.add.text(360, 350, this.aciertos, { font: "15px Arial Black", fill: "#e8dfe1" });
     this.letras.setStroke("#e01650", 5);
 
     //  this.add.image(355, 380, "es").setDisplayOrigin(0, 0).setScale(0.4);

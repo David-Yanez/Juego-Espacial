@@ -1,12 +1,14 @@
 import Swal from "sweetalert2";
-export function Puntajee(nJuego, time, punt, estre) {
+export function Puntajee(nJuego, time, punt, estre, inten, acier) {
   // alert("Hola");
   const puntaje = {
     jugador: localStorage.getItem("user"),
     juego: nJuego,
     tiempo: time,
     puntaje: punt,
-    estrellas: estre
+    estrellas: estre,
+    intentos: inten,
+    aciertos: acier
     // Puntaje(user, nJuego, time, punt, estre)
 
   };

@@ -7,6 +7,8 @@ const puntajeSchema = new Schema({
     tiempo:  {type: Number, required: true},
     puntaje: {type: Number, required: true},
     estrellas: {type: Number, required: true},
+    intentos: {type: Number, required: true},
+    aciertos: {type: Number, required: true},
     fecha: Date
 });
 

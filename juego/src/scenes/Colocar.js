@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import Swal from "sweetalert2";
 let puntaje = 0;
 let principal;
+let aciertos = 0;
+let intentos = 0;
 export class Colocar extends Phaser.Scene {
   constructor() {
     super({ key: "Colocar" });
@@ -31,6 +33,7 @@ export class Colocar extends Phaser.Scene {
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
     this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 456, frameHeight: 201 });
+    this.load.spritesheet("terminar", "assets/sprites/UI/BtnTerminar.png", { frameWidth: 454.5, frameHeight: 193 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
     this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
@@ -79,7 +82,8 @@ export class Colocar extends Phaser.Scene {
     // this.contador = this.add.bitmapText(300, 100, "azoXML", "").setScale(0.3);
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 
-    this.add.text(180, 150, "Arrastra las imágenes dentro de la matriz según las instrucciones.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(180, 140, "Arrastra las imágenes dentro de las casillas según las instrucciones.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(220, 160, "Para corregir arrastralas nuevamente al lugar correcto.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     // Textos
 
@@ -296,6 +300,8 @@ export class Colocar extends Phaser.Scene {
     this.atras.on("pointerdown", () => {
       principal.stop();
       voz.stop();
+      intentos = 0;
+      aciertos = 0;
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozColocar" });
       puntaje = 0;
     });
@@ -308,10 +314,27 @@ export class Colocar extends Phaser.Scene {
       this.ok.setFrame(0);
     });
     this.ok.on("pointerdown", () => {
-      calificar();
+      intentos++;
+      this.Objcali.varCalificar();
+    //  calificar();
       generar();
+      console.log("Intentos: " + intentos);
+      console.log("aciertos: " + aciertos);
 
       //   this.scene.start("Prin");
+    });
+
+    this.terminar = this.add.sprite(200, 530, "terminar").setInteractive().setScale(0.2);
+    this.terminar.on("pointerover", () => {
+      this.terminar.setFrame(1);
+    });
+    this.terminar.on("pointerout", () => {
+      this.terminar.setFrame(0);
+    });
+    this.terminar.on("pointerdown", () => {
+      this.Objcali.varCalificar();
+     // calificar();
+      this.inicio = 0;
     });
 
     this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
@@ -457,23 +480,33 @@ export class Colocar extends Phaser.Scene {
     let p12;
     let p13;
     let p14;
+    let ayudaAciertos1 = 0;
+    let ayudaAciertos2 = 0;
 
-    function calificar() {
-    /*  console.log(p1);
+    this.Objcali = {
+      varCalificar: function calificar() {
+        /*  console.log(p1);
       console.log(p2);
       console.log(p3); */
-      if (datos[n].res.length === 4) {
-        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { puntaje++; }
-        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { puntaje++; }
-        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { puntaje++; }
-        if (datos[n].res[3] === p4.name && p4.x === p14.x && p4.y === p14.y) { puntaje++; }
-      } else {
-        if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { puntaje++; }
-        if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { puntaje++; }
-        if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { puntaje++; }
+        if (datos[n].res.length === 4) {
+          if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { puntaje++; ayudaAciertos2++; }
+          if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { puntaje++; ayudaAciertos2++; }
+          if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { puntaje++; ayudaAciertos2++; }
+          if (datos[n].res[3] === p4.name && p4.x === p14.x && p4.y === p14.y) { puntaje++; ayudaAciertos2++; }
+        } else {
+          if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { puntaje++; ayudaAciertos1++; }
+          if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { puntaje++; ayudaAciertos1++; }
+          if (datos[n].res[2] === p3.name && p3.x === p13.x && p3.y === p13.y) { puntaje++; ayudaAciertos1++; }
+        }
+        if (ayudaAciertos1 === 3) { aciertos++; }
+        if (ayudaAciertos2 === 4) { aciertos++; }
+
+        ayudaAciertos1 = 0;
+        ayudaAciertos2 = 0;
+
+        console.log("puntaje: " + puntaje);
       }
-      console.log("puntaje: " + puntaje);
-    }
+    };
 
     /*  function calificar2() {
       if (datos[n].res.length === 4) {
@@ -514,8 +547,11 @@ function onEvent() {
   this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
-    this.scene.start("Punt", { punt: puntaje, letra: "l", nomb: "Comprensión de Instrucciones", time: this.min, sce: "Colocar", musicaIcono: this.musicaIcono });
+    this.Objcali.varCalificar();
+    this.scene.start("Punt", { punt: puntaje, letra: "l", nomb: "Comprensión de Instrucciones", time: this.min, sce: "Colocar", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
+    intentos = 0;
+    aciertos = 0;
     principal.stop();
   }
 }

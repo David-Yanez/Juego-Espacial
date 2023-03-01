@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import Swal from "sweetalert2";
 let principal;
 let puntaje = 0;
+let aciertos = 0;
+let intentos = 0;
 export class Union extends Phaser.Scene {
   constructor() {
     super({ key: "Union" });
@@ -33,6 +35,7 @@ export class Union extends Phaser.Scene {
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
+    this.load.spritesheet("terminar", "assets/sprites/UI/BtnTerminar.png", { frameWidth: 454.5, frameHeight: 193 });
     this.load.spritesheet("ok", "assets/sprites/UI/ok.png", { frameWidth: 456, frameHeight: 201 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
@@ -97,32 +100,33 @@ export class Union extends Phaser.Scene {
     let fle;
     let dificultad = 0;
     generar2();
+    intentos = 3;
     function generar2() {
       n = Phaser.Math.Between(0, 15);
       if (dificultad <= 4) {
         aa = Phaser.Math.Between(0, 3);
         bb = Phaser.Math.Between(0, 3);
         cc = Phaser.Math.Between(0, 3);
-
+        intentos = intentos + 3;
         fle = [aa, bb, cc];
         fle.sort(() => Math.random() - 0.5);
       }
-      if (dificultad >= 4 && dificultad <= 8) {
+      if (dificultad > 4 && dificultad <= 8) {
         aa = Phaser.Math.Between(0, 3);
         bb = Phaser.Math.Between(0, 3);
         cc = Phaser.Math.Between(0, 3);
         dd = Phaser.Math.Between(0, 3);
-
+        intentos = intentos + 4;
         fle = [aa, bb, cc, dd];
         fle.sort(() => Math.random() - 0.5);
       }
-      if (dificultad >= 8) {
+      if (dificultad > 8) {
         aa = Phaser.Math.Between(0, 3);
         bb = Phaser.Math.Between(0, 3);
         cc = Phaser.Math.Between(0, 3);
         dd = Phaser.Math.Between(0, 3);
         ee = Phaser.Math.Between(0, 3);
-
+        intentos = intentos + 5;
         fle = [aa, bb, cc, dd, ee];
         fle.sort(() => Math.random() - 0.5);
       }
@@ -169,10 +173,13 @@ export class Union extends Phaser.Scene {
     this.atras.on("pointerdown", () => {
       principal.stop();
       voz.stop();
+      intentos = 0;
+      aciertos = 0;
+      puntaje = 0;
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozUnion" });
     });
 
-    this.ok = this.add.sprite(630, 400, "ok").setInteractive().setScale(0.2);
+    this.ok = this.add.sprite(630, 300, "ok").setInteractive().setScale(0.2);
     this.ok.on("pointerover", () => {
       this.ok.setFrame(1);
     });
@@ -185,10 +192,26 @@ export class Union extends Phaser.Scene {
       // this.ok.setFrame(0);
       nivel();
       listo();
-      calificar();
+      this.Objcali.varCalificar();
+  //    calificar();
       dificultad++;
       puntaje = puntaje + puntos;
       console.log(puntaje);
+      console.log("Intentos: " + intentos);
+      console.log("aciertos: " + aciertos);
+    });
+
+    this.terminar = this.add.sprite(630, 400, "terminar").setInteractive().setScale(0.2);
+    this.terminar.on("pointerover", () => {
+      this.terminar.setFrame(1);
+    });
+    this.terminar.on("pointerout", () => {
+      this.terminar.setFrame(0);
+    });
+    this.terminar.on("pointerdown", () => {
+      this.Objcali.varCalificar();
+    //  calificar();
+      this.inicio = 0;
     });
 
     this.pregunta = this.add.sprite(750, 450, "info").setInteractive().setScale(0.24);
@@ -303,7 +326,9 @@ export class Union extends Phaser.Scene {
     // circle4.
 
     // const s = ["Da clic en los cuadrados de acuerdo a las", "siguientes instrucciones:"];
-    this.add.text(240, 150, "Da clic para unir la imagen con su dirección.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(200, 140, "Selecciona la imagen con la dirección de la flecha que corresponda.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+
+    this.add.text(200, 160, "Da clic para unir los puntos. Para corregir vuelve a unir los puntos.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     graphi.fillCircleShape(circle1);
     graphi.fillCircleShape(circle2);
@@ -422,24 +447,27 @@ export class Union extends Phaser.Scene {
       }
     });
 
-    function calificar() {
-      puntos = pun1 + pun2 + pun3 + pun4 + pun5;
-      graphic1.clear();
-      graphic2.clear();
-      graphic3.clear();
-      graphic4.clear();
-      graphic5.clear();
-      pun1 = 0;
-      pun2 = 0;
-      pun3 = 0;
-      pun4 = 0;
-      pun5 = 0;
-      a1.clearTint();
-      b1.clearTint();
-      c1.clearTint();
-      d1.clearTint();
-      e1.clearTint();
-    }
+    this.Objcali = {
+      varCalificar: function calificar() {
+        puntos = pun1 + pun2 + pun3 + pun4 + pun5;
+        aciertos = aciertos + puntos;
+        graphic1.clear();
+        graphic2.clear();
+        graphic3.clear();
+        graphic4.clear();
+        graphic5.clear();
+        pun1 = 0;
+        pun2 = 0;
+        pun3 = 0;
+        pun4 = 0;
+        pun5 = 0;
+        a1.clearTint();
+        b1.clearTint();
+        c1.clearTint();
+        d1.clearTint();
+        e1.clearTint();
+      }
+    };
 
     let pun1 = 0;
     let pun2 = 0;
@@ -530,8 +558,11 @@ function onEvent() {
   this.contador.setText("Tiempo: " + formato(this.inicio));
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
-    this.scene.start("Punt", { punt: puntaje, letra: "pa", nomb: "Unión con Líneas", time: this.min, sce: "Union", musicaIcono: this.musicaIcono });
+    this.Objcali.varCalificar();
+    this.scene.start("Punt", { punt: puntaje, letra: "pa", nomb: "Unión con Líneas", time: this.min, sce: "Union", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
+    intentos = 0;
+    aciertos = 0;
     principal.stop();
   }
 }
