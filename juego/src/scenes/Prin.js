@@ -177,7 +177,7 @@ export class Prin extends Phaser.Scene {
     const particles = this.add.particles("red");
     const win = this.physics.add.image(400, 60, "tlt").setScale(0.4).setAlpha(0);
 
-   /* es1 = 1;
+  /*  es1 = 1;
     pa1 = 1;
     ci1 = 1;
     a1 = 1;
@@ -390,7 +390,7 @@ export class Prin extends Phaser.Scene {
         "Sigue las instrucciones que se muestran", "en pantalla para crear el camino que debe",
         "seguir la nave para retornar al planeta tierra.", "", " ",
         "Una vez el camino este listo, selecciona", "el botón validar para continuar."];
-      this.scene.start("Configuracion", { instru: cont, scene: "Cuadrados", titulo: "tlt1", x: 130, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozCuadrados" });
+      this.scene.start("Configuracion", { instru: cont, scene: "Cuadrados", titulo: "tlt1", x: 170, insIcono: this.insIcono, musicaIcono: this.musicaIcono, voz: "vozCuadrados" });
     });
 
     this.juegoSa = this.add.sprite(150, 450, "jugarSa").setInteractive().setScale(0.15);

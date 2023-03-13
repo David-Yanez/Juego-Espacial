@@ -4,7 +4,7 @@ let puntaje = 0;
 let aciertos = 0;
 let intentos = 0;
 let principal;
-let color;
+let color = 16777215;
 export class Flechas extends Phaser.Scene {
   constructor() {
     super({ key: "Flechas" });
@@ -97,7 +97,7 @@ export class Flechas extends Phaser.Scene {
       this.terminar.setFrame(0);
     });
     this.terminar.on("pointerdown", () => {
-      this.Objcali.varCalificar();
+   //   this.Objcali.varCalificar();
     //  calificar();
       this.inicio = 0;
     });
@@ -116,12 +116,12 @@ export class Flechas extends Phaser.Scene {
       }
       Swal.fire({
         icon: "info",
-        text: "Selecciona una flecha de color, luego selecciona las flechas de blanco que sean iguales para pintarlas. Para cambiar el color puedes seleccionar otra flecha de muestra. Una vez todas las flechas sean pintadas, selecciona el botón validar para continuar."
+        text: "Selecciona una flecha modelo de color y luego selecciona las flechas en blanco que correspondan al modelo para pintarlas. Para cambiar el color puedes seleccionar otra flecha modelo. Una vez todas las flechas sean pintadas, selecciona el botón validar para continuar."
       }
       );
     });
 
-    this.add.text(120, 135, "Selecciona una flecha modelo y pinta las flechas que coincidan con  la dirección del modelo.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(70, 135, "Selecciona una flecha modelo y pinta las flechas que coincidan con  la dirección del modelo y luego el boton validar.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
     this.musica.setFrame(this.musicaIcono);
@@ -191,7 +191,7 @@ export class Flechas extends Phaser.Scene {
     this.azul = this.add.image(230, 200, "flecha").setScale(0.3).setAngle(180).setInteractive().setTint(0x0080FF);
     const naranja = this.add.image(320, 200, "flecha").setScale(0.3).setAngle(270).setInteractive().setTint(0xCF7C3A).setAlpha(0);
     const morado = this.add.image(410, 200, "flecha").setScale(0.3).setAngle(90).setInteractive().setTint(0x8000FF).setAlpha(0);
-
+    console.log(0xffffff);
     this.amarillo.on("pointerdown", () => {
       color = 0xFBFF2F;
       console.log(color);
@@ -307,6 +307,7 @@ function onEvent() {
     pun = 0;
     intentos = 0;
     aciertos = 0;
+    color = 16777215;
     principal.stop();
   }
 }

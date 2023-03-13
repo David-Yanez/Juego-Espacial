@@ -12,7 +12,7 @@ export class Configuracion extends Phaser.Scene {
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
 
     // Titulo
-    this.load.image("tlt1", "assets/sprites/juego 1/tlt1.png");
+    this.load.image("tlt1", "assets/sprites/juego 1/tlt2.png");
     this.load.image("tltSecuencia", "assets/sprites/UI/tltSecuencia.png");
     this.load.image("tltUnion", "assets/sprites/UI/tltUnion1.png");
     this.load.image("tltFlechas", "assets/sprites/UI/tltFlechas.png");

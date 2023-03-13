@@ -281,7 +281,7 @@ export class Ordenar extends Phaser.Scene {
       this.terminar.setFrame(0);
     });
     this.terminar.on("pointerdown", () => {
-      this.Objcali.varCalificar();
+     // this.Objcali.varCalificar();
       //   calificar();
       this.inicio = 0;
     });
@@ -300,13 +300,13 @@ export class Ordenar extends Phaser.Scene {
       }
       Swal.fire({
         icon: "info",
-        text: "Ordena las imágenes según su secuencia lógica, arrastrando al cuadrado que está sobre el número que corresponda. Una vez las imágenes estén ordenadas, selecciona el botón validar para continuar."
+        text: "Ordena las imágenes según su secuencia lógica. Arrastra la imagen al cuadrado que está sobre el número que corresponda. Una vez las imágenes estén ordenadas, selecciona el botón validar para continuar."
 
       });
     });
 
-    this.add.text(160, 140, "Arrastra las imágenes dentro del casillero para ordenarlas según su secuencia lógica.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
-    this.add.text(230, 160, "Para corregir arrastralas nuevamente al lugar correcto.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(160, 140, "Arrastra las imágenes dentro del casillero para ordenarlas según su secuencia lógica", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(150, 160, "y luego da clic en el boton validar. Para corregir arrastralas nuevamente al lugar correcto.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     this.musica = this.add.sprite(750, 500, "musica").setInteractive().setScale(0.2);
     this.musica.setFrame(this.musicaIcono);

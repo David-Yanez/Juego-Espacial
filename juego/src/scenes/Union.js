@@ -209,7 +209,7 @@ export class Union extends Phaser.Scene {
       this.terminar.setFrame(0);
     });
     this.terminar.on("pointerdown", () => {
-      this.Objcali.varCalificar();
+    //  this.Objcali.varCalificar();
     //  calificar();
       this.inicio = 0;
     });
@@ -228,7 +228,7 @@ export class Union extends Phaser.Scene {
       }
       Swal.fire({
         icon: "info",
-        text: "Une los puntos de las imágenes de arriba hacia abajo para que coincidan con la dirección de las flechas. Una vez las imágenes estén unidas con las flechas, selecciona el botón validar para continuar."
+        text: "Selecciona la dirección de la flecha que corresponde a la imagen de arriba. Une los puntos de arriba hacia abajo. Una vez las imágenes estén unidas con las flechas, selecciona el botón validar para continuar."
       });
     });
 
@@ -328,7 +328,7 @@ export class Union extends Phaser.Scene {
     // const s = ["Da clic en los cuadrados de acuerdo a las", "siguientes instrucciones:"];
     this.add.text(200, 140, "Selecciona la imagen con la dirección de la flecha que corresponda.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
-    this.add.text(200, 160, "Da clic para unir los puntos. Para corregir vuelve a unir los puntos.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(125, 160, "Da clic para unir los puntos y luego en el boton validar. Para corregir vuelve a unir los puntos.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     graphi.fillCircleShape(circle1);
     graphi.fillCircleShape(circle2);

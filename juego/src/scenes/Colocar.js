@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 let puntaje = 0;
 let principal;
 let aciertos = 0;
-let intentos = 0;
+let intentos = 1;
 export class Colocar extends Phaser.Scene {
   constructor() {
     super({ key: "Colocar" });
@@ -37,12 +37,27 @@ export class Colocar extends Phaser.Scene {
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
     this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
+    this.load.spritesheet("leer", "assets/sprites/UI/leer.png", { frameWidth: 457.5, frameHeight: 200 });
 
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
     this.load.audio("vozColocar", "assets/sounds/voz/vozColocar.mp3");
     this.load.audio("correcto", "assets/sounds/correcto.mp3");
     this.load.audio("error", "assets/sounds/error.mp3");
+    this.load.audio("vozCo0", "assets/sounds/colocar/vozCo0.mp3");
+    this.load.audio("vozCo1", "assets/sounds/colocar/vozCo1.mp3");
+    this.load.audio("vozCo2", "assets/sounds/colocar/vozCo2.mp3");
+    this.load.audio("vozCo3", "assets/sounds/colocar/vozCo3.mp3");
+    this.load.audio("vozCo4", "assets/sounds/colocar/vozCo4.mp3");
+    this.load.audio("vozCo5", "assets/sounds/colocar/vozCo5.mp3");
+    this.load.audio("vozCo6", "assets/sounds/colocar/vozCo6.mp3");
+    this.load.audio("vozCo7", "assets/sounds/colocar/vozCo7.mp3");
+    this.load.audio("vozCo8", "assets/sounds/colocar/vozCo8.mp3");
+    this.load.audio("vozCo9", "assets/sounds/colocar/vozCo9.mp3");
+    this.load.audio("vozCo10", "assets/sounds/colocar/vozCo10.mp3");
+    this.load.audio("vozCo11", "assets/sounds/colocar/vozCo11.mp3");
+    this.load.audio("vozCo12", "assets/sounds/colocar/vozCo12.mp3");
+    this.load.audio("vozCo13", "assets/sounds/colocar/vozCo13.mp3");
 
     /*  this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
@@ -82,149 +97,163 @@ export class Colocar extends Phaser.Scene {
     // this.contador = this.add.bitmapText(300, 100, "azoXML", "").setScale(0.3);
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 
-    this.add.text(180, 140, "Arrastra las imágenes dentro de las casillas según las instrucciones.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
-    this.add.text(220, 160, "Para corregir arrastralas nuevamente al lugar correcto.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(180, 140, "Arrastra las imágenes dentro de las casillas según las instrucciones y", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(140, 160, "luego da clic el boton validar. Para corregir arrastralas nuevamente al lugar correcto.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
     // Textos
 
     const datos = [
       {
-        ints: ["1. Coloca en el cuadro del centro la nave.",
-          " ",
+        ints: ["1. Coloca en la casilla del centro ",
+          "la nave. ", " ",
           "2. Coloca a la derecha de la nave ", "el astronauta.",
           " ",
           "3. Pon encima del astronauta la luna."],
         img: ["luna", "nave", "astro", "mar"],
-        res: [3, 5, 6]
+        res: [3, 5, 6],
+        vozIns: this.sound.add("vozCo0")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro la luna.",
-          " ",
+        ints: ["1. Coloca en la casilla del centro ",
+          "la luna. ", " ",
           "2. Coloca a la izquierda de la luna ", "la nave.",
           " ",
           "3. Pon debajo de la nave el planeta", " tierra."],
         img: ["luna", "nave", "tierra"],
-        res: [5, 4, 7]
+        res: [5, 4, 7],
+        vozIns: this.sound.add("vozCo1")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro la estrella.",
-          " ",
+        ints: ["1. Coloca en la casilla del centro ",
+          "la estrella.", " ",
           "2. Coloca debajo de la estrella ", "la nave.",
           " ",
           "3. Coloca encima de la estrella", "la luna."],
         img: ["estrella", "nave2", "luna"],
-        res: [5, 8, 2]
+        res: [5, 8, 2],
+        vozIns: this.sound.add("vozCo2")
       },
       {
-        ints: ["1. Coloca la nave en la parte superior ", "izquierda.",
+        ints: ["1. Coloca la nave en la parte ", "superior izquierda.",
           " ",
           "2. Coloca debajo de la nave ", "la estrella.",
           " ",
           "3. Coloca a la derecha de la nave", "el astronauta."],
         img: ["estrella", "nave2", "astro"],
-        res: [4, 1, 2]
+        res: [4, 1, 2],
+        vozIns: this.sound.add("vozCo3")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro el marciano.",
-          " ",
-          "2. Coloca a la izquierda del marciano ", "la estrella.",
+        ints: ["1. Coloca en la casilla del centro",
+          "el marciano. ", " ",
+          "2. Coloca a la izquierda del  ", "marciano la estrella.",
           " ",
           "3. Coloca a la derecha del marciano", "el astronauta."],
         img: ["estrella", "mar", "astro"],
-        res: [4, 5, 6]
+        res: [4, 5, 6],
+        vozIns: this.sound.add("vozCo4")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro la estrella.",
-          " ",
+        ints: ["1. Coloca en la casilla del centro ",
+          "la estrella.", " ",
           "2. Coloca a la izquierda de la estrella ", "el marciano.",
           " ",
           "3. Coloca a la derecha de la estrella ", "el astronauta."],
         img: ["estrella", "mar", "astro"],
-        res: [5, 4, 6]
+        res: [5, 4, 6],
+        vozIns: this.sound.add("vozCo5")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro la tierra.",
-          " ",
+        ints: ["1. Coloca en la casilla del centro ",
+          "la tierra.", " ",
           "2. Coloca sobre la tierra ", "la nave.",
           " ",
-          "3. Coloca a la derecha de la nave ", "la luna"],
+          "3. Coloca a la derecha de la nave ", "la luna."],
         img: ["nave", "luna", "tierra"],
-        res: [2, 3, 5]
+        res: [2, 3, 5],
+        vozIns: this.sound.add("vozCo6")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro la nave.",
-          " ",
+        ints: ["1. Coloca en la casilla del centro",
+          "la nave.", " ",
           "2. Coloca debajo de la nave ", "la luna.",
           " ",
-          "3. Coloca a la derecha de la luna ", "la tierra"],
+          "3. Coloca a la derecha de la luna ", "la tierra."],
         img: ["nave", "luna", "tierra"],
-        res: [5, 8, 9]
+        res: [5, 8, 9],
+        vozIns: this.sound.add("vozCo7")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro la estrella.",
-          " ",
+        ints: ["1. Coloca en la casilla del centro ",
+          "la estrella. ", " ",
           "2. Coloca debajo de la estrella ", "la luna.",
           " ",
           "3. Coloca a la derecha de la estrella", "el astronauta.",
           " ",
           "4. Coloca a la izquierda de la luna ", "el marciano."],
         img: ["estrella", "luna", "astro", "mar"],
-        res: [5, 8, 6, 7]
+        res: [5, 8, 6, 7],
+        vozIns: this.sound.add("vozCo8")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro la luna.",
-          " ",
+        ints: ["1. Coloca en la casilla del centro ",
+          "la luna.", " ",
           "2. Coloca debajo de la luna ", "el astronauta.",
           " ",
           "3. Coloca a la derecha de la luna ", "el marciano.",
           " ",
           "4. Coloca a la izquierda del astronauta ", "la estrella."],
         img: ["luna", "mar", "estrella", "astro"],
-        res: [5, 6, 7, 8]
+        res: [5, 6, 7, 8],
+        vozIns: this.sound.add("vozCo9")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro el astronauta.",
+        ints: ["1. Coloca en la casilla del centro ",
+          "el astronauta.", " ",
+          "2. Coloca a la derecha del  ", "astronauta la estrella.",
           " ",
-          "2. Coloca a la derecha del estronauta ", "la estrella.",
+          "3. Coloca a la izquierda del astronauta ", "el marciano.",
           " ",
-          "3. Coloca a la izquierda del estronauta ", "el marciano.",
+          "4. Coloca sobre el astronauta ", "la luna."],
+        img: ["mar", "astro", "estrella", "luna"],
+        res: [4, 5, 6, 2],
+        vozIns: this.sound.add("vozCo10")
+      },
+      {
+        ints: ["1. Coloca en la casilla del centro ",
+          "el astronauta. ", " ",
+          "2. Coloca a la derecha del  ", "astronauta la estrella.",
+          " ",
+          "3. Coloca a la izquierda del astronauta ", "el marciano.",
           " ",
           "4. Coloca debajo del astronauta ", "la luna."],
         img: ["mar", "astro", "estrella", "luna"],
-        res: [4, 5, 6, 8]
+        res: [4, 5, 6, 8],
+        vozIns: this.sound.add("vozCo11")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro el astronauta.",
-          " ",
-          "2. Coloca a la derecha del estronauta ", "la estrella.",
-          " ",
-          "3. Coloca a la izquierda del estronauta ", "el marciano.",
-          " ",
-          "4. Coloca debajo del astronauta ", "la luna."],
-        img: ["mar", "astro", "estrella", "luna"],
-        res: [4, 5, 6, 8]
-      },
-      {
-        ints: ["1. Coloca en el cuadro del centro la estrella.",
-          " ",
-          "2. Coloca a la izquierda de la estrella ", "la luna.",
+        ints: ["1. Coloca en la casilla del centro ",
+          "la estrella.", " ",
+          "2. Coloca a la izquierda de la ", "estrella la luna.",
           " ",
           "3. Coloca sobre la luna ", "el marciano.",
           " ",
           "4. Coloca debajo de la luna ", "el astronauta."],
         img: ["mar", "luna", "estrella", "astro"],
-        res: [1, 4, 5, 7]
+        res: [1, 4, 5, 7],
+        vozIns: this.sound.add("vozCo12")
       },
       {
-        ints: ["1. Coloca en el cuadro del centro el marciano.",
-          " ",
-          "2. Coloca a la derecha de la marciano ", "la luna.",
+        ints: ["1. Coloca en la casilla del centro ",
+          "el marciano.", " ",
+          "2. Coloca a la derecha del  ", " marciano la luna.",
           " ",
           "3. Coloca sobre la luna ", "la estrella.",
           " ",
           "4. Coloca debajo de la luna ", "el astronauta."],
         img: ["estrella", "mar", "luna", "astro"],
-        res: [3, 5, 6, 9]
+        res: [3, 5, 6, 9],
+        vozIns: this.sound.add("vozCo13")
       }
     ];
 
@@ -300,13 +329,13 @@ export class Colocar extends Phaser.Scene {
     this.atras.on("pointerdown", () => {
       principal.stop();
       voz.stop();
-      intentos = 0;
+      intentos = 1;
       aciertos = 0;
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozColocar" });
       puntaje = 0;
     });
 
-    this.ok = this.add.sprite(520, 530, "ok").setInteractive().setScale(0.2);
+    this.ok = this.add.sprite(730, 320, "ok").setInteractive().setScale(0.2);
     this.ok.on("pointerover", () => {
       this.ok.setFrame(1);
     });
@@ -316,7 +345,7 @@ export class Colocar extends Phaser.Scene {
     this.ok.on("pointerdown", () => {
       intentos++;
       this.Objcali.varCalificar();
-    //  calificar();
+      //  calificar();
       generar();
       console.log("Intentos: " + intentos);
       console.log("aciertos: " + aciertos);
@@ -324,7 +353,21 @@ export class Colocar extends Phaser.Scene {
       //   this.scene.start("Prin");
     });
 
-    this.terminar = this.add.sprite(200, 530, "terminar").setInteractive().setScale(0.2);
+
+    this.leer = this.add.sprite(530, 530, "leer").setInteractive().setScale(0.2);
+    this.leer.on("pointerover", () => {
+      this.leer.setFrame(1);
+    });
+    this.leer.on("pointerout", () => {
+      this.leer.setFrame(0);
+    });
+    this.leer.on("pointerdown", () => {
+      // datos[n].vozIns.play();
+      datos[n].vozIns.play();
+    //  vozCu0.play();
+    });
+
+    this.terminar = this.add.sprite(730, 380, "terminar").setInteractive().setScale(0.2);
     this.terminar.on("pointerover", () => {
       this.terminar.setFrame(1);
     });
@@ -332,8 +375,8 @@ export class Colocar extends Phaser.Scene {
       this.terminar.setFrame(0);
     });
     this.terminar.on("pointerdown", () => {
-      this.Objcali.varCalificar();
-     // calificar();
+     // this.Objcali.varCalificar();
+      // calificar();
       this.inicio = 0;
     });
 
@@ -488,6 +531,7 @@ export class Colocar extends Phaser.Scene {
         /*  console.log(p1);
       console.log(p2);
       console.log(p3); */
+        console.log(p1.name);
         if (datos[n].res.length === 4) {
           if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { puntaje++; ayudaAciertos2++; }
           if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { puntaje++; ayudaAciertos2++; }
@@ -522,6 +566,11 @@ export class Colocar extends Phaser.Scene {
         console.log("hola2");
       }
     } */
+    p1 = { name: 100 };
+    p2 = { name: 100 };
+    p3 = { name: 100 };
+    p4 = { name: 100 };
+   
 
     this.input.on("drop", function(pointer, gameObject, dropZone) {
       gameObject.x = dropZone.x;
@@ -550,7 +599,7 @@ function onEvent() {
     this.Objcali.varCalificar();
     this.scene.start("Punt", { punt: puntaje, letra: "l", nomb: "Comprensión de Instrucciones", time: this.min, sce: "Colocar", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
-    intentos = 0;
+    intentos = 1;
     aciertos = 0;
     principal.stop();
   }

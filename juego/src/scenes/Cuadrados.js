@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 let puntaje = 0;
 let principal;
 let aciertos = 0;
-let intentos = 0;
+let intentos = 1;
 export class Cuadrados extends Phaser.Scene {
   constructor() {
     super({ key: "Cuadrados" });
@@ -15,8 +15,9 @@ export class Cuadrados extends Phaser.Scene {
     // Titulo
     this.load.image("tlt1", "assets/sprites/juego 1/tlt2.png");
     this.load.image("cuadrado", "assets/sprites/UI/cuadrado.png");
-    this.load.image("nave", "assets/sprites/colocar/nave.png");
-    this.load.image("tierra", "assets/sprites/colocar/tierra.png");
+    this.load.image("nave3", "assets/sprites/colocar/nave3.png");
+    this.load.image("tierra2", "assets/sprites/colocar/tierra2.png");
+    this.load.image("recta22", "assets/sprites/UI/recta56.png");
 
     // Botones
     this.load.spritesheet("atras", "assets/sprites/atras.png", { frameWidth: 201, frameHeight: 196 });
@@ -25,11 +26,28 @@ export class Cuadrados extends Phaser.Scene {
     this.load.spritesheet("musica", "assets/sprites/UI/musica.png", { frameWidth: 205.3, frameHeight: 207 });
     this.load.spritesheet("info", "assets/sprites/UI/info.png", { frameWidth: 170, frameHeight: 160 });
     this.load.spritesheet("instrucciones", "assets/sprites/UI/instrucciones.png", { frameWidth: 206, frameHeight: 208 });
+    this.load.spritesheet("leer", "assets/sprites/UI/leer.png", { frameWidth: 457.5, frameHeight: 200 });
+
     // Sonidos
     this.load.audio("principal", "assets/sounds/ambiente.mp3");
     this.load.audio("vozCuadrados", "assets/sounds/voz/vozCuadrados.mp3");
     this.load.audio("correcto", "assets/sounds/correcto.mp3");
     this.load.audio("error", "assets/sounds/error.mp3");
+    this.load.audio("vozCu0", "assets/sounds/cuadrados/vozCu0.mp3");
+    this.load.audio("vozCu1", "assets/sounds/cuadrados/vozCu1.mp3");
+    this.load.audio("vozCu2", "assets/sounds/cuadrados/vozCu2.mp3");
+    this.load.audio("vozCu3", "assets/sounds/cuadrados/vozCu3.mp3");
+    this.load.audio("vozCu4", "assets/sounds/cuadrados/vozCu4.mp3");
+    this.load.audio("vozCu5", "assets/sounds/cuadrados/vozCu5.mp3");
+    this.load.audio("vozCu6", "assets/sounds/cuadrados/vozCu6.mp3");
+    this.load.audio("vozCu7", "assets/sounds/cuadrados/vozCu7.mp3");
+    this.load.audio("vozCu8", "assets/sounds/cuadrados/vozCu8.mp3");
+    this.load.audio("vozCu9", "assets/sounds/cuadrados/vozCu9.mp3");
+    this.load.audio("vozCu10", "assets/sounds/cuadrados/vozCu10.mp3");
+    this.load.audio("vozCu11", "assets/sounds/cuadrados/vozCu11.mp3");
+    this.load.audio("vozCu12", "assets/sounds/cuadrados/vozCu12.mp3");
+    this.load.audio("vozCu13", "assets/sounds/cuadrados/vozCu13.mp3");
+    this.load.audio("vozCu14", "assets/sounds/cuadrados/vozCu14.mp3");
   }
 
   create(data) {
@@ -55,7 +73,7 @@ export class Cuadrados extends Phaser.Scene {
     // Fondo
     this.add.image(0, 0, "fondo").setDisplayOrigin(0, 0);
     // Titulo
-    this.add.image(130, 10, "tlt1").setDisplayOrigin(0, 0).setScale(0.4);
+    this.add.image(170, 10, "tlt1").setDisplayOrigin(0, 0).setScale(0.4);
     // Tiempo
     this.min = data.time / 60;
     this.inicio = data.time;
@@ -65,9 +83,9 @@ export class Cuadrados extends Phaser.Scene {
     // Instrucciones
     // this.instrucciones = this.add.text(400, 170, "Centro, Izquierda, Abajo", { fontFamily: "Times New Roman", fontSize: 25, color: "#ffff00" });
     // const s = ["Da clic en los cuadrados de acuerdo a las", "siguientes instrucciones:"];
-    this.add.text(230, 140, "Ayuda a la nave a retornar al pleneta tierra.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(240, 140, "Ayuda a la nave a retornar al planeta tierra.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
 
-    this.add.text(170, 160, "Da clic en los casilleros de acuerdo a las siguientes instrucciones:", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
+    this.add.text(100, 160, "Da clic en los casilleros de acuerdo a las siguientes instrucciones y luego en el boton validar.", { font: "13px Arial", fill: "#e8dfe1" }).setStroke("#e01650", 2);
     // Botones
 
     this.atras = this.add.sprite(30, 30, "atras").setInteractive().setScale(0.2);
@@ -79,7 +97,7 @@ export class Cuadrados extends Phaser.Scene {
     });
     this.atras.on("pointerdown", () => {
       principal.stop();
-      intentos = 0;
+      intentos = 1;
       aciertos = 0;
       puntaje = 0;
       this.scene.start("Configuracion", { insIcono: this.insIcono, musicaIcono: this.musicaIcono, instru: data.ins, scene: this.es, titulo: this.tlt, x: this.x, voz: "vozCuadrados" });
@@ -111,7 +129,7 @@ export class Cuadrados extends Phaser.Scene {
     });
     this.terminar.on("pointerdown", () => {
     //  calificar();
-      this.Objcali.varCalificar();
+    //  this.Objcali.varCalificar();
       this.inicio = 0;
     });
 
@@ -129,7 +147,7 @@ export class Cuadrados extends Phaser.Scene {
       }
       Swal.fire(
         "",
-        "Sigue las instrucciones que se muestran al lado derecho de la matriz para crear el camino que debe seguir la nave. Una vez el camino este listo, selecciona el botón validar para continuar.",
+        "Sigue las instrucciones que se muestran en pantalla para crear el camino que debe seguir la nave para retornar al planeta tierra. Una vez el camino este listo, selecciona el botón validar para continuar.",
         "info"
       );
     });
@@ -198,7 +216,20 @@ export class Cuadrados extends Phaser.Scene {
       }
     });
 
-    // this.add.image(370, 250, "nave2").setScale(0.3).setInteractive();
+    this.leer = this.add.sprite(530, 500, "leer").setInteractive().setScale(0.2);
+    this.leer.on("pointerover", () => {
+      this.leer.setFrame(1);
+    });
+    this.leer.on("pointerout", () => {
+      this.leer.setFrame(0);
+    });
+    this.leer.on("pointerdown", () => {
+      // datos[n].vozIns.play();
+      datos[n].vozIns.play();
+    //  vozCu0.play();
+    });
+
+    // this.add.image(370, 250, "nave32").setScale(0.3).setInteractive();
 
     // const grafico = this.add.graphics({ fillStyle: { color: 0x0000ff }, lineStyle: { color: 0x0000aa } });
     const datos = [
@@ -206,91 +237,106 @@ export class Cuadrados extends Phaser.Scene {
         inst: ["1. Derecha", "", "2. Abajo", "", "3. Abajo"],
         img: [100, 240, 180, 480],
         resx: [180, 180, 180],
-        resy: [240, 320, 400]
+        resy: [240, 320, 400],
+        vozIns: this.sound.add("vozCu0")
       },
       {
         inst: ["1. Derecha", "", "2. Derecha", "", "3. Derecha"],
         img: [100, 480, 340, 400],
         resx: [180, 260, 340],
-        resy: [480, 480, 480]
+        resy: [480, 480, 480],
+        vozIns: this.sound.add("vozCu1")
       },
       {
         inst: ["1. Abajo", "", "2. Izquierda", "", "3. Abajo"],
         img: [340, 240, 260, 480],
         resx: [340, 260, 260],
-        resy: [320, 320, 400]
+        resy: [320, 320, 400],
+        vozIns: this.sound.add("vozCu2")
       },
       {
         inst: ["1. Izquierda", "", "2. Arriba", "", "3. Izquierda"],
         img: [340, 400, 100, 320],
         resx: [260, 260, 180],
-        resy: [400, 320, 320]
+        resy: [400, 320, 320],
+        vozIns: this.sound.add("vozCu3")
       },
       {
         inst: ["1. Derecha", "", "2. Derecha", "", "3. Abajo"],
         img: [180, 240, 340, 400],
         resx: [260, 340, 340],
-        resy: [240, 240, 320]
+        resy: [240, 240, 320],
+        vozIns: this.sound.add("vozCu4")
       },
       {
         inst: ["1. Derecha", "", "2. Abajo", "", "3. Derecha"],
         img: [100, 400, 340, 480],
         resx: [180, 180, 260],
-        resy: [400, 480, 480]
+        resy: [400, 480, 480],
+        vozIns: this.sound.add("vozCu5")
       },
       {
         inst: ["1. Derecha", "", "2. Derecha", "", "3. Arriba"],
         img: [100, 320, 340, 240],
         resx: [180, 260, 260],
-        resy: [320, 320, 240]
+        resy: [320, 320, 240],
+        vozIns: this.sound.add("vozCu6")
       },
       {
         inst: ["1. Abajo", "", "2. Derecha", "", "3. Abajo"],
         img: [180, 240, 260, 480],
         resx: [180, 260, 260],
-        resy: [320, 320, 400]
+        resy: [320, 320, 400],
+        vozIns: this.sound.add("vozCu7")
       },
       {
         inst: ["1. Abajo", "", "2. Izquierda", "", "3. Abajo"],
         img: [260, 320, 100, 480],
         resx: [260, 180, 180],
-        resy: [400, 400, 480]
+        resy: [400, 400, 480],
+        vozIns: this.sound.add("vozCu8")
       },
       {
         inst: ["1. Derecha", "", "2. Abajo", "", "3. Derecha", "", "4. Abajo"],
         img: [100, 240, 340, 400],
         resx: [180, 180, 260, 260],
-        resy: [240, 320, 320, 400]
+        resy: [240, 320, 320, 400],
+        vozIns: this.sound.add("vozCu9")
       },
       {
         inst: ["1. Derecha", "", "2. Derecha", "", "3. Arriba", "", "4. Izquierda"],
         img: [100, 480, 100, 400],
         resx: [180, 260, 260, 180],
-        resy: [480, 480, 400, 400]
+        resy: [480, 480, 400, 400],
+        vozIns: this.sound.add("vozCu10")
       },
       {
         inst: ["1. Izquierda", "", "2. Izquierda", "", "3. Arriba", "", "4. Arriba"],
         img: [340, 480, 100, 320],
         resx: [260, 180, 180, 180],
-        resy: [480, 480, 400, 320]
+        resy: [480, 480, 400, 320],
+        vozIns: this.sound.add("vozCu11")
       },
       {
         inst: ["1. Abajo", "", "2. Izquierda", "", "3. Abajo", "", "4. Izquierda"],
         img: [340, 240, 180, 480],
         resx: [340, 260, 260, 180],
-        resy: [320, 320, 400, 400]
+        resy: [320, 320, 400, 400],
+        vozIns: this.sound.add("vozCu12")
       },
       {
         inst: ["1. Derecha", "", "2. Derecha", "", "3. Derecha", "", "4. Abajo"],
         img: [100, 240, 340, 400],
         resx: [180, 260, 340, 340],
-        resy: [240, 240, 240, 320]
+        resy: [240, 240, 240, 320],
+        vozIns: this.sound.add("vozCu13")
       },
       {
         inst: ["1. Arriba", "", "2. Izquierda", "", "3. Arriba", "", "4. Arriba"],
         img: [260, 480, 260, 240],
         resx: [260, 180, 180, 180],
-        resy: [400, 400, 320, 240]
+        resy: [400, 400, 320, 240],
+        vozIns: this.sound.add("vozCu14")
       }
 
     ];
@@ -313,12 +359,37 @@ export class Cuadrados extends Phaser.Scene {
     let n;
     let difi = 0;
 
+    // console.log(leerIns);
     // let t;
-    const img1 = this.add.image(0, 0, "nave").setScale(0.4).setInteractive();
-    const img2 = this.add.image(0, 0, "tierra").setScale(0.4).setInteractive();
+    const marco = this.add.image(340, 400, "recta22").setScale(0.4);
+
+    const img1 = this.add.image(0, 0, "nave3").setScale(0.4).setInteractive();
+    const img2 = this.add.image(0, 0, "tierra2").setScale(0.4).setInteractive();
     const t = this.add.text(450, 250, datos[0].inst, { font: "20px Arial Black", fill: "#e8dfe1" });
+    // n = 0;
+    // let ayudavoz;
+    // let leerIns;
+
+    /*   this.sound.add("vozCu0");
+    this.sound.add("vozCu1");
+    this.sound.add("vozCu2");
+    this.sound.add("vozCu3");
+    this.sound.add("vozCu4");
+    this.sound.add("vozCu5");
+    this.sound.add("vozCu6");
+    this.sound.add("vozCu7");
+    this.sound.add("vozCu8");
+    this.sound.add("vozCu9");
+    this.sound.add("vozCu10");
+    this.sound.add("vozCu11");
+    this.sound.add("vozCu12");
+    this.sound.add("vozCu13");
+    this.sound.add("vozCu14"); */
 
     generar();
+    // n = 0;
+
+    // console.log(leerIns);
     function generar() {
       // n = 3;
       if (difi < 6) {
@@ -333,8 +404,12 @@ export class Cuadrados extends Phaser.Scene {
       }
       difi++;
       console.log(n);
+      // ayudavoz = datos[n].vozIns;
+      // console.log(ayudavoz);
+      //  leerIns.setDisplayOrigin
       img1.setPosition(datos[n].img[0], datos[n].img[1]);
       img2.setPosition(datos[n].img[2], datos[n].img[3]);
+      marco.setPosition(datos[n].img[0], datos[n].img[1]);
       //  console.log(datos[n].inst);
       t.setText(datos[n].inst);
       cuadrados.forEach(function(limp) {
@@ -343,6 +418,8 @@ export class Cuadrados extends Phaser.Scene {
         });
       });
     }
+
+    // this.sound.add(ayudavoz);
 
     let ayudaAciertos1 = 0;
     let ayudaAciertos2 = 0;
@@ -379,6 +456,9 @@ export class Cuadrados extends Phaser.Scene {
     this.input.on("gameobjectup", this.pintar, this);
 
     this.input.on("gameobjectup", (pon, obj) => {
+      console.log(obj);
+      if (obj.texture.key === "cuadrado") { marco.setPosition(obj.x, obj.y); }
+
       if (datos[n].resx.length === 3) {
         if (obj.x === datos[n].resx[0] && obj.y === datos[n].resy[0] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); /* if (obj.tintBottomLeft === 16711680) { this.error.play(); console.log("sonido error"); } else { this.correcto.play(); } */ }
         if (obj.x === datos[n].resx[1] && obj.y === datos[n].resy[1] && obj.texture.key === "cuadrado") { obj.setTint(0x00AA00); /* if (obj.tintBottomLeft === 16711680) { this.error.play(); } else { this.correcto.play(); } */ }
@@ -416,10 +496,10 @@ function onEvent() {
     this.Objcali.varCalificar();
     // this.calificar();
     let pun = Math.trunc(puntaje);
-    this.scene.start("Punt", { punt: pun, letra: "es", nomb: "Selección de Cuadrados", time: this.min, sce: "Cuadrados", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
+    this.scene.start("Punt", { punt: pun, letra: "es", nomb: "Selección de Casillas", time: this.min, sce: "Cuadrados", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
     pun = 0;
-    intentos = 0;
+    intentos = 1;
     aciertos = 0;
     principal.stop();
   }

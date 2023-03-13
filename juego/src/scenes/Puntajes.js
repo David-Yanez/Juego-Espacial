@@ -67,7 +67,10 @@ export class Puntajes extends Phaser.Scene {
     });
 
     // this.add.text(260, 350, "Letras \nObtenidas: ", { fontFamily: "Times New Roman", fontSize: 12, color: "#1337ad" });
-    if (this.puntaje <= 90) {
+    if (this.puntaje === 0) {
+      valorLetra = 0.2;
+      estrellas = 0;
+    } if (this.puntaje > 0 && this.puntaje <= 90) {
       this.add.image(276, 197, "estrella1").setDisplayOrigin(0, 0).setScale(0.3);
       valorLetra = 0.2;
       estrellas = 1;
@@ -110,10 +113,9 @@ export class Puntajes extends Phaser.Scene {
     this.punt = this.add.text(260, 250, "Puntaje: ", { font: "15px Arial Black", fill: "#fff" });
     this.punt.setStroke("#4f9ae0", 5);
 
-    
     this.punt = this.add.text(260, 300, "Intentos:", { font: "15px Arial Black", fill: "#fff" });
     this.punt.setStroke("#4f9ae0", 5);
-    
+
     this.punt = this.add.text(260, 350, "Aciertos: ", { font: "15px Arial Black", fill: "#fff" });
     this.punt.setStroke("#4f9ae0", 5);
 
