@@ -64,7 +64,7 @@ throw boom.unauthorized();
                 <table role="presentation" style="width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
                   <tr>
                     <td style="padding:40px 30px 30px 30px;text-align:center;font-size:24px;font-weight:bold;">
-                      <a  style="text-decoration:none;"><img src=${process.env.LINK_LOGO}  width="385" height="420" alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
+                      <a  style="text-decoration:none;"><img src=${process.env.LINK_LOGO} alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
                     </td>
                   </tr>
                   <tr>
