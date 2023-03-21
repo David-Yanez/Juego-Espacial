@@ -83,10 +83,10 @@ export class Flechas extends Phaser.Scene {
       //   this.scene.start("Prin");
       nivel();
       this.Objcali.varCalificar();
-  //    calificar();
+      //    calificar();
       cambiar();
-      console.log("Intentos: " + intentos);
-      console.log("aciertos: " + aciertos);
+      //   console.log("Intentos: " + intentos);
+    //  console.log("aciertos: " + aciertos);
     });
 
     this.terminar = this.add.sprite(650, 430, "terminar").setInteractive().setScale(0.2);
@@ -97,7 +97,7 @@ export class Flechas extends Phaser.Scene {
       this.terminar.setFrame(0);
     });
     this.terminar.on("pointerdown", () => {
-   //   this.Objcali.varCalificar();
+      //   this.Objcali.varCalificar();
     //  calificar();
       this.inicio = 0;
     });
@@ -191,10 +191,10 @@ export class Flechas extends Phaser.Scene {
     this.azul = this.add.image(230, 200, "flecha").setScale(0.3).setAngle(180).setInteractive().setTint(0x0080FF);
     const naranja = this.add.image(320, 200, "flecha").setScale(0.3).setAngle(270).setInteractive().setTint(0xCF7C3A).setAlpha(0);
     const morado = this.add.image(410, 200, "flecha").setScale(0.3).setAngle(90).setInteractive().setTint(0x8000FF).setAlpha(0);
-    console.log(0xffffff);
+    // console.log(0xffffff);
     this.amarillo.on("pointerdown", () => {
       color = 0xFBFF2F;
-      console.log(color);
+      //  console.log(color);
       this.amarillo.setScale(0.5);
       this.azul.setScale(0.3);
       naranja.setScale(0.3);
@@ -203,7 +203,7 @@ export class Flechas extends Phaser.Scene {
 
     this.azul.on("pointerdown", () => {
       color = 0x0080FF;
-      console.log(color);
+      // console.log(color);
       this.azul.setScale(0.5);
       this.amarillo.setScale(0.3);
       naranja.setScale(0.3);
@@ -212,7 +212,7 @@ export class Flechas extends Phaser.Scene {
 
     naranja.on("pointerdown", () => {
       color = 0xCF7C3A;
-      console.log(color);
+      //  console.log(color);
       naranja.setScale(0.5);
       this.azul.setScale(0.3);
       this.amarillo.setScale(0.3);
@@ -221,7 +221,7 @@ export class Flechas extends Phaser.Scene {
 
     morado.on("pointerdown", () => {
       color = 0x8000FF;
-      console.log(color);
+      //  console.log(color);
       morado.setScale(0.5);
       naranja.setScale(0.3);
       this.azul.setScale(0.3);
@@ -269,7 +269,7 @@ export class Flechas extends Phaser.Scene {
         // if (ran === 0) { fle.angle = 0; }
         // puntaje++;
         });
-        console.log("puntaje " + puntaje);
+        //     console.log("puntaje " + puntaje);
       }
     };
     intentos = 20;
@@ -283,9 +283,9 @@ export class Flechas extends Phaser.Scene {
         if (ran === 2) { fle.angle = 270; }
         if (ran === 3) { fle.angle = 90; }
       });
-      console.log(flechas);
+      //   console.log(flechas);
     }
-    console.log(flechas);
+    //  console.log(flechas);
 
     this.input.on("gameobjectup", this.pintar, this);
   }

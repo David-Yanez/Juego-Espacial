@@ -13,8 +13,6 @@ export class Colocar extends Phaser.Scene {
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
 
     this.load.image("tltColocar", "assets/sprites/UI/tltColocar.png");
-    this.load.bitmapFont("desyrel", "assets/sprites/UI/desyrel.png", "assets/sprites/UI/desyrel.xml");
-    this.load.bitmapFont("azoXML", "assets/sprites/UI/bitmap-fonts-debug.png", "assets/sprites/UI/azo-fire.xml");
     // Matriz
     // this.load.image("matri", "assets/sprites/UI/matri.PNG");
     this.load.image("cuadrado", "assets/sprites/UI/cuadrado.png");
@@ -347,12 +345,11 @@ export class Colocar extends Phaser.Scene {
       this.Objcali.varCalificar();
       //  calificar();
       generar();
-      console.log("Intentos: " + intentos);
-      console.log("aciertos: " + aciertos);
+      /* console.log("Intentos: " + intentos);
+      console.log("aciertos: " + aciertos); */
 
       //   this.scene.start("Prin");
     });
-
 
     this.leer = this.add.sprite(530, 530, "leer").setInteractive().setScale(0.2);
     this.leer.on("pointerover", () => {
@@ -375,7 +372,7 @@ export class Colocar extends Phaser.Scene {
       this.terminar.setFrame(0);
     });
     this.terminar.on("pointerdown", () => {
-     // this.Objcali.varCalificar();
+      // this.Objcali.varCalificar();
       // calificar();
       this.inicio = 0;
     });
@@ -531,7 +528,7 @@ export class Colocar extends Phaser.Scene {
         /*  console.log(p1);
       console.log(p2);
       console.log(p3); */
-        console.log(p1.name);
+        //    console.log(p1.name);
         if (datos[n].res.length === 4) {
           if (datos[n].res[0] === p1.name && p1.x === p11.x && p1.y === p11.y) { puntaje++; ayudaAciertos2++; }
           if (datos[n].res[1] === p2.name && p2.x === p12.x && p2.y === p12.y) { puntaje++; ayudaAciertos2++; }
@@ -548,7 +545,7 @@ export class Colocar extends Phaser.Scene {
         ayudaAciertos1 = 0;
         ayudaAciertos2 = 0;
 
-        console.log("puntaje: " + puntaje);
+        //        console.log("puntaje: " + puntaje);
       }
     };
 
@@ -570,21 +567,20 @@ export class Colocar extends Phaser.Scene {
     p2 = { name: 100 };
     p3 = { name: 100 };
     p4 = { name: 100 };
-   
 
     this.input.on("drop", function(pointer, gameObject, dropZone) {
       gameObject.x = dropZone.x;
       gameObject.y = dropZone.y;
 
       if (datos[n].img[0] === gameObject.texture.key) {
-        console.log("hola");
+        //     console.log("hola");
         p1 = dropZone; p11 = gameObject; if (datos[n].res[0] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); correcto.play(); } else { cuadradoss[dropZone.name - 1].setTint(0xff0000); error.play(); }
       }
       if (datos[n].img[1] === gameObject.texture.key) { p2 = dropZone; p12 = gameObject; if (datos[n].res[1] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); correcto.play(); } else { cuadradoss[dropZone.name - 1].setTint(0xff0000); error.play(); } }
       if (datos[n].img[2] === gameObject.texture.key) { p3 = dropZone; p13 = gameObject; if (datos[n].res[2] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); correcto.play(); } else { cuadradoss[dropZone.name - 1].setTint(0xff0000); error.play(); } }
       if (datos[n].img[3] === gameObject.texture.key) { p4 = dropZone; p14 = gameObject; if (datos[n].res[3] === dropZone.name && dropZone.x === gameObject.x && dropZone.y === gameObject.y) { cuadradoss[dropZone.name - 1].setTint(0x00AA00); correcto.play(); } else { cuadradoss[dropZone.name - 1].setTint(0xff0000); error.play(); } }
       //  calificar2();
-      console.log(dropZone.name);
+      //   console.log(dropZone.name);
       //  calificar23();
     });
   }

@@ -181,7 +181,7 @@ export class Ordenar extends Phaser.Scene {
         dd.setAlpha(0);
         dd1.setAlpha(0);
       }
-      console.log(nombre[n]);
+      //  console.log(nombre[n]);
       aa.clearTint();
       bb.clearTint();
       cc.clearTint();
@@ -189,7 +189,7 @@ export class Ordenar extends Phaser.Scene {
     }
 
     function res() {
-      console.log(dificultad);
+      //   console.log(dificultad);
       generar();
       a.setTexture(nombre[n]).setFrame(ord[0]);
       b.setTexture(nombre[n]).setFrame(ord[1]);
@@ -207,10 +207,10 @@ export class Ordenar extends Phaser.Scene {
 
     this.Objcali = {
       varCalificar: function calificar() {
-        console.log("p1 " + p1);
+        /*   console.log("p1 " + p1);
         console.log("p2 " + p2);
         console.log("p3 " + p3);
-        console.log("p4 " + p4);
+        console.log("p4 " + p4); */
 
         if (p1 === 150 && p11.x === 150) { puntaje = puntaje + 0.5; aciertos++; }
         if (p2 === 300 && p12.x === 300) { puntaje = puntaje + 0.5; aciertos++; }
@@ -266,8 +266,8 @@ export class Ordenar extends Phaser.Scene {
       //   this.scene.start("Prin");
 
       dificultad++;
-      console.log("Intentos: " + intentos);
-      console.log("aciertos: " + aciertos);
+      //   console.log("Intentos: " + intentos);
+      //  console.log("aciertos: " + aciertos);
 
       // generar();
       res();
@@ -281,7 +281,7 @@ export class Ordenar extends Phaser.Scene {
       this.terminar.setFrame(0);
     });
     this.terminar.on("pointerdown", () => {
-     // this.Objcali.varCalificar();
+      // this.Objcali.varCalificar();
       //   calificar();
       this.inicio = 0;
     });
@@ -418,7 +418,7 @@ export class Ordenar extends Phaser.Scene {
       if (gameObject.frame.name === 3) { p4 = gameObject.x; p14 = gameObject; }
 
       if (gameObject.frame.name === dropZone.name) {
-        console.log("correcto");
+      //  console.log("correcto");
         correcto.play();
       } else {
         error.play();

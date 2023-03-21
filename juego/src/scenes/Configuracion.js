@@ -94,7 +94,6 @@ export class Configuracion extends Phaser.Scene {
 
     const spriteAu = this.add.sprite(570, 520, (this.es + "Gif")).setScale(1);
     spriteAu.play({ key: (this.es + "Gif"), repeat: -1 });
-    console.log(spriteAu);
 
     this.add.image(555, 135, "instruc").setScale(0.55);
     this.add.image(60, 220, "tiempo").setDisplayOrigin(0, 0).setScale(0.3);

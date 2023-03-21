@@ -433,8 +433,8 @@ async function buscarXusuario(user) {
   const res2 = await fetch(import.meta.env.VITE_API_URL + "/usuario/Ucor?correo=" + user.correo);
   const data = await res.json();
   const data2 = await res2.json();
-  console.log(data);
-  console.log(data2);
+  // console.log(data);
+  // console.log(data2);
   if (data.body.length === 0 && data2.body === null) {
     registrar(user);
   }
@@ -463,7 +463,7 @@ async function registrar(user) {
     body: JSON.stringify(user)
 
   });
-  console.log(res);
+  //  console.log(res);
   // const data = await res.json();
   if (res.status === 201) {
     Swal.fire({

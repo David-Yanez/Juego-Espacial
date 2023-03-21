@@ -3,7 +3,7 @@ document.getElementById("btnInvi").onclick = function() {
     username: "Invitado",
     password: import.meta.env.VITE_INVI_PASSWORD
   };
-  console.log(import.meta.env.VITE_INVI_PASSWORD);
+
   loginInvi(userInvi);
 };
 

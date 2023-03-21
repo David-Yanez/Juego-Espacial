@@ -15,7 +15,7 @@ export class Cuadrados extends Phaser.Scene {
     // Titulo
     this.load.image("tlt1", "assets/sprites/juego 1/tlt2.png");
     this.load.image("cuadrado", "assets/sprites/UI/cuadrado.png");
-    this.load.image("nave3", "assets/sprites/colocar/nave3.png");
+    this.load.image("nave33", "assets/sprites/colocar/nave3.png");
     this.load.image("tierra2", "assets/sprites/colocar/tierra2.png");
     this.load.image("recta22", "assets/sprites/UI/recta56.png");
 
@@ -363,7 +363,7 @@ export class Cuadrados extends Phaser.Scene {
     // let t;
     const marco = this.add.image(340, 400, "recta22").setScale(0.4);
 
-    const img1 = this.add.image(0, 0, "nave3").setScale(0.4).setInteractive();
+    const img1 = this.add.image(0, 0, "nave33").setScale(0.4).setInteractive();
     const img2 = this.add.image(0, 0, "tierra2").setScale(0.4).setInteractive();
     const t = this.add.text(450, 250, datos[0].inst, { font: "20px Arial Black", fill: "#e8dfe1" });
     // n = 0;
@@ -403,7 +403,7 @@ export class Cuadrados extends Phaser.Scene {
         n = Phaser.Math.Between(0, 14);
       }
       difi++;
-      console.log(n);
+     // console.log(n);
       // ayudavoz = datos[n].vozIns;
       // console.log(ayudavoz);
       //  leerIns.setDisplayOrigin
@@ -450,13 +450,13 @@ export class Cuadrados extends Phaser.Scene {
         ayudaAciertos1 = 0;
         ayudaAciertos2 = 0;
 
-        console.log(puntaje);
+     //   console.log(puntaje);
       }
     };
     this.input.on("gameobjectup", this.pintar, this);
 
     this.input.on("gameobjectup", (pon, obj) => {
-      console.log(obj);
+   //   console.log(obj);
       if (obj.texture.key === "cuadrado") { marco.setPosition(obj.x, obj.y); }
 
       if (datos[n].resx.length === 3) {

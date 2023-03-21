@@ -64,13 +64,13 @@ throw boom.unauthorized();
                 <table role="presentation" style="width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
                   <tr>
                     <td style="padding:40px 30px 30px 30px;text-align:center;font-size:24px;font-weight:bold;">
-                      <a  style="text-decoration:none;"><img src=${process.env.LINK_LOGO}  width="165" alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
+                      <a  style="text-decoration:none;"><img src=${process.env.LINK_LOGO}  width="185" alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
                     </td>
                   </tr>
                   <tr>
                     <td style="padding:30px;background-color:#ffffff;">
                       <h1 style="margin-top:0;margin-bottom:16px;font-size:26px;line-height:32px;font-weight:bold;letter-spacing:-0.02em;">Recuperación de Contraseña!</h1>
-                      <p style="margin:0;">Si por algún motivo olvidaste o quieres cambiar tu contraseña, ingresa al siguiente link para poder cambiar 👇 <br><br>  ${link}  </p>
+                      <p style="margin:0;">Hola <b>${user.usuario}</b> Si por algún motivo olvidaste o quieres cambiar tu contraseña, ingresa al siguiente link para poder cambiar 👇 <br><br>  ${link}  </p>
                     </td>
                   </tr>`
       });

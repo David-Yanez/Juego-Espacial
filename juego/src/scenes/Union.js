@@ -193,12 +193,12 @@ export class Union extends Phaser.Scene {
       nivel();
       listo();
       this.Objcali.varCalificar();
-  //    calificar();
+      //    calificar();
       dificultad++;
       puntaje = puntaje + puntos;
-      console.log(puntaje);
+    /*  console.log(puntaje);
       console.log("Intentos: " + intentos);
-      console.log("aciertos: " + aciertos);
+      console.log("aciertos: " + aciertos); */
     });
 
     this.terminar = this.add.sprite(630, 400, "terminar").setInteractive().setScale(0.2);
@@ -414,7 +414,7 @@ export class Union extends Phaser.Scene {
         y2 = pointer.y;
 
         p2 = fle[0];
-        console.log(x2 + " " + y2);
+        // console.log(x2 + " " + y2);
         dibu1(x1, y1, x2, y2, p1, p2);
       }
       if (circle7.contains(pointer.x, pointer.y)) {

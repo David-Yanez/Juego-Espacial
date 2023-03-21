@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 export async function irJuego() {
   const auth = localStorage.getItem("token");
-  console.log(auth);
+ // console.log(auth);
   const res = await fetch(import.meta.env.VITE_API_URL + "/juego", {
     method: "GET",
     headers: {

@@ -13,7 +13,6 @@ export class Prin extends Phaser.Scene {
     this.load.image("fondo", "assets/sprites/UI/fondo.png");
     this.load.image("tlt", "assets/sprites/UI/titulo.png");
     this.load.image("na", "assets/sprites/na.png");
-    this.load.bitmapFont("azoXML", "assets/sprites/UI/bitmap-fonts-debug.png", "assets/sprites/UI/azo-fire.xml");
     this.load.image("user", "assets/sprites/UI/user.png");
     this.load.image("red", "assets/sprites/UI/red.png");
     // Titulo
@@ -137,7 +136,7 @@ export class Prin extends Phaser.Scene {
     let l1;
     // console.log(es1);
 
-    console.log(pa11);
+   // console.log(pa11);
     /*  if (es1 === undefined && pa1 === undefined && ci1 === undefined && a1 === undefined && l1 === undefined) {
       es1 = 0.2;
       pa1 = 0.2;
