@@ -70,7 +70,7 @@ throw boom.unauthorized();
                   <tr>
                     <td style="padding:30px;background-color:#ffffff;">
                       <h1 style="margin-top:0;margin-bottom:16px;font-size:26px;line-height:32px;font-weight:bold;letter-spacing:-0.02em;">Recuperación de Contraseña!</h1>
-                      <p style="margin:0;">Hola <b>${user.usuario}</b> Si por algún motivo olvidaste o quieres cambiar tu contraseña, ingresa al siguiente link para poder cambiar 👇 <br><br>  ${link}  </p>
+                      <p style="margin:0;">Hola <b>${user.usuario}</b>, si por algún motivo olvidaste o quieres cambiar tu contraseña, ingresa al siguiente link para poder cambiar 👇 <br><br>  ${link}  </p>
                     </td>
                   </tr>`
       });
