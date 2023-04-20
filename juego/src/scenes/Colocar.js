@@ -593,7 +593,7 @@ function onEvent() {
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
     this.Objcali.varCalificar();
-    this.scene.start("Punt", { punt: puntaje, letra: "l", nomb: "Comprensión de Instrucciones", time: this.min, sce: "Colocar", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
+    this.scene.start("Punt", { punt: puntaje, letra: "l", nomb: "Comprensión de Instrucciones", time: this.min, sce: "Colocar", musicaIcono: this.musicaIcono, insIcono: this.insIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
     intentos = 1;
     aciertos = 0;

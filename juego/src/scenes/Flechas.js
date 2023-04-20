@@ -302,7 +302,7 @@ function onEvent() {
     this.contador.setText("Tiempo: " + "0:00");
     this.Objcali.varCalificar();
     let pun = Math.trunc(puntaje);
-    this.scene.start("Punt", { punt: pun, letra: "ci", nomb: "Colorear Flechas", time: this.min, sce: "Flechas", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
+    this.scene.start("Punt", { punt: pun, letra: "ci", nomb: "Colorear Flechas", time: this.min, sce: "Flechas", musicaIcono: this.musicaIcono, insIcono: this.insIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
     pun = 0;
     intentos = 0;

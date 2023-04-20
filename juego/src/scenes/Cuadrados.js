@@ -496,7 +496,7 @@ function onEvent() {
     this.Objcali.varCalificar();
     // this.calificar();
     let pun = Math.trunc(puntaje);
-    this.scene.start("Punt", { punt: pun, letra: "es", nomb: "Selección de Casillas", time: this.min, sce: "Cuadrados", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
+    this.scene.start("Punt", { punt: pun, letra: "es", nomb: "Selección de Casillas", time: this.min, sce: "Cuadrados", musicaIcono: this.musicaIcono, insIcono: this.insIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
     pun = 0;
     intentos = 1;

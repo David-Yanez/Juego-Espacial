@@ -28,7 +28,7 @@ export class Union extends Phaser.Scene {
     this.load.spritesheet("marciano5", "assets/sprites/juegos/marciano5.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("marciano6", "assets/sprites/juegos/marciano6.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("meteoro", "assets/sprites/juegos/meteoro.png", { frameWidth: 202, frameHeight: 202 });
-    this.load.spritesheet("nave2", "assets/sprites/juegos/nave2.png", { frameWidth: 202, frameHeight: 202 });
+    this.load.spritesheet("nave12", "assets/sprites/juegos/nave12.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("meteoro2", "assets/sprites/juegos/meteoro2.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("meteoro3", "assets/sprites/juegos/meteoro3.png", { frameWidth: 202, frameHeight: 202 });
     this.load.spritesheet("nave3", "assets/sprites/juegos/nave3.png", { frameWidth: 202, frameHeight: 202 });
@@ -80,7 +80,7 @@ export class Union extends Phaser.Scene {
     this.contador = this.add.text(300, 100, "Tiempo: " + formato(this.inicio), { fontFamily: "Times New Roman", fontSize: 25, color: "#00ff00" });
     this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
 
-    const nombre = ["marciano1", "astro1", "nave1", "estrella", "astro2", "astro3", "marciano2", "marciano3", "marciano4", "marciano5", "marciano6", "meteoro", "nave2", "meteoro2", "meteoro3", "nave3"];
+    const nombre = ["marciano1", "astro1", "nave1", "estrella", "astro2", "astro3", "marciano2", "marciano3", "marciano4", "marciano5", "marciano6", "meteoro", "nave12", "meteoro2", "meteoro3", "nave3"];
     let n;
     let a;
     let b;
@@ -559,7 +559,7 @@ function onEvent() {
   if (this.inicio <= 0) {
     this.contador.setText("Tiempo: " + "0:00");
     this.Objcali.varCalificar();
-    this.scene.start("Punt", { punt: puntaje, letra: "pa", nomb: "Unión con Líneas", time: this.min, sce: "Union", musicaIcono: this.musicaIcono, Intentos: intentos, Aciertos: aciertos });
+    this.scene.start("Punt", { punt: puntaje, letra: "pa", nomb: "Unión con Líneas", time: this.min, sce: "Union", musicaIcono: this.musicaIcono, insIcono: this.insIcono, Intentos: intentos, Aciertos: aciertos });
     puntaje = 0;
     intentos = 0;
     aciertos = 0;

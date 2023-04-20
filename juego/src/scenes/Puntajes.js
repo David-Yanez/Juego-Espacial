@@ -30,6 +30,7 @@ export class Puntajes extends Phaser.Scene {
     this.nomJuego = data.nomb;
     this.min = data.time;
     this.musicaIcono = data.musicaIcono;
+    this.insIcono = data.insIcono;
     this.intentos = data.Intentos;
     this.aciertos = data.Aciertos;
     // this.sce = data.sce;
@@ -60,7 +61,7 @@ export class Puntajes extends Phaser.Scene {
       this.listo.setFrame(0);
     });
     this.listo.on("pointerdown", () => {
-      this.scene.start("Prin", { valLetra: valorLetra, letr: data.letra, musicaIcono: this.musicaIcono });
+      this.scene.start("Prin", { valLetra: valorLetra, letr: data.letra, musicaIcono: this.musicaIcono, insIcono: this.insIcono });
       console.log(valorLetra + " " + data.letra);
       Puntajee(this.nomJuego, this.min, this.puntaje, estrellas, this.intentos, this.aciertos);
       letras(data.letra, valorLetra);
